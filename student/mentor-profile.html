@@ -12,3 +12,121 @@
 <!-- student/mentor-profile.html will display an individual mentor's information. 
  It should show their professional background, expertise, biography, reviews, availability, and a button to request them as a mentor. 
  This gives students enough information to make an informed decision before sending a request. -->
+
+<!--mentor-profile.html should not be a page that permanently shows one specific mentor. It should be a dynamic template that displays whichever mentor the student selects.
+
+Think of it like Amazon: the product page is the same HTML structure, but the information changes depending on which product you clicked.
+
+How it would work
+
+The flow would be:
+
+student/mentors.html
+        ↓
+Student sees MANY mentors
+        ↓
+Clicks "View Profile" on one mentor
+        ↓
+mentor-profile.html?id=27
+        ↓
+JavaScript reads the ID (27)
+        ↓
+Requests mentor #27 from the backend
+        ↓
+Backend gets mentor #27 from database
+        ↓
+Page displays that mentor's information
+
+So your mentors.html might visually look like:
+
+┌──────────────────────────────────────────────────────┐
+│                 Find a Mentor                        │
+│                                                      │
+│ 🔍 Search mentors...       [Field ▼] [Availability] │
+│                                                      │
+│ ┌─────────────┐  ┌─────────────┐  ┌─────────────┐   │
+│ │   👤 Photo  │  │   👤 Photo  │  │   👤 Photo  │   │
+│ │             │  │             │  │             │   │
+│ │ John Smith  │  │ Sarah Lee   │  │ Mike Davis  │   │
+│ │ Software    │  │ Engineer    │  │ Designer    │   │
+│ │ Engineer    │  │             │  │             │   │
+│ │ ⭐ 4.9      │  │ ⭐ 4.8      │  │ ⭐ 4.7      │   │
+│ │             │  │             │  │             │   │
+│ │ [View]      │  │ [View]      │  │ [View]      │   │
+│ └─────────────┘  └─────────────┘  └─────────────┘   │
+└──────────────────────────────────────────────────────┘
+
+When the student clicks Sarah:
+
+View Profile
+     ↓
+mentor-profile.html?id=42
+
+Then the page dynamically becomes:
+
+┌──────────────────────────────────────────────────────┐
+│ ← Back to Mentors                                    │
+│                                                      │
+│          👤                                           │
+│       Sarah Lee                                      │
+│       Software Engineer                              │
+│       ⭐ 4.8 (23 reviews)                            │
+│                                                      │
+│       [Request Mentor]                               │
+│                                                      │
+│ ──────────────────────────────────────────────────── │
+│                                                      │
+│ About Me                                             │
+│ Experienced software engineer interested in...      │
+│                                                      │
+│ Areas of Expertise                                  │
+│ • Web Development                                    │
+│ • JavaScript                                         │
+│ • Software Engineering                               │
+│                                                      │
+│ Career Experience                                    │
+│ ...                                                  │
+│                                                      │
+│ Availability                                         │
+│ Monday     4:00 PM – 7:00 PM                        │
+│ Wednesday  5:00 PM – 8:00 PM                        │
+│                                                      │
+│ Reviews                                              │
+│ ⭐⭐⭐⭐⭐  "Great mentor..."                          │
+└──────────────────────────────────────────────────────┘
+
+But if they click Mike instead:
+
+mentor-profile.html?id=73
+
+the exact same HTML page displays Mike's information.
+
+So what actually changes?
+
+Your HTML is mostly a skeleton:
+
+<h1 id="mentor-name"></h1>
+<p id="mentor-profession"></p>
+<p id="mentor-bio"></p>
+
+Then mentors.js or mentor-profile.js gets the appropriate mentor:
+
+Database
+   ↓
+Mentor #73
+   ↓
+Node/Express API
+   ↓
+JavaScript
+   ↓
+HTML elements
+
+For example, the database might contain:
+
+mentor_id: 73
+name: Mike Davis
+profession: UX Designer
+bio: ...
+rating: 4.7
+
+JavaScript then puts those values into the page. -->
