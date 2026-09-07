@@ -1,5 +1,18 @@
 # MentorshipMatch
 
+## Start Here
+
+This project is currently a scaffold. Build it in this order:
+
+1. Read [BPA-CHECKLIST.md](BPA-CHECKLIST.md) and assign tasks to team members.
+2. Read [Servers/README.md](Servers/README.md) for the backend learning guide.
+3. Read [database/README.md](database/README.md) for the PostgreSQL design plan.
+4. Read [scripts/README.md](scripts/README.md) for frontend-to-backend API calls.
+5. Implement and test the database before connecting the pages to the server.
+
+The actual project folders are `style/` for CSS, `scripts/` for browser JavaScript,
+`Servers/` for the Node.js server, and `database/` for PostgreSQL files.
+
 Coding Languageds to know 
 FRONTEND
 HTML
@@ -64,45 +77,45 @@ admin/flagged.html will handle inappropriate activity that has been reported. It
 
 CSS
 
-css/style.css will contain the global styling for the entire application. It should define the basic fonts, spacing, buttons, colors, backgrounds, links, and other reusable styles. Having consistent global styling will help with the BPA categories for layout clarity, design aesthetics, writing presentation, and contrast.
+style/style.css will contain the global styling for the entire application. It should define the basic fonts, spacing, buttons, colors, backgrounds, links, and other reusable styles. Having consistent global styling will help with the BPA categories for layout clarity, design aesthetics, writing presentation, and contrast.
 
-css/navbar.css will control the navigation bar and/or sidebar. It should make navigation consistent across the application and provide responsive behavior for different screen sizes. This helps with the navigation and cross-platform portions of the rubric.
+style/navbar.css will control the navigation bar and/or sidebar. It should make navigation consistent across the application and provide responsive behavior for different screen sizes. This helps with the navigation and cross-platform portions of the rubric.
 
-css/dashboard.css will style the student, mentor, and admin dashboards. It can contain the styling for statistic cards, grids, recent activity, recommendations, and other dashboard components.
+style/dashboard.css will style the student, mentor, and admin dashboards. It can contain the styling for statistic cards, grids, recent activity, recommendations, and other dashboard components.
 
-css/forms.css will handle the appearance of login, registration, profile, booking, and other forms. It should include styling for labels, inputs, buttons, error messages, success messages, and focus states.
+style/forms.css will handle the appearance of login, registration, profile, booking, and other forms. It should include styling for labels, inputs, buttons, error messages, success messages, and focus states.
 
-css/profiles.css will handle mentor and student profile layouts. It can style profile cards, biographies, skills, career information, reviews, and profile visibility controls.
+style/profiles.css will handle mentor and student profile layouts. It can style profile cards, biographies, skills, career information, reviews, and profile visibility controls.
 
-css/sessions.css will style the session-booking interface, including calendars, available time slots, upcoming sessions, and session cards.
+style/sessions.css will style the session-booking interface, including calendars, available time slots, upcoming sessions, and session cards.
 
-css/admin.css will style the administrative interface, including tables, reports, filters, buttons, warnings, and user-management controls.
+style/admin.css will style the administrative interface, including tables, reports, filters, buttons, warnings, and user-management controls.
 
-css/responsive.css will contain media queries that make the application work properly on different screen sizes. This is particularly useful for the BPA Cross-Browser/Platform Compatibility category.
+style/responsive.css will contain media queries that make the application work properly on different screen sizes. This is particularly useful for the BPA Cross-Browser/Platform Compatibility category.
 
 JavaScript
 
-js/auth.js will handle authentication-related functionality. It will communicate with the backend when users log in, register, or log out and help maintain their authentication state. This supports the required authentication and password-protection functionality.
+scripts/auth.js will handle authentication-related functionality. It will communicate with the backend when users log in, register, or log out and help maintain their authentication state. This supports the required authentication and password-protection functionality.
 
-js/mentors.js will control the mentor browsing page. It should retrieve mentor information from the backend, display mentor cards, and work with filtering and searching.
+scripts/mentors.js will control the mentor browsing page. It should retrieve mentor information from the backend, display mentor cards, and work with filtering and searching.
 
-js/profile.js will handle viewing and editing user profiles. It should retrieve profile information from the database and send changes back to the server.
+scripts/profile.js will handle viewing and editing user profiles. It should retrieve profile information from the database and send changes back to the server.
 
-js/requests.js will manage mentorship requests. Students should be able to send requests, while mentors should be able to accept or decline them.
+scripts/requests.js will manage mentorship requests. Students should be able to send requests, while mentors should be able to accept or decline them.
 
-js/sessions.js will handle the session-booking system. It should retrieve available times, allow students to select a time, submit the booking, and display the resulting session.
+scripts/sessions.js will handle the session-booking system. It should retrieve available times, allow students to select a time, submit the booking, and display the resulting session.
 
-js/messages.js will handle the chat system. It should retrieve messages, display them, and send new messages to the backend.
+scripts/messages.js will handle the chat system. It should retrieve messages, display them, and send new messages to the backend.
 
-js/reviews.js will handle reviews after mentorship sessions. Students or mentors should be able to submit reviews, and appropriate reviews should appear on profiles.
+scripts/reviews.js will handle reviews after mentorship sessions. Students or mentors should be able to submit reviews, and appropriate reviews should appear on profiles.
 
-js/admin.js will handle interactions inside the admin panel, including adding, modifying, deleting, and managing application data.
+scripts/admin.js will handle interactions inside the admin panel, including adding, modifying, deleting, and managing application data.
 
-js/validation.js will handle client-side form validation. It should check things such as required fields, valid email addresses, acceptable inputs, and other constraints before sending information to the server. The BPA rubric specifically evaluates form validation, including client-side and server-side validation.
+scripts/validation.js will handle client-side form validation. It should check things such as required fields, valid email addresses, acceptable inputs, and other constraints before sending information to the server. The BPA rubric specifically evaluates form validation, including client-side and server-side validation.
 
-js/notifications.js will handle notifications such as new mentorship requests, accepted requests, upcoming sessions, and new messages. This is an optional enhancement mentioned in the BPA scenario and could make the application feel significantly more complete.
+scripts/notifications.js will handle notifications such as new mentorship requests, accepted requests, upcoming sessions, and new messages. This is an optional enhancement mentioned in the BPA scenario and could make the application feel significantly more complete.
 
-js/search.js will handle the search functionality. Students should be able to search for mentors and receive relevant results. Search usability is directly scored in the technical rubric.
+scripts/search.js will handle the search functionality. Students should be able to search for mentors and receive relevant results. Search usability is directly scored in the technical rubric.
 
 Backend
 

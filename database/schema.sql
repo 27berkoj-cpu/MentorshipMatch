@@ -1,0 +1,15 @@
+-- MentorshipMatch PostgreSQL database schema.
+--
+-- Build this file in dependency order:
+-- 1. Create users first because other tables reference users.id.
+-- 2. Create student_profiles and mentor_profiles.
+-- 3. Create requests, availability, sessions, and messages.
+-- 4. Create reviews, flagged_activity, and audit_log.
+--
+-- Every table should have a primary key. Relationships should use foreign
+-- keys. Required values should use NOT NULL, and limited values such as role
+-- or status should use CHECK constraints.
+--
+-- Never store a plain password here. Store a bcrypt password hash instead.
+-- Add indexes to columns used often for login, search, joins, and reporting.
+
