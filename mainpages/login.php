@@ -28,7 +28,7 @@
 <body>
     <div>
         <form method = "POST">
-            <input type = "text" name = "username" value = <?= $username ?> required><br>
+            <input type = "text" name = "username" value = "<?= $username ?>" required><br>
             <input type = "password" name = "password" required> <br>
             <input type = "submit" value = "submit"><br>
         </form>
