@@ -24,7 +24,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href = "style.css">
-</head>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/dashboard.css">
+        <link rel="stylesheet" href="/navbar.css">
+        <link rel="stylesheet" href="/forms.css">    </head>
 <body>
     <div>
         <form method = "POST">
@@ -35,7 +38,12 @@
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
 
-    <footer></footer> //add name of chapter,teammmebers names, theme, school,city,state year
+        <footer>
+        <p>Chapter Name: [CHAPTER NAME]</p>
+        <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
+        <p>Theme: MentorshipMatch</p>
+        <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
+    </footer>
 </body>
 </html>
 
