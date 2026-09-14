@@ -34,6 +34,8 @@
         </form>
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
+
+    <footer></footer> //add name of chapter,teammmebers names, theme, school,city,state year
 </body>
 </html>
 
