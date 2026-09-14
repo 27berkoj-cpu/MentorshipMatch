@@ -1,7 +1,37 @@
 body{
-    color:white;
-    background-color: #8a884a;
+    color:rgb(0, 0, 0);
+    background-color: #c1ebff;
+    text-align: center;
 }
 footer{
-    background-color: #21960f;
+    background-color: #97ebd2;
+}
+
+/* body{
+    color:rgb(0, 0, 0);
+    background-color: #b1ae63;
+}
+footer{
+    background-color: #5c9451 ;
+} */
+
+.Subject-container{
+    border: 4px;
+    display: block;
+    text-align: center;
+    border-color: rgb(30, 48, 34);
+    border-style: solid;
+    background-color: #70dfbd9a;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+    justify-content: center;
+}
+header{
+    background-color: #71ada4;
+}
+#revimage{
+    display: flexbox;
+    flex-wrap: wrap;
+    text-align: left;
+    width: 120px;
 }
