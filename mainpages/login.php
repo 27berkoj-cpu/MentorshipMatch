@@ -23,11 +23,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href = "style.css">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/dashboard.css">
-        <link rel="stylesheet" href="/navbar.css">
-        <link rel="stylesheet" href="/forms.css">    </head>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/dashboard.css">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <link rel="stylesheet" href="../style/forms.css">
+    </head>
 <body>
     <div>
         <form method = "POST">
