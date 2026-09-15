@@ -23,8 +23,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href = "style.css">
-</head>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/dashboard.css">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <link rel="stylesheet" href="../style/forms.css">
+    </head>
 <body>
     <div>
         <form method = "POST">
@@ -34,6 +37,13 @@
         </form>
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
+
+        <footer>
+        <p>Chapter Name: [CHAPTER NAME]</p>
+        <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
+        <p>Theme: MentorshipMatch</p>
+        <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
+    </footer>
 </body>
 </html>
 
