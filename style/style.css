@@ -10,11 +10,69 @@ footer {
 footer p {
     margin: 5px 0;
 }
+footer{
+    background-color: #97ebd2;
+}
 
-body{
-    color:white;
-    background-color: #8a884a;
+/* body{
+    color:rgb(0, 0, 0);
+    background-color: #b1ae63;
 }
 footer{
-    background-color: #21960f;
+    background-color: #5c9451 ;
+} */
+
+.Subject-container{
+    border: 4px;
+    display: block;
+    text-align: center;
+    border-color: rgb(30, 48, 34);
+    border-style: solid;
+    background-color: #70dfbd9a;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+    justify-content: center;
+}
+header{
+    background-color: #71ada4;
+}
+#revimage{
+    display: flexbox;
+    flex-wrap: wrap;
+    text-align: left;
+    width: 120px;
+}
+/* The grid container */
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;       /* Allows items to drop to the next line */
+  gap: 16px;             /* Creates spacing (gutters) between columns */
+}
+
+/* The grid columns */
+.grid-col {
+  /* 
+    flex: grow shrink basis;
+    For 4 columns, each takes up roughly 25%. 
+    We use calc() to subtract the gap space so they fit perfectly.
+  */
+  flex: 1 1 calc(25% - 16px); 
+  
+  /* Styling for visualization */
+  background-color: #55caa79a;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; 
+  border-radius: 15px;
+  transition: filter 0.2s ease-in-out;
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.5));
+  
+}
+
+.grid-col:hover{
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+body{
+    background-color: #e4dfdf;
 }
