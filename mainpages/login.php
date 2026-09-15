@@ -1,6 +1,9 @@
 <?php
     $username = "";
     $password = "";
+    $email = "";
+    $first_name = "";
+    $last_name = "";
     $error = [];
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $username = trim($_POST['username'] ?? '');
@@ -21,9 +24,10 @@
 //sign up code 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm  = $_POST['confirm_password'] ?? '';
+}
 
     // Validation
     if (empty($username) || strlen($username) < 3) {
@@ -55,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div>
         <form method = "POST">
-            <input type = "text" name = "username" value = <?= $username ?> required><br>
+            <input type = "text" name = "username" value = <?= htmlspecialchars($username ?? '') ?> required><br>
             <input type = "password" name = "password" required> <br>
             <input type = "submit" value = "submit"><br>
         </form>
