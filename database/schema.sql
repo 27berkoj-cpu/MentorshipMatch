@@ -13,3 +13,4 @@
 -- Never store a plain password here. Store a bcrypt password hash instead.
 -- Add indexes to columns used often for login, search, joins, and reporting.
 
+
