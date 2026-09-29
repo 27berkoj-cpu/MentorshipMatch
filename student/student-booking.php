@@ -15,11 +15,12 @@
     <body>
 
 
-        <form class="booking-form" action="/student/student-booking.php">
+        <form class="booking-form" method="POST" action="">
             <h1>Book a mentoring session</h1>
+
             <div class="booking-field">
                 <label for="sessiondate">Session date and time</label>
-                <input type="datetime-local" id="sessiondate" name="sessiondate">
+                <input type="datetime-local" id="sessiondate" name="sessiondate" required>
             </div>
             <div class="booking-field">
                 <label for="duration">Duration</label>
@@ -34,7 +35,16 @@
                     <option value="120">2 hr</option>
                 </select>
             </div>
-            <input type="submit" value="Confirm booking">
+            <div class="booking-field">
+                <label for="sessiontype">Session type</label>
+                <select id="sessiontype" name="sessiontype" required>
+                    <option value="" disabled selected>Select a session type</option>
+                    <option value="Video call">Video call</option>
+                    <option value="Chat Session">Chat Session</option>
+                </select>
+            </div>
+            <input type="submit" value="Request session">
+            <p>Requests will be saved after database booking is connected.</p>
         </form>
 
         <footer>
