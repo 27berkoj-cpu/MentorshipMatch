@@ -4,13 +4,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student Booking</title>
-            <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/dashboard.css">
-        <link rel="stylesheet" href="/navbar.css">
-        <link rel="stylesheet" href="/forms.css">    </head>
+            <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/dashboard.css">
+        <link rel="stylesheet" href="../style/navbar.css">
+        <link rel="stylesheet" href="../style/forms.css">    </head>
     <body>
 
 
+        <form action="/student/student-booking.php">
+            <label for="sessiondate">Session Date and Time:</label>
+            <input type="datetime-local" id="sessiondate" name="sessiondate"><br>
+            <label for="duration"> Duration</label>
+            <input type="number" id="duration" name="duration">
+
+
+            <input type="submit"> 
+        </form>
 
         <footer>
         <p>Chapter Name: [CHAPTER NAME]</p>
