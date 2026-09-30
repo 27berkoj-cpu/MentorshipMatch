@@ -1,5 +1,37 @@
 <?php
 
+$errors = [];
+$student_id = 0;
+$mentor_id = 0;
+$sessionDate = '';
+$duration = 0;
+$sessionType = '';
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // get the form data
+    $student_id = trim($_POST['student_id'] ?? '');
+    $mentor_id = trim($_POST['mentor_id'] ?? '');
+    $sessionDate = trim($_POST['sessiondate'] ?? '');
+    $duration = trim($_POST['duration'] ?? '');
+    $sessionType = trim($_POST['sessiontype'] ?? '');
+
+    // user is not entering student/mentor IDs yet, so don't require them yet
+    // datetime-local sends a value like 2026-09-29T15:30, which should be stored directly
+
+    if (empty($sessionDate)) {
+        $errors[] = "Session date and time is required.";
+    } elseif (!strtotime($sessionDate)) {
+        $errors[] = "Valid session date and time is required.";
+    }
+
+    if (empty($duration) || !in_array($duration, [15, 20, 30, 45, 60, 90, 120], true)) {
+        $errors[] = "Valid session duration is required.";
+    }
+
+    if (empty($sessionType)) {
+        $errors[] = "Session type is required.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +49,18 @@
 
         <form class="booking-form" method="POST" action="">
             <h1>Book a mentoring session</h1>
+
+            <?php if (!empty($errors)): ?>
+                <div class="error-message" style="color: #b00020; margin-bottom: 1rem; font-weight: bold;">
+                    <?php foreach ($errors as $error): ?>
+                        <p><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)): ?>
+                <div class="success-message" style="color: #0a7f3e; margin-bottom: 1rem; font-weight: bold;">
+                    <p>Booking request submitted successfully.</p>
+                </div>
+            <?php endif; ?>
 
             <div class="booking-field">
                 <label for="sessiondate">Session date and time</label>
