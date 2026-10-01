@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $student_id = trim($_POST['student_id'] ?? '');
     $mentor_id = trim($_POST['mentor_id'] ?? '');
     $sessionDate = trim($_POST['sessiondate'] ?? '');
-    $duration = trim($_POST['duration'] ?? '');
+    $duration = filter_input(INPUT_POST, 'duration', FILTER_VALIDATE_INT);
     $sessionType = trim($_POST['sessiontype'] ?? '');
 
     // user is not entering student/mentor IDs yet, so don't require them yet
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors[] = "Valid session date and time is required.";
     }
 
-    if (empty($duration) || !in_array($duration, [15, 20, 30, 45, 60, 90, 120], true)) {
+    if ($duration === false || $duration === null || !in_array($duration, [15, 20, 30, 45, 60, 90, 120], true)) {
         $errors[] = "Valid session duration is required.";
     }
 
