@@ -76,3 +76,104 @@ header{
 body{
     background-color: #e4dfdf;
 }
+
+.about-content {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(100vh - 180px);
+    margin: 0;
+    padding: 48px max(24px, calc((100% - 1200px) / 2));
+    background-color: #fff;
+    color: #18352d;
+    line-height: 1.6;
+}
+
+.about-content h1 {
+    margin: 0 0 24px;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.about-content h2 {
+    margin: 0 0 12px;
+    font-size: 21px;
+}
+
+.about-content section + section {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #dce7e2;
+}
+
+.about-content p {
+    margin: 0 0 14px;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+.about-image-placeholder {
+    margin: 24px 0 0;
+}
+
+.about-image-art {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 7;
+    min-height: 180px;
+    border: 1px solid #c6d8d0;
+    border-radius: 6px;
+    background-color: #edf5f1;
+    background-image: linear-gradient(135deg, rgba(35, 107, 88, 0.08) 25%, transparent 25%, transparent 50%, rgba(35, 107, 88, 0.08) 50%, rgba(35, 107, 88, 0.08) 75%, transparent 75%);
+    background-size: 28px 28px;
+    color: #236b58;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.about-image-placeholder figcaption {
+    margin-top: 8px;
+    color: #526a60;
+    font-size: 14px;
+}
+
+.about-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.about-step-card {
+    padding: 20px;
+    border: 1px solid #c6d8d0;
+    border-top: 3px solid #236b58;
+    border-radius: 6px;
+    background-color: #f2f8f5;
+}
+
+.about-step-card h3 {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 12px;
+    color: #18352d;
+    font-size: 17px;
+    line-height: 1.35;
+    font-weight: 700;
+}
+
+.about-step-card p {
+    margin: 0 0 10px;
+}
+
+.about-step-card p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .about-content {
+        padding: 32px 20px;
+    }
+}
