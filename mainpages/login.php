@@ -5,20 +5,7 @@
     $first_name = "";
     $last_name = "";
     $error = [];
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $username = trim($_POST['username'] ?? '');
-        $password = trim($_POST['password'] ?? '');
-        /*
-            Connect to SQL and verify both username/email and password
-            Use password_verify()
-            Then create a session with a session id
-        */
-        if(str_contains($username, "@")){
-
-        }else{
-
-        }
-    }
+    $confirm = $password;
 ?>
 <?php
 //sign up code 
@@ -57,14 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href = "style.css">
 </head>
 <body>
-    <div>
+    <!--<div>
         <form method = "POST">
             <input type = "text" name = "username" value = <?= htmlspecialchars($username ?? '') ?> required><br>
             <input type = "password" name = "password" required> <br>
             <input type = "submit" value = "submit"><br>
         </form>
         No Account? <a href = "signup.php">Sign Up!</a>
-    </div>
+    </div> -->
     <!-- Sign Up form -->
     <form method="POST" action="">
         <label>Username:</label><br>
@@ -80,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="confirm_password" required><br><br>
 
         <button type="submit">Sign Up</button>
+        
     </form>
 </body>
 </html>
