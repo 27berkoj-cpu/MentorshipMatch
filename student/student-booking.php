@@ -88,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </select>
             </div>
             <input type="submit" value="Request session">
-            <p>Requests will be saved after database booking is connected.</p>
         </form>
 
         <footer>
