@@ -36,7 +36,7 @@
             <a href="about.html">About</a>
             <a href="../student/mentors.html">Find a mentor</a>
             <a class="is-current" href="login.php" aria-current="page">Log in</a>
-            <a class="nav-cta" href="register.html">Get started</a>
+            <a class="nav-cta" href="signup.php">Get started</a>
         </nav>
     </header>
     <div>
