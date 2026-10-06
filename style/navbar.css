@@ -1,0 +1,122 @@
+.site-header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    min-height: 76px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 0 max(24px, calc((100% - 1200px) / 2));
+    border-bottom: 1px solid #e1eae5;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 3px 12px rgba(24, 53, 45, 0.045);
+}
+
+.site-brand {
+    flex-shrink: 0;
+    color: #18352d;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    text-decoration: none;
+}
+
+.site-brand span {
+    color: #34876e;
+}
+
+.site-nav {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 5px;
+}
+
+.site-nav a {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 13px;
+    border-radius: 7px;
+    color: #52675d;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 160ms ease, background-color 160ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-current {
+    background: #eff6f2;
+    color: #236b58;
+}
+
+.site-nav a.nav-cta {
+    margin-left: 5px;
+    padding: 0 16px;
+    background: #236b58;
+    color: #fff;
+}
+
+.site-nav a.nav-cta:hover {
+    background: #1b5948;
+    color: #fff;
+}
+
+.site-header a:focus-visible {
+    outline: 3px solid #54ae91;
+    outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+    .site-header {
+        min-height: 0;
+        flex-wrap: wrap;
+        gap: 0 16px;
+        padding: 14px 20px 0;
+    }
+
+    .site-brand {
+        margin-bottom: 11px;
+    }
+
+    .site-nav {
+        order: 3;
+        width: calc(100% + 40px);
+        min-height: 47px;
+        margin: 0 -20px;
+        padding: 0 12px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+    }
+
+    .site-nav a {
+        flex-shrink: 0;
+        min-height: 38px;
+        padding: 0 11px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 420px) {
+    .site-header {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .site-nav {
+        width: calc(100% + 28px);
+        margin-right: -14px;
+        margin-left: -14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-nav a {
+        transition: none;
+    }
+}
