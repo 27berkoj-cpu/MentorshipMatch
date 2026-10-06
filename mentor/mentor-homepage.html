@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student Notifications</title>
+        <title>Mentor Dashboard</title>
             <link rel="stylesheet" href="../style/style.css">
         <link rel="stylesheet" href="../style/dashboard.css">
         <link rel="stylesheet" href="../style/navbar.css">
@@ -11,14 +11,15 @@
     <body>
         <header class="site-header">
             <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
-            <nav class="site-nav" aria-label="Student navigation">
-                <a href="student-homepage.html">Dashboard</a>
-                <a href="mentors.html">Find mentors</a>
-                <a href="sessions.html">Sessions</a>
-                <a href="messages.html">Messages</a>
+            <nav class="site-nav" aria-label="Mentor navigation">
+                <a class="is-current" href="mentor-homepage.html" aria-current="page">Dashboard</a>
+                <a href="requests.html">Requests</a>
+                <a href="schedule.html">Schedule</a>
                 <a href="profile.html">Profile</a>
             </nav>
         </header>
+
+
 
         <footer class="home-footer">
         <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
@@ -29,5 +30,7 @@
     </footer>
     </body>
 </html>
-<!-- student/student-notfications.html will display notifications for the student.
- It should show messages about booking confirmations, mentor responses, and other relevant updates. -->
+
+<!-- mentor/dashboard.html will be the mentor's main dashboard. 
+ It should show pending student requests, upcoming sessions, notifications, and useful statistics.
+  The mentor needs a dedicated interface rather than simply using the student interface. -->
