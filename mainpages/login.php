@@ -29,6 +29,16 @@
     <link rel="stylesheet" href="../style/forms.css">
     </head>
 <body>
+    <header class="site-header">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="../student/mentors.html">Find a mentor</a>
+            <a class="is-current" href="login.php" aria-current="page">Log in</a>
+            <a class="nav-cta" href="register.html">Get started</a>
+        </nav>
+    </header>
     <div>
         <form method = "POST">
             <input type = "text" name = "username" value = "<?= $username ?>" required><br>

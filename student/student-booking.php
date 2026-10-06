@@ -45,6 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <link rel="stylesheet" href="../style/navbar.css">
         <link rel="stylesheet" href="../style/forms.css?v=1">    </head>
     <body>
+        <header class="site-header">
+            <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
+            <nav class="site-nav" aria-label="Student navigation">
+                <a href="student-homepage.html">Dashboard</a>
+                <a href="mentors.html">Find mentors</a>
+                <a class="is-current" href="sessions.html" aria-current="page">Sessions</a>
+                <a href="messages.html">Messages</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+        </header>
 
 
         <form class="booking-form" method="POST" action="">
@@ -97,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <p>Theme: MentorshipMatch</p>
         <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
     </footer> 
-    <!-- add name of chapter,teammmebers names, theme, school,city,state year     -->
     </body>
 </html>
 
