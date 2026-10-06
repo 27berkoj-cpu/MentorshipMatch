@@ -13,10 +13,11 @@ footer p {
 
 body{
     color:white;
-    background-color: #8a884a;
+    background-color: #ffffff;
 }
 footer{
-    background-color: #21960f;
+    /* Change this color to adjust the footer background */
+    background-color: #8bb681;
 }
 
 body.home-page {
@@ -36,6 +37,8 @@ body.home-page {
     border-radius: 15px;
     filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
     justify-content: center;
+}
+
 .home-page *,
 .home-page *::before,
 .home-page *::after {
@@ -141,6 +144,9 @@ body.home-page {
 
     .about-page h1 {
         font-size: 28px;
+    }
+}
+
 .home-kicker {
     margin: 0 0 15px;
     color: #47816b;
@@ -521,8 +527,8 @@ body.home-page .home-footer {
 }
 
 .home-footer small {
-    color: #8a9790;
-    font-size: 11px;
+    color: #000000;
+    font-size: 12px;
 }
 
 @media (max-width: 850px) {
@@ -606,4 +612,10 @@ body.home-page .home-footer {
     .home-button {
         transition: none;
     }
+}
+
+.contact-header {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
