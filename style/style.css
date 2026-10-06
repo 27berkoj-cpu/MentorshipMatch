@@ -26,6 +26,16 @@ body.home-page {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.Subject-container{
+    border: 4px;
+    display: block;
+    text-align: center;
+    border-color: rgb(30, 48, 34);
+    border-style: solid;
+    background-color: #71ada4;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+    justify-content: center;
 .home-page *,
 .home-page *::before,
 .home-page *::after {
@@ -52,6 +62,85 @@ body.home-page {
     max-width: 640px;
 }
 
+.about-page {
+    box-sizing: border-box;
+    width: min(100% - 32px, 760px);
+    margin: 48px auto;
+    padding: 36px;
+    border: 1px solid #c6d8d0;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #18352d;
+    box-shadow: 0 12px 32px rgba(24, 53, 45, 0.1);
+    line-height: 1.65;
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3 {
+    line-height: 1.25;
+}
+
+.about-page h1 {
+    margin: 0 0 28px;
+    font-size: 32px;
+}
+
+.about-page h2 {
+    margin: 0 0 12px;
+    color: #236b58;
+    font-size: 23px;
+}
+
+.about-page p {
+    margin: 0 0 14px;
+}
+
+.about-process {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid #d8e3de;
+}
+
+.about-steps {
+    display: grid;
+    gap: 0;
+    margin: 20px 0 0;
+    padding-left: 28px;
+}
+
+.about-steps li {
+    padding: 16px 0 16px 8px;
+    border-bottom: 1px solid #e2eae6;
+}
+
+.about-steps li:last-child {
+    border-bottom: 0;
+}
+
+.about-steps li::marker {
+    color: #236b58;
+    font-weight: 700;
+}
+
+.about-steps h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.about-steps p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .about-page {
+        margin: 24px auto;
+        padding: 24px 20px;
+    }
+
+    .about-page h1 {
+        font-size: 28px;
 .home-kicker {
     margin: 0 0 15px;
     color: #47816b;
