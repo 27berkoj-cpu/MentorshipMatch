@@ -191,7 +191,7 @@ body.home-page {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 0 19px;
+    padding: 14px 24px;
     border: 1px solid transparent;
     border-radius: 7px;
     font-size: 14px;
@@ -205,6 +205,7 @@ body.home-page {
 }
 
 .home-button-primary {
+    padding: 14px 15px;
     background: #236b58;
     box-shadow: 0 4px 10px rgba(35, 107, 88, 0.15);
     color: #fff;
@@ -215,6 +216,7 @@ body.home-page {
 }
 
 .home-button-secondary {
+    padding: 14px 24px;
     border-color: #d6e3dc;
     background: #fff;
     color: #36584a;
