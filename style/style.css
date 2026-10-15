@@ -13,10 +13,11 @@ footer p {
 
 body{
     color:white;
-    background-color: #8a884a;
+    background-color: #ffffff;
 }
 footer{
-    background-color: #21960f;
+    /* Change this color to adjust the footer background */
+    background-color: #8bb681;
 }
 
 body.home-page {
@@ -24,6 +25,18 @@ body.home-page {
     background: #f7faf8;
     color: #18352d;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.Subject-container{
+    border: 4px;
+    display: block;
+    text-align: center;
+    border-color: rgb(30, 48, 34);
+    border-style: solid;
+    background-color: #71ada4;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+    justify-content: center;
 }
 
 .home-page *,
@@ -50,6 +63,88 @@ body.home-page {
 
 .home-hero-content {
     max-width: 640px;
+}
+
+.about-page {
+    box-sizing: border-box;
+    width: min(100% - 32px, 760px);
+    margin: 48px auto;
+    padding: 36px;
+    border: 1px solid #c6d8d0;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #18352d;
+    box-shadow: 0 12px 32px rgba(24, 53, 45, 0.1);
+    line-height: 1.65;
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3 {
+    line-height: 1.25;
+}
+
+.about-page h1 {
+    margin: 0 0 28px;
+    font-size: 32px;
+}
+
+.about-page h2 {
+    margin: 0 0 12px;
+    color: #236b58;
+    font-size: 23px;
+}
+
+.about-page p {
+    margin: 0 0 14px;
+}
+
+.about-process {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid #d8e3de;
+}
+
+.about-steps {
+    display: grid;
+    gap: 0;
+    margin: 20px 0 0;
+    padding-left: 28px;
+}
+
+.about-steps li {
+    padding: 16px 0 16px 8px;
+    border-bottom: 1px solid #e2eae6;
+}
+
+.about-steps li:last-child {
+    border-bottom: 0;
+}
+
+.about-steps li::marker {
+    color: #236b58;
+    font-weight: 700;
+}
+
+.about-steps h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.about-steps p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .about-page {
+        margin: 24px auto;
+        padding: 24px 20px;
+    }
+
+    .about-page h1 {
+        font-size: 28px;
+    }
 }
 
 .home-kicker {
@@ -96,7 +191,7 @@ body.home-page {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 0 19px;
+    padding: 14px 24px;
     border: 1px solid transparent;
     border-radius: 7px;
     font-size: 14px;
@@ -110,6 +205,7 @@ body.home-page {
 }
 
 .home-button-primary {
+    padding: 14px 15px;
     background: #236b58;
     box-shadow: 0 4px 10px rgba(35, 107, 88, 0.15);
     color: #fff;
@@ -120,6 +216,7 @@ body.home-page {
 }
 
 .home-button-secondary {
+    padding: 14px 24px;
     border-color: #d6e3dc;
     background: #fff;
     color: #36584a;
@@ -432,8 +529,8 @@ body.home-page .home-footer {
 }
 
 .home-footer small {
-    color: #8a9790;
-    font-size: 11px;
+    color: #000000;
+    font-size: 12px;
 }
 
 @media (max-width: 850px) {
@@ -516,5 +613,87 @@ body.home-page .home-footer {
 @media (prefers-reduced-motion: reduce) {
     .home-button {
         transition: none;
+    }
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.contact-page {
+    margin: 0;
+    background: #f7faf8;
+    color: #18352d;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-content {
+    box-sizing: border-box;
+    width: min(100% - 32px, 760px);
+    margin: 48px auto;
+    padding: 36px;
+    border: 1px solid #dce8e1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(24, 53, 45, 0.08);
+    line-height: 1.65;
+}
+
+.contact-header h1 {
+    margin: 0;
+    color: #18352d;
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: 1.2;
+}
+
+.contact-header p {
+    margin: 10px 0 0;
+    color: #718179;
+}
+
+.contact-intro,
+.contact-outro {
+    color: #52675d;
+    text-align: center;
+}
+
+.contact-info {
+    margin: 28px 0;
+    padding: 24px;
+    border: 1px solid #e1eae5;
+    border-radius: 9px;
+    background: #f7faf8;
+    text-align: center;
+}
+
+.contact-info h2 {
+    margin: 0 0 12px;
+    color: #236b58;
+    font-size: 21px;
+}
+
+.contact-info p {
+    margin: 10px 0 0;
+    color: #52675d;
+}
+
+.contact-info a {
+    color: #236b58;
+    font-weight: 700;
+}
+
+.contact-outro {
+    margin: 0;
+}
+
+@media (max-width: 520px) {
+    .contact-content {
+        margin: 24px auto;
+        padding: 24px 18px;
+    }
+
+    .contact-info {
+        padding: 20px 16px;
     }
 }

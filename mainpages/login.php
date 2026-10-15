@@ -36,7 +36,7 @@
             <a href="about.html">About</a>
             <a href="../student/mentors.html">Find a mentor</a>
             <a class="is-current" href="login.php" aria-current="page">Log in</a>
-            <a class="nav-cta" href="register.html">Get started</a>
+            <a class="nav-cta" href="signup.php">Get started</a>
         </nav>
     </header>
     <div>
@@ -48,11 +48,12 @@
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
 
-        <footer>
-        <p>Chapter Name: [CHAPTER NAME]</p>
-        <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
-        <p>Theme: MentorshipMatch</p>
-        <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
+        <footer class="home-footer">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <p>Helping students connect with guidance, experience, and opportunity.</p>
+        <small>Chapter Name: Delaware Area Career Center</small><br>
+        <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+        <small>Delaware, Ohio  2026-2027</small>
     </footer>
 </body>
 </html>
