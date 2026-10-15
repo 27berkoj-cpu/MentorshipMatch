@@ -29,6 +29,19 @@
     <link rel="stylesheet" href="../style/forms.css">
     </head>
 <body>
+<<<<<<< HEAD
+=======
+    <header class="site-header">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="../student/mentors.html">Find a mentor</a>
+            <a class="is-current" href="login.php" aria-current="page">Log in</a>
+            <a class="nav-cta" href="signup.php">Get started</a>
+        </nav>
+    </header>
+>>>>>>> 4b6ab5cd1e61932ffcba8db97cc0693794c45bcc
     <div>
         <form method = "POST">
             <input type = "text" name = "username" value = "<?= $username ?>" required><br>
@@ -38,11 +51,12 @@
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
 
-        <footer>
-        <p>Chapter Name: [CHAPTER NAME]</p>
-        <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
-        <p>Theme: MentorshipMatch</p>
-        <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
+        <footer class="home-footer">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <p>Helping students connect with guidance, experience, and opportunity.</p>
+        <small>Chapter Name: Delaware Area Career Center</small><br>
+        <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+        <small>Delaware, Ohio  2026-2027</small>
     </footer>
 </body>
 </html>

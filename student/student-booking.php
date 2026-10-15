@@ -88,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </select>
             </div>
             <input type="submit" value="Request session">
-            <p>Requests will be saved after database booking is connected.</p>
         </form>
 
+<<<<<<< HEAD
         <footer>
         <p>Chapter Name: [CHAPTER NAME]</p>
         <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
@@ -98,6 +98,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
     </footer> 
     <!-- add name of chapter,teammmebers names, theme, school,city,state year     -->
+=======
+        <footer class="home-footer">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <p>Helping students connect with guidance, experience, and opportunity.</p>
+        <small>Chapter Name: Delaware Area Career Center</small><br>
+        <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+        <small>Delaware, Ohio  2026-2027</small>
+    </footer>
+>>>>>>> 4b6ab5cd1e61932ffcba8db97cc0693794c45bcc
     </body>
 </html>
 
