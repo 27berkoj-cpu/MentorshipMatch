@@ -1,0 +1,4 @@
+[0929/123023.061:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: The system cannot find the file specified. (0x2)
+[0929/123023.068:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: The system cannot find the file specified. (0x2)
+[1006/123027.062:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:136] TransactNamedPipe: The pipe has been ended. (0x6D)
+[1006/123027.062:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:113] WaitNamedPipe: The system cannot find the file specified. (0x2)
