@@ -2,8 +2,6 @@
 
 
 ?>
-<<<<<<< HEAD
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,4 +36,3 @@
     </footer>
 </body>
 </html>
->>>>>>> 4b6ab5cd1e61932ffcba8db97cc0693794c45bcc

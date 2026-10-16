@@ -29,8 +29,6 @@
     <link rel="stylesheet" href="../style/forms.css">
     </head>
 <body>
-<<<<<<< HEAD
-=======
     <header class="site-header">
         <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -41,7 +39,6 @@
             <a class="nav-cta" href="signup.php">Get started</a>
         </nav>
     </header>
->>>>>>> 4b6ab5cd1e61932ffcba8db97cc0693794c45bcc
     <div>
         <form method = "POST">
             <input type = "text" name = "username" value = "<?= $username ?>" required><br>
@@ -51,7 +48,7 @@
         No Account? <a href = "signup.php">Sign Up!</a>
     </div>
 
-        <footer class="home-footer">
+    <footer class="home-footer">
         <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
         <p>Helping students connect with guidance, experience, and opportunity.</p>
         <small>Chapter Name: Delaware Area Career Center</small><br>
