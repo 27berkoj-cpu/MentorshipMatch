@@ -5,19 +5,21 @@ footer {
     padding: 20px;
     margin-top: 40px;
     font-size: 14px;
+
+    p{
+        margin: 5px 0;
+        /* margin for footer paragraphs */
+    }
+    /* style for the footer adding spacing, color, and size */
 }
 
-footer p {
-    margin: 5px 0;
-}
 
 body{
     color:white;
     background-color: #ffffff;
-}
-footer{
-    /* Change this color to adjust the footer background */
-    background-color: #8bb681;
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* sets the text color to white and background color to white */
 }
 
 body.home-page {
@@ -25,29 +27,23 @@ body.home-page {
     background: #f7faf8;
     color: #18352d;
     font-family: Arial, Helvetica, sans-serif;
+
+    /* custom style for the home page, just spacing and color */
 }
 
-.Subject-container{
-    border: 4px;
-    display: block;
-    text-align: center;
-    border-color: rgb(30, 48, 34);
-    border-style: solid;
-    background-color: #71ada4;
-    border-radius: 15px;
-    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
-    justify-content: center;
-}
 
 .home-page *,
 .home-page *::before,
 .home-page *::after {
     box-sizing: border-box;
+
+    /* make sure that padding and border are included in the element's width and height */
 }
 
 .home-page a:focus-visible {
     outline: 3px solid #54ae91;
     outline-offset: 3px;
+    /* adds outline to links for when they are in focused*/
 }
 
 .home-hero {
@@ -59,10 +55,12 @@ body.home-page {
     min-height: 550px;
     margin: 0 auto;
     padding: 68px 0;
+    /* sets up the hero section with a grid layout, spacing, and size resulting in a clean look*/
 }
 
 .home-hero-content {
     max-width: 640px;
+    /* limits the width of the hero content to a max of 640px */
 }
 
 .about-page {
@@ -76,33 +74,39 @@ body.home-page {
     color: #18352d;
     box-shadow: 0 12px 32px rgba(24, 53, 45, 0.1);
     line-height: 1.65;
+    /* styles for the about page, including spacing, border, background color, and shadow for a good look */
 }
 
 .about-page h1,
 .about-page h2,
 .about-page h3 {
     line-height: 1.25;
+    /* set a line height of 1.25 for head tags in the about page */
 }
 
 .about-page h1 {
     margin: 0 0 28px;
     font-size: 32px;
+    /* set a margin and font size for the h1 tags in the about page*/
 }
 
 .about-page h2 {
     margin: 0 0 12px;
     color: #236b58;
     font-size: 23px;
+    /* set margin, color, and font size for the h2 tags in the about page */
 }
 
 .about-page p {
     margin: 0 0 14px;
+    /* set margin for paragraphs in the about page */
 }
 
 .about-process {
     margin-top: 32px;
     padding-top: 28px;
     border-top: 1px solid #d8e3de;
+    /* adds spacing and a border to the about process section */
 }
 
 .about-steps {
@@ -110,33 +114,40 @@ body.home-page {
     gap: 0;
     margin: 20px 0 0;
     padding-left: 28px;
+    /* set up a grid layout for the about steps*/
 }
 
 .about-steps li {
     padding: 16px 0 16px 8px;
     border-bottom: 1px solid #e2eae6;
+    /* set padding and border for the list items in the about steps section */
 }
 
 .about-steps li:last-child {
     border-bottom: 0;
+    /* remove the border for the last list item */
 }
 
 .about-steps li::marker {
     color: #236b58;
     font-weight: 700;
+    /* set a color and font weight for the numbers on the list items */
 }
 
 .about-steps h3 {
     margin: 0 0 8px;
     font-size: 18px;
     font-weight: 700;
+    /* set margin, font size, and font weight for the h3 tags in the about steps section */
 }
 
 .about-steps p:last-child {
     margin-bottom: 0;
+    /* remove the bottom margin for the last paragraph in the about steps section */
 }
 
 @media (max-width: 480px) {
+    /* Reduce spacing and heading size on narrow screens. */
     .about-page {
         margin: 24px auto;
         padding: 24px 20px;
