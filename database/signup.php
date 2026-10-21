@@ -24,13 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     */
      
-    $db = $studentDb; // temporary until the role code above is turned on
-
+    $sdb = $studentDb; // temporary until the role code above is turned on0
     
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-        $stmt = $db->prepare("INSERT INTO table (email, password) VALUES (?, ?)"); // you need to add admin to the form and the uncomment the code for it to work
+        $stmt = $sdb->prepare("INSERT INTO table (email, password) VALUES (?, ?)"); // you need to add admin to the form and the uncomment the code for it to work
         $stmt->execute([$email, $hash]);
         echo "Signup successful!";
     } catch (PDOException $e) {
