@@ -566,30 +566,6 @@ body.home-page {
     background: #eaf4ee;
 }
 
-body.home-page .home-footer,
-.about-page + .home-footer {
-    margin: 0;
-    padding: 32px 24px;
-    border-top: 1px solid #e1eae5;
-    background: #fff;
-    color: #6e7e76;
-    text-align: center;
-}
-
-.home-footer .site-brand {
-    display: inline-block;
-}
-
-.home-footer p {
-    margin: 9px 0;
-    font-size: 13px;
-}
-
-.home-footer small {
-    color: #000000;
-    font-size: 12px;
-}
-
 @media (max-width: 850px) {
     .home-hero {
         grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
