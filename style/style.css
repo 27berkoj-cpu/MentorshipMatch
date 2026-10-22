@@ -265,6 +265,7 @@ body.home-page {
     border: 1px solid #dcebe3;
     border-radius: 48% 48% 16px 16px;
     background: linear-gradient(145deg, #e5f2eb, #f4f8f5 65%, #eaf4ee);
+    /* set up grid layout for the hero art section */
 }
 
 .home-art-orbit {
@@ -272,15 +273,18 @@ body.home-page {
     width: 300px;
     height: 300px;
     border: 1px solid rgba(52, 135, 110, 0.16);
-    border-radius: 50%;
+    border-radius: 50%; 
+    /* set up a circular orbit for the hero art section */
 }
 
 .home-art-orbit-one {
     transform: scale(1.35);
+    /* scale the first orbit to 1.35x the original size */
 }
 
 .home-art-orbit-two {
     transform: scale(1.75);
+    /* scale the second orbit to 1.75x the original size */
 }
 
 .home-art-card {
@@ -296,6 +300,7 @@ body.home-page {
     background: rgba(255, 255, 255, 0.91);
     box-shadow: 0 22px 55px rgba(38, 86, 67, 0.13);
     transform: rotate(-3deg);
+    /*set up layout for the art card giving it color,size,padding and rotation for a professional look */
 }
 
 .home-art-mark {
@@ -308,6 +313,7 @@ body.home-page {
     color: #fff;
     font-size: 22px;
     font-weight: 800;
+    /*style for the MM for Mentorship Match giving it a background color, size, and font size to make it pop*/
 }
 
 .home-art-label {
@@ -317,6 +323,7 @@ body.home-page {
     font-weight: 700;
     letter-spacing: -0.6px;
     line-height: 1.25;
+    /* style for the label on the art card gicing it space, font styling to match the page */
 }
 
 .home-art-line {
@@ -325,12 +332,15 @@ body.home-page {
     margin-top: 20px;
     border-radius: 3px;
     background: #7ab99b;
+    /* small green line to seperate caption */
+    
 }
 
 .home-art-caption {
     margin-top: 13px;
     color: #74857c;
     font-size: 12px;
+    /*add color and fontsize for caption*/
 }
 
 .home-art-dot {
@@ -340,11 +350,14 @@ body.home-page {
     border: 3px solid #f7faf8;
     border-radius: 50%;
     background: #76b597;
+    /*add positoning and color to the dots on teh homepage for decore*/
 }
 
 .home-art-dot-one {
     top: 22%;
     right: 21%;
+    /*places small green dot in the top right of the art card*/
+
 }
 
 .home-art-dot-two {
@@ -352,37 +365,45 @@ body.home-page {
     left: 20%;
     width: 18px;
     height: 18px;
-    background: #d7a75f;
+    background: #006400;
+    /*places small dark green dot on the bottom left of the aart card */
 }
 
 .home-benefits,
 .home-steps {
+    /* responsive spacing with at least 24px side padding. */
     padding: 76px max(24px, calc((100% - 1200px) / 2));
+
 }
 
 .home-benefits {
     background: #fff;
+    /*set the background color of the benits section to white*/
 }
 
 .home-section-heading {
     max-width: 660px;
     margin: 0 auto 32px;
     text-align: center;
+    /*adjust positoning on the secion heading*/
 }
 
 .home-section-heading h2,
 .home-final-cta h2 {
+    /* keep section titles responsive and easy to read. */
     margin: 0;
     color: #18352d;
     font-size: clamp(27px, 3.4vw, 38px);
     letter-spacing: -1px;
     line-height: 1.2;
+    
 }
 
 .home-section-heading > p:last-child {
     margin: 12px 0 0;
     color: #718179;
     line-height: 1.6;
+    /* mutes and spaces out the subtitle/description paragraph */
 }
 
 .home-benefit-grid {
@@ -391,6 +412,7 @@ body.home-page {
     gap: 18px;
     width: min(100%, 1200px);
     margin: 0 auto;
+    /*set up grid for the benefits section on the homepage*/
 }
 
 .home-benefit-card {
@@ -398,6 +420,7 @@ body.home-page {
     border: 1px solid #e2ebe6;
     border-radius: 10px;
     background: #fff;
+    /*add color and padding to the cards on the benefit section*/
 }
 
 .home-benefit-number {
@@ -405,6 +428,7 @@ body.home-page {
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1px;
+    /*style the number for each benfit giving it a green color and small size*/
 }
 
 .home-benefit-card h3,
@@ -412,6 +436,7 @@ body.home-page {
     margin: 13px 0 8px;
     color: #234338;
     font-size: 17px;
+    /*style the header for each benit card giving it font size and dark green look*/
 }
 
 .home-benefit-card p,
@@ -420,10 +445,7 @@ body.home-page {
     color: #718179;
     font-size: 14px;
     line-height: 1.65;
-}
-
-.home-steps {
-    background: #f1f6f3;
+    /*style the description of the benefit cards */
 }
 
 .home-step-list {
@@ -434,12 +456,14 @@ body.home-page {
     margin: 0 auto;
     padding: 0;
     list-style: none;
+    /*set up grid template for the steps list*/
 }
 
 .home-step-list li {
     display: flex;
     align-items: flex-start;
     gap: 14px;
+    /* format and sepearte each step in the step-list*/
 }
 
 .home-step-list li > span {
@@ -453,10 +477,12 @@ body.home-page {
     color: #236b58;
     font-size: 14px;
     font-weight: 800;
+    /*add color, spacing, and size in every step list element greater than span */
 }
 
 .home-step-list h3 {
     margin-top: 3px;
+    
 }
 
 .home-quote {
