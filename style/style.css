@@ -482,7 +482,7 @@ body.home-page {
 
 .home-step-list h3 {
     margin-top: 3px;
-    
+    /* add a margin to the header in the steps list*/
 }
 
 .home-quote {
@@ -492,6 +492,7 @@ body.home-page {
     gap: 20px;
     margin: 68px auto;
     padding: 0 24px;
+    /*set up flex display for the quote section giving it proper margin and padding*/ 
 }
 
 .home-quote-mark {
@@ -499,6 +500,7 @@ body.home-page {
     font-family: Georgia, serif;
     font-size: 64px;
     line-height: 0.9;
+    /*style for the student's quote giving it size and color*/
 }
 
 .home-quote blockquote {
@@ -512,6 +514,7 @@ body.home-page {
     font-weight: 600;
     letter-spacing: -0.4px;
     line-height: 1.5;
+    /*proper letter spacing and font size to make an impactful quote pop*/
 }
 
 .home-quote cite {
@@ -520,6 +523,7 @@ body.home-page {
     color: #718179;
     font-size: 13px;
     font-style: normal;
+    /*add grey color and font size for the "— A MentorshipMatch student" cite tag */
 }
 
 .home-final-cta {
@@ -537,10 +541,13 @@ body.home-page {
 
 .home-final-cta .home-kicker {
     color: #b9dfcb;
+    /*give "YOUR FUTURE IS WORTH A CONVERSATION" a unquie color for for the final-cta box*/
 }
 
 .home-final-cta h2 {
     color: #fff;
+    /*give "Ready to meet your mentor?" a unquie color for for the final-cta box*/
+
 }
 
 .home-final-cta > div > p:last-child {
