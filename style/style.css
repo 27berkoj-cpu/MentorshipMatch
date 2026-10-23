@@ -63,6 +63,51 @@ body.home-page {
     /* Limit the hero content to a maximum width of 640px. */
 }
 
+.home-page.intro-ready .site-header,
+.home-page.intro-ready main > section,
+.home-page.intro-ready .home-footer {
+    animation: home-intro-up 850ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.home-page.intro-ready .site-header {
+    animation-delay: 80ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(1) {
+    animation-delay: 180ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(2) {
+    animation-delay: 280ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(3) {
+    animation-delay: 380ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(4) {
+    animation-delay: 480ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(5) {
+    animation-delay: 580ms;
+}
+
+.home-page.intro-ready .home-footer {
+    animation-delay: 680ms;
+}
+
+@keyframes home-intro-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .about-page {
     box-sizing: border-box;
     width: min(100% - 32px, 760px);
@@ -651,8 +696,12 @@ body.home-page {
 
 @media (prefers-reduced-motion: reduce) {
     /* Respect preferences for reduced motion. */
-    .home-button {
+    .home-button,
+    .home-page.intro-ready .site-header,
+    .home-page.intro-ready main > section,
+    .home-page.intro-ready .home-footer {
         transition: none;
+        animation: none;
     }
 }
 
