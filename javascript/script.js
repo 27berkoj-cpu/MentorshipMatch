@@ -1,9 +1,9 @@
 function HomepageAnimation() {
     const homePage = document.querySelector('.home-page');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const animatedExcuted = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    // Leave the page untouched when motion is reduced or this script is used elsewhere.
-    if (!homePage || prefersReducedMotion.matches) {
+    // Skip the animation if motion effects are turned off or this isn't the home page.
+    if (!homePage || animatedExcuted.matches) {
         return;
     }
 
@@ -16,3 +16,22 @@ function HomepageAnimation() {
 }
 
 HomepageAnimation();
+
+function AboutpageAnimation(){
+    const aboutPage = document.querySelector('.about-page');
+    const animatedExcuted = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Skip the animation if motion effects are turned off or this isn't the About page.
+    if (!aboutPage || animatedExcuted.matches) {
+        return;
+    }
+
+    // Wait for the initial paint before showing the About page.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.add('about-intro-ready');
+        });
+    });
+}
+
+AboutpageAnimation();
