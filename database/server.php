@@ -1,5 +1,5 @@
 <?php
-$host = "localhost";
+$host = "localhost"; // Make sure to change this before submitting the project to the server. It will be different on the server than it is on your local machine. -Joshua
 $dbUser = "root";
 $dbPass = "password";      
 
