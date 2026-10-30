@@ -17,21 +17,21 @@ function HomepageAnimation() {
 
 HomepageAnimation();
 
-function AboutpageAnimation(){
-    const aboutPage = document.querySelector('.about-page');
+function OtherMainPagesAnimation(){
+    const mainPage = document.querySelector('.about-page, .contact-page, .container');
     const animatedExcuted = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    // Skip the animation if motion effects are turned off or this isn't the About page.
-    if (!aboutPage || animatedExcuted.matches) {
+    // Skip the animation if motion effects are turned off or this isn't a main page.
+    if (!mainPage || animatedExcuted.matches) {
         return;
     }
 
-    // Wait for the initial paint before showing the About page.
+    // Wait for the initial paint before showing the page.
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            document.body.classList.add('about-intro-ready');
+            document.body.classList.add('othermainpages-intro-ready');
         });
     });
 }
 
-AboutpageAnimation();
+OtherMainPagesAnimation();

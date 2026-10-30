@@ -115,27 +115,38 @@ body.home-page {
     animation-delay: 680ms;
 }
 
-/* Fade the About page content in from the left. */
-body.about-intro-ready .about-page > section,
-body.about-intro-ready .site-header,
-body.about-intro-ready .home-footer {
+/* Fade main-page content in from the left. */
+body.othermainpages-intro-ready .about-page > section,
+body.othermainpages-intro-ready main:not(.about-page),
+body.othermainpages-intro-ready .container,
+body.othermainpages-intro-ready .site-header,
+body.othermainpages-intro-ready .home-footer {
     animation: about-intro-from-left 1050ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 
-/* Stagger the About page header, sections, and footer. */
-body.about-intro-ready .site-header {
+/* Stagger each page's header, content, and footer. */
+body.othermainpages-intro-ready .site-header {
     animation-delay: 100ms;
 }
 
-body.about-intro-ready .about-page > section:nth-child(1) {
+body.othermainpages-intro-ready .about-page > section:nth-child(1) {
     animation-delay: 240ms;
 }
 
-body.about-intro-ready .about-page > section:nth-child(2) {
+body.othermainpages-intro-ready .about-page > section:nth-child(2) {
     animation-delay: 400ms;
 }
 
-body.about-intro-ready .home-footer {
+body.othermainpages-intro-ready main:not(.about-page),
+body.othermainpages-intro-ready .container {
+    animation-delay: 240ms;
+}
+
+body.othermainpages-intro-ready .home-footer {
+    animation-delay: 400ms;
+}
+
+body.othermainpages-intro-ready .about-page ~ .home-footer {
     animation-delay: 560ms;
 }
 
@@ -650,9 +661,11 @@ body.about-intro-ready .home-footer {
     .home-page.intro-ready .site-header,
     .home-page.intro-ready main > section,
     .home-page.intro-ready .home-footer,
-    body.about-intro-ready .site-header,
-    body.about-intro-ready .about-page > section,
-    body.about-intro-ready .home-footer {
+    body.othermainpages-intro-ready .site-header,
+    body.othermainpages-intro-ready .about-page > section,
+    body.othermainpages-intro-ready main:not(.about-page),
+    body.othermainpages-intro-ready .container,
+    body.othermainpages-intro-ready .home-footer {
         transition: none;
         animation: none;
     }
