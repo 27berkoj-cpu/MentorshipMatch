@@ -3,19 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Document</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/navbar.css">
     <link rel = "stylesheet" href = "/style/login.css">
     <script src="/javascript/login.js"></script>
+=======
+    <title>Login to MentorshipMatch</title>
+    <link rel = "stylesheet" href = "../style/login.css">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <script src="../javascript/login.js"></script>
+    <link rel="icon" href="../Images/Logo/MentorshipMatchLogo.png" type="image/png"> 
+>>>>>>> main
 </head>
 <body>
-<nav>
-    <div class = "logo">Logo</div>
-    <div class = "nav-tools">
-        Section 1 &nbsp; Section 2 &nbsp; Section 3 &nbsp; Section 4
-    </div>
-</nav>
+<header class="site-header">
+    <a class="site-brand" href="index.html" aria-label="MentorshipMatch home">Mentorship<span>Match</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="../student/mentors.html">Find a mentor</a>
+        <a class="is-current" href="login.html" aria-current="page">Log in</a>
+        <a class="nav-cta" href="login.html">Get started</a>
+    </nav>
+</header>
 <div class = "container">
     <input type = "radio" name = "role" id = "student" checked>
     <input type = "radio" name = "role" id = "mentor">
@@ -40,11 +53,11 @@
                     <div class = "bottom">
                         <form>
                             Please input an email<br>
-                            <input type = "email" placeholder = "ex: email@gmail.com" required>
+                            <input type = "email" placeholder = "example@gmail.com" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "15" required>
+                            <input type = "password"  minlength = "6" maxlength = "35" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -64,13 +77,13 @@
                     </div>
 
                     <div class = "bottom">
-                        <form>
+                        <form method = "post" action = "signup.php">
                             Please input an email<br>
-                            <input type = "email" placeholder = "ex: email@gmail.com" required>
+                            <input type = "email" placeholder = "example@gmail.com" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "15" required>
+                            <input type = "password" minlength = "6" maxlength = "35" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -80,7 +93,7 @@
                             <label for = "student-flip">
                                 <span class = "flip-sign">Login!</span>
                             </label>
-                        </form>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -104,11 +117,11 @@
                     <div class = "bottom">
                         <form>
                             Please input an email<br>
-                            <input type = "email" placeholder = "ex: email@gmail.com" required>
+                            <input type = "email" placeholder = "example@gmail.com" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "15" required>
+                            <input type = "password" minlength = "6" maxlength = "35" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -128,13 +141,13 @@
                     </div>
 
                     <div class = "bottom">
-                        <form>
+                        <form method = "post" action = "signup.php">
                             Please input an email<br>
-                            <input type = "email" placeholder = "ex: email@gmail.com" required>
+                            <input type = "email" placeholder = "example@gmail.com" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "15" required>
+                            <input type = "password" minlength = "6" maxlength = "35" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -155,6 +168,7 @@
 
 
 </div>
+<<<<<<< HEAD
 
     <footer class="home-footer">
         <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
@@ -163,5 +177,15 @@
         <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
         <small>Delaware, Ohio  2026-2027</small>
     </footer>
+=======
+<footer class="home-footer">
+    <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+    <p>Helping students connect with guidance, experience, and opportunity.</p>
+    <small>Chapter Name: Delaware Area Career Center</small><br>
+    <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+    <small>Delaware, Ohio  2026-2027</small>
+</footer>
+<script src="../javascript/script.js"></script>
+>>>>>>> main
 </body> 
 </html>

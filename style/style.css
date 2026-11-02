@@ -1,7 +1,31 @@
+<<<<<<< HEAD
+=======
+footer {
+    background-color: #222;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 14px;
+
+    p{
+        margin: 5px 0;
+        /* Add spacing between footer paragraphs. */
+    }
+    /* Style the footer with spacing, color, and readable text. */
+}
+
+>>>>>>> main
 
 body{
     color:white;
     background-color: #ffffff;
+<<<<<<< HEAD
+=======
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* Set the text and background colors and use a sans-serif font. */
+>>>>>>> main
 }
 
 body.home-page {
@@ -9,34 +33,29 @@ body.home-page {
     background: #f7faf8;
     color: #18352d;
     font-family: Arial, Helvetica, sans-serif;
+
+    /* Add spacing and colors specific to the home page. */
 }
 
-.Subject-container{
-    border: 4px;
-    display: block;
-    text-align: center;
-    border-color: rgb(30, 48, 34);
-    border-style: solid;
-    background-color: #71ada4;
-    border-radius: 15px;
-    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
-    justify-content: center;
-}
 
 .home-page *,
 .home-page *::before,
 .home-page *::after {
     box-sizing: border-box;
+
+    /* Include padding and borders in each element's width and height. */
 }
 
 .home-page a:focus-visible {
     outline: 3px solid #54ae91;
     outline-offset: 3px;
+    /* Show an outline when a link receives keyboard focus. */
 }
 
+/*Give the headline and photo room to sit side by side on larger screens. */
 .home-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: center;
     gap: 48px;
     width: min(100% - 48px, 1200px);
@@ -45,8 +64,120 @@ body.home-page {
     padding: 68px 0;
 }
 
+.home-hero-image {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    /* Sets the image to have a shape of 4/3 and rounded corners */
+}
+
+.home-hero-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Controls how the picture fills in tkaing up all the space given */
+}
+
 .home-hero-content {
     max-width: 640px;
+    /* Limit the hero content to a maximum width of 640px. */
+}
+
+/* Fade the homepage header, sections, and footer upward in sequence. */
+.home-page.intro-ready .site-header,
+.home-page.intro-ready main > section,
+.home-page.intro-ready .home-footer {
+    animation: home-intro-up 850ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+/* Start the header first, then stagger each homepage section. */
+.home-page.intro-ready .site-header {
+    animation-delay: 80ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(1) {
+    animation-delay: 180ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(2) {
+    animation-delay: 280ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(3) {
+    animation-delay: 380ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(4) {
+    animation-delay: 480ms;
+}
+
+.home-page.intro-ready main > section:nth-of-type(5) {
+    animation-delay: 580ms;
+}
+
+/* Let the footer follow the homepage sections. */
+.home-page.intro-ready .home-footer {
+    animation-delay: 680ms;
+}
+
+/* Fade main-page content in from the left. */
+body.othermainpages-intro-ready .about-page > section,
+body.othermainpages-intro-ready main:not(.about-page),
+body.othermainpages-intro-ready .container,
+body.othermainpages-intro-ready .site-header,
+body.othermainpages-intro-ready .home-footer {
+    animation: about-intro-from-left 1050ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+/* Stagger each page's header, content, and footer. */
+body.othermainpages-intro-ready .site-header {
+    animation-delay: 100ms;
+}
+
+body.othermainpages-intro-ready .about-page > section:nth-child(1) {
+    animation-delay: 240ms;
+}
+
+body.othermainpages-intro-ready .about-page > section:nth-child(2) {
+    animation-delay: 400ms;
+}
+
+body.othermainpages-intro-ready main:not(.about-page),
+body.othermainpages-intro-ready .container {
+    animation-delay: 240ms;
+}
+
+body.othermainpages-intro-ready .home-footer {
+    animation-delay: 400ms;
+}
+
+body.othermainpages-intro-ready .about-page ~ .home-footer {
+    animation-delay: 560ms;
+}
+
+/* Define the homepage's upward fade-and-slide effect. */
+@keyframes home-intro-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Define the About page's left-to-right fade-and-slide effect. */
+@keyframes about-intro-from-left {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .about-page {
@@ -60,33 +191,39 @@ body.home-page {
     color: #18352d;
     box-shadow: 0 12px 32px rgba(24, 53, 45, 0.1);
     line-height: 1.65;
+    /* Style the About page with spacing, a border, a background, and a shadow. */
 }
 
 .about-page h1,
 .about-page h2,
 .about-page h3 {
     line-height: 1.25;
+    /* Set a line height of 1.25 for About page headings. */
 }
 
 .about-page h1 {
     margin: 0 0 28px;
     font-size: 32px;
+    /* Set the margin and font size for the About page's h1 heading. */
 }
 
 .about-page h2 {
     margin: 0 0 12px;
     color: #236b58;
     font-size: 23px;
+    /* Set the margin, color, and font size for About page h2 headings. */
 }
 
 .about-page p {
     margin: 0 0 14px;
+    /* Set the margin for About page paragraphs. */
 }
 
 .about-process {
     margin-top: 32px;
     padding-top: 28px;
     border-top: 1px solid #d8e3de;
+    /* Add spacing and a border to the About process section. */
 }
 
 .about-steps {
@@ -94,33 +231,40 @@ body.home-page {
     gap: 0;
     margin: 20px 0 0;
     padding-left: 28px;
+    /* Arrange the About steps in a grid. */
 }
 
 .about-steps li {
     padding: 16px 0 16px 8px;
     border-bottom: 1px solid #e2eae6;
+    /* Set padding and a border for each item in the About steps list. */
 }
 
 .about-steps li:last-child {
     border-bottom: 0;
+    /* Remove the border from the last list item. */
 }
 
 .about-steps li::marker {
     color: #236b58;
     font-weight: 700;
+    /* Set the color and font weight of the list item markers. */
 }
 
 .about-steps h3 {
     margin: 0 0 8px;
     font-size: 18px;
     font-weight: 700;
+    /* Set the margin and font styling for About step headings. */
 }
 
 .about-steps p:last-child {
     margin-bottom: 0;
+    /* Remove the bottom margin from the last paragraph in each About step. */
 }
 
 @media (max-width: 480px) {
+    /* Reduce spacing and heading sizes on narrow screens. */
     .about-page {
         margin: 24px auto;
         padding: 24px 20px;
@@ -138,6 +282,7 @@ body.home-page {
     font-weight: 800;
     letter-spacing: 1.5px;
     line-height: 1.5;
+    /* Set the spacing, color, and font size for the home page kicker. */
 }
 
 .home-hero h1 {
@@ -148,10 +293,12 @@ body.home-page {
     font-weight: 800;
     letter-spacing: -2.8px;
     line-height: 1.04;
+    /* Set the spacing, color, and font size for the home page hero heading. */
 }
 
 .home-hero h1 span {
     color: #34876e;
+    /* Highlight the emphasized text in the home page hero heading. */
 }
 
 .home-hero-copy {
@@ -160,6 +307,7 @@ body.home-page {
     color: #64766e;
     font-size: 17px;
     line-height: 1.7;
+    /* Set the spacing, color, and font size for the home page hero text. */
 }
 
 .home-hero-actions {
@@ -167,6 +315,7 @@ body.home-page {
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 28px;
+    /* Arrange the home page buttons in a flexible layout. */
 }
 
 .home-button {
@@ -182,10 +331,12 @@ body.home-page {
     font-weight: 700;
     text-decoration: none;
     transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    /* Style the home page buttons with spacing and a smooth transition. */
 }
 
 .home-button:hover {
     transform: translateY(-1px);
+    /* Raise the buttons slightly when hovered over. */
 }
 
 .home-button-primary {
@@ -193,10 +344,12 @@ body.home-page {
     background: #236b58;
     box-shadow: 0 4px 10px rgba(35, 107, 88, 0.15);
     color: #fff;
+    /* Style the primary button with padding, a background, a shadow, and text color. */
 }
 
 .home-button-primary:hover {
     background: #1b5948;
+    /* Darken the primary button when it is hovered over. */
 }
 
 .home-button-secondary {
@@ -204,161 +357,85 @@ body.home-page {
     border-color: #d6e3dc;
     background: #fff;
     color: #36584a;
+    /* Style the secondary button with padding, a border, a background, and text color. */
 }
 
 .home-button-secondary:hover {
     border-color: #a9cbbb;
     background: #f3f8f5;
+    /* Lighten the secondary button when it is hovered over. */
 }
 
 .home-trust-note {
     margin: 18px 0 0;
     color: #87968e;
-    font-size: 12px;
-}
-
-.home-hero-art {
-    position: relative;
-    display: grid;
-    min-height: 360px;
-    place-items: center;
-    overflow: hidden;
-    border: 1px solid #dcebe3;
-    border-radius: 48% 48% 16px 16px;
-    background: linear-gradient(145deg, #e5f2eb, #f4f8f5 65%, #eaf4ee);
-}
-
-.home-art-orbit {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 1px solid rgba(52, 135, 110, 0.16);
-    border-radius: 50%;
-}
-
-.home-art-orbit-one {
-    transform: scale(1.35);
-}
-
-.home-art-orbit-two {
-    transform: scale(1.75);
-}
-
-.home-art-card {
-    position: relative;
-    display: flex;
-    width: min(72%, 280px);
-    min-height: 250px;
-    flex-direction: column;
-    justify-content: center;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.91);
-    box-shadow: 0 22px 55px rgba(38, 86, 67, 0.13);
-    transform: rotate(-3deg);
-}
-
-.home-art-mark {
-    display: grid;
-    width: 46px;
-    height: 46px;
-    place-items: center;
-    border-radius: 13px;
-    background: #236b58;
-    color: #fff;
-    font-size: 22px;
-    font-weight: 800;
-}
-
-.home-art-label {
-    margin-top: 22px;
-    color: #18352d;
-    font-size: 23px;
-    font-weight: 700;
-    letter-spacing: -0.6px;
-    line-height: 1.25;
-}
-
-.home-art-line {
-    width: 48px;
-    height: 3px;
-    margin-top: 20px;
-    border-radius: 3px;
-    background: #7ab99b;
-}
-
-.home-art-caption {
-    margin-top: 13px;
-    color: #74857c;
-    font-size: 12px;
-}
-
-.home-art-dot {
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    border: 3px solid #f7faf8;
-    border-radius: 50%;
-    background: #76b597;
-}
-
-.home-art-dot-one {
-    top: 22%;
-    right: 21%;
-}
-
-.home-art-dot-two {
-    bottom: 19%;
-    left: 20%;
-    width: 18px;
-    height: 18px;
-    background: #d7a75f;
+    font-size: 16px;
+    /* Set the spacing, color, and font size for the trust note. */
 }
 
 .home-benefits,
 .home-steps {
-    padding: 76px max(24px, calc((100% - 1200px) / 2));
+    /* Keep these sections broad, with a little space at the edges. */
+    padding: 88px max(24px, 5vw);
+
+}
+
+.home-section-heading .home-kicker {
+    font-size: 14px;
 }
 
 .home-benefits {
     background: #fff;
+    /* Set the background color of the benefits section to white. */
 }
 
 .home-section-heading {
-    max-width: 660px;
-    margin: 0 auto 32px;
+    max-width: 1100px;
+    margin: 0 auto 42px;
     text-align: center;
+    /* Center the section heading and adjust its spacing. */
 }
 
 .home-section-heading h2,
 .home-final-cta h2 {
+    /* Keep section titles responsive and easy to read. */
     margin: 0;
     color: #18352d;
-    font-size: clamp(27px, 3.4vw, 38px);
     letter-spacing: -1px;
     line-height: 1.2;
 }
 
+.home-section-heading h2 {
+    font-size: clamp(34px, 4vw, 48px);
+}
+
+.home-final-cta h2 {
+    font-size: clamp(27px, 3.4vw, 38px);
+}
+
 .home-section-heading > p:last-child {
-    margin: 12px 0 0;
+    margin: 16px 0 0;
     color: #718179;
+    font-size: 19px;
     line-height: 1.6;
+    /* Soften the subtitle color and add spacing. */
 }
 
 .home-benefit-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
-    width: min(100%, 1200px);
+    width: min(100%, 1280px);
     margin: 0 auto;
+    /* Arrange the home page benefits in a grid. */
 }
 
 .home-benefit-card {
-    padding: 24px;
+    padding: 32px;
     border: 1px solid #e2ebe6;
     border-radius: 10px;
     background: #fff;
+    /* Add a background, border, and padding to each benefit card. */
 }
 
 .home-benefit-number {
@@ -366,41 +443,46 @@ body.home-page {
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1px;
+    /* Style each benefit number in a small, green font. */
 }
 
 .home-benefit-card h3,
 .home-step-list h3 {
-    margin: 13px 0 8px;
+    margin: 16px 0 10px;
     color: #234338;
-    font-size: 17px;
+    font-size: 24px;
+    /* Give each benefit card heading a dark green color and readable size. */
 }
 
 .home-benefit-card p,
 .home-step-list p {
     margin: 0;
     color: #718179;
-    font-size: 14px;
-    line-height: 1.65;
-}
-
-.home-steps {
-    background: #f1f6f3;
+    font-size: 18px;
+    line-height: 1.7;
+    /* Style the benefit card descriptions. */
 }
 
 .home-step-list {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 26px;
-    max-width: 1200px;
+    gap: 24px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0;
     list-style: none;
+    /* Arrange the steps list in a three-column grid. */
 }
 
 .home-step-list li {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 18px;
+    padding: 32px;
+    border: 1px solid #e2ebe6;
+    border-radius: 10px;
+    background: #fff;
+    /* Match each step's card styling to the benefit cards above. */
 }
 
 .home-step-list li > span {
@@ -414,10 +496,7 @@ body.home-page {
     color: #236b58;
     font-size: 14px;
     font-weight: 800;
-}
-
-.home-step-list h3 {
-    margin-top: 3px;
+    /* Style each step marker with color, spacing, and a consistent size. */
 }
 
 .home-quote {
@@ -427,6 +506,7 @@ body.home-page {
     gap: 20px;
     margin: 68px auto;
     padding: 0 24px;
+    /* Arrange the quote and its marker with consistent spacing. */
 }
 
 .home-quote-mark {
@@ -434,6 +514,7 @@ body.home-page {
     font-family: Georgia, serif;
     font-size: 64px;
     line-height: 0.9;
+    /* Set the quote marker's size and color. */
 }
 
 .home-quote blockquote {
@@ -447,6 +528,7 @@ body.home-page {
     font-weight: 600;
     letter-spacing: -0.4px;
     line-height: 1.5;
+    /* Adjust the quote's letter spacing and font size for emphasis. */
 }
 
 .home-quote cite {
@@ -455,6 +537,7 @@ body.home-page {
     color: #718179;
     font-size: 13px;
     font-style: normal;
+    /* Style the citation in gray with a smaller font size. */
 }
 
 .home-final-cta {
@@ -468,40 +551,47 @@ body.home-page {
     border-radius: 12px;
     background: #1f5d4b;
     color: #fff;
+    /* Set apart the final call to action with a contrasting background. */
 }
 
 .home-final-cta .home-kicker {
     color: #b9dfcb;
+    /* Highlight the final call-to-action kicker with a lighter color. */
 }
 
 .home-final-cta h2 {
     color: #fff;
+    /* Set the final call-to-action heading to white. */
+
 }
 
 .home-final-cta > div > p:last-child {
     margin: 9px 0 0;
     color: #d6e9df;
     line-height: 1.5;
+    /* Style the supporting text in the final call-to-action. */
 }
 
 .home-button-light {
     flex-shrink: 0;
     background: #fff;
     color: #205d4b;
+    /* Use a light button style for contrast against the dark section. */
 }
 
 .home-button-light:hover {
     background: #eaf4ee;
+<<<<<<< HEAD
+=======
+    /* Slightly tint the light button on hover. */
+>>>>>>> main
 }
 
 @media (max-width: 850px) {
+    /* Adjust the hero and steps layouts for medium-sized screens. */
     .home-hero {
-        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
-        gap: 28px;
-    }
-
-    .home-hero-art {
-        min-height: 310px;
+        grid-template-columns: 1fr;
+        min-height: 0;
     }
 
     .home-step-list {
@@ -509,9 +599,11 @@ body.home-page {
         gap: 20px;
         max-width: 560px;
     }
+
 }
 
 @media (max-width: 640px) {
+    /* Stack home page content and reduce spacing on small screens. */
     .home-hero {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -529,15 +621,6 @@ body.home-page {
         font-size: 15px;
     }
 
-    .home-hero-art {
-        min-height: 275px;
-        border-radius: 45% 45% 14px 14px;
-    }
-
-    .home-art-card {
-        min-height: 220px;
-    }
-
     .home-benefits,
     .home-steps {
         padding: 54px 18px;
@@ -549,7 +632,17 @@ body.home-page {
     }
 
     .home-benefit-card {
-        padding: 20px;
+        padding: 24px;
+    }
+
+    .home-benefit-card h3,
+    .home-step-list h3 {
+        font-size: 21px;
+    }
+
+    .home-benefit-card p,
+    .home-step-list p {
+        font-size: 16px;
     }
 
     .home-quote {
@@ -572,14 +665,25 @@ body.home-page {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .home-button {
+    /* Respect preferences for reduced motion. */
+    .home-button,
+    .home-page.intro-ready .site-header,
+    .home-page.intro-ready main > section,
+    .home-page.intro-ready .home-footer,
+    body.othermainpages-intro-ready .site-header,
+    body.othermainpages-intro-ready .about-page > section,
+    body.othermainpages-intro-ready main:not(.about-page),
+    body.othermainpages-intro-ready .container,
+    body.othermainpages-intro-ready .home-footer {
         transition: none;
+        animation: none;
     }
 }
 
 .contact-header {
     text-align: center;
     margin-bottom: 28px;
+    /* Center the contact page heading and add space below it. */
 }
 
 .contact-page {
@@ -587,6 +691,7 @@ body.home-page {
     background: #f7faf8;
     color: #18352d;
     font-family: Arial, Helvetica, sans-serif;
+    /* Set the contact page's base colors and font. */
 }
 
 .contact-content {
@@ -599,6 +704,7 @@ body.home-page {
     background: #fff;
     box-shadow: 0 12px 32px rgba(24, 53, 45, 0.08);
     line-height: 1.65;
+    /* Center the contact content in a readable, card-like layout. */
 }
 
 .contact-header h1 {
@@ -606,17 +712,20 @@ body.home-page {
     color: #18352d;
     font-size: clamp(28px, 4vw, 36px);
     line-height: 1.2;
+    /* Style the contact page's main heading. */
 }
 
 .contact-header p {
     margin: 10px 0 0;
     color: #718179;
+    /* Add space above the contact page subtitle. */
 }
 
 .contact-intro,
 .contact-outro {
     color: #52675d;
     text-align: center;
+    /* Center the introductory and closing contact text. */
 }
 
 .contact-info {
@@ -626,29 +735,35 @@ body.home-page {
     border-radius: 9px;
     background: #f7faf8;
     text-align: center;
+    /* Present contact details in a centered, shaded panel. */
 }
 
 .contact-info h2 {
     margin: 0 0 12px;
     color: #236b58;
     font-size: 21px;
+    /* Highlight the contact details heading. */
 }
 
 .contact-info p {
     margin: 10px 0 0;
     color: #52675d;
+    /* Space and color each line of contact information. */
 }
 
 .contact-info a {
     color: #236b58;
     font-weight: 700;
+    /* Make contact links easy to identify. */
 }
 
 .contact-outro {
     margin: 0;
+    /* Remove extra margin below the closing contact text. */
 }
 
 @media (max-width: 520px) {
+    /* Reduce contact panel spacing on narrow screens. */
     .contact-content {
         margin: 24px auto;
         padding: 24px 18px;
