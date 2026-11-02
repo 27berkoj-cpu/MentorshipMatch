@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 footer {
     background-color: #222;
     color: black;
@@ -13,13 +15,17 @@ footer {
     /* Style the footer with spacing, color, and readable text. */
 }
 
+>>>>>>> main
 
 body{
     color:white;
     background-color: #ffffff;
+<<<<<<< HEAD
+=======
     font-family: Arial, Helvetica, sans-serif;
 
     /* Set the text and background colors and use a sans-serif font. */
+>>>>>>> main
 }
 
 body.home-page {
@@ -575,7 +581,10 @@ body.othermainpages-intro-ready .about-page ~ .home-footer {
 
 .home-button-light:hover {
     background: #eaf4ee;
+<<<<<<< HEAD
+=======
     /* Slightly tint the light button on hover. */
+>>>>>>> main
 }
 
 @media (max-width: 850px) {
@@ -763,4 +772,45 @@ body.othermainpages-intro-ready .about-page ~ .home-footer {
     .contact-info {
         padding: 20px 16px;
     }
+}
+
+footer {
+    background-color: #222;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer{
+    /* Change this color to adjust the footer background */
+    background-color: #8bb681;
+}
+
+.home-footer {
+    margin: 0;
+    padding: 32px 24px;
+    border-top: 1px solid #e1eae5;
+    background: #fff;
+    color: #6e7e76;
+    text-align: center;
+}
+
+.home-footer .site-brand {
+    display: inline-block;
+}
+
+.home-footer p {
+    margin: 9px 0;
+    font-size: 13px;
+}
+
+.home-footer small {
+    color: #000000;
+    font-size: 12px;
 }
