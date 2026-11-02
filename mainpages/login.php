@@ -30,7 +30,9 @@
     </head>
 <body>
     <header class="site-header">
-        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <a class="site-brand" href="index.html">
+            <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="100" height="75">
+        </a>
         <nav class="site-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
