@@ -45,16 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <link rel="stylesheet" href="../style/navbar.css">
         <link rel="stylesheet" href="../style/forms.css?v=1">    </head>
     <body>
-        <header class="site-header">
-            <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
-            <nav class="site-nav" aria-label="Student navigation">
-                <a href="student-homepage.html">Dashboard</a>
-                <a href="mentors.html">Find mentors</a>
-                <a class="is-current" href="sessions.html" aria-current="page">Sessions</a>
-                <a href="messages.html">Messages</a>
-                <a href="profile.html">Profile</a>
-            </nav>
-        </header>
 
 
         <form class="booking-form" method="POST" action="">
@@ -98,16 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </select>
             </div>
             <input type="submit" value="Request session">
-            <p>Requests will be saved after database booking is connected.</p>
         </form>
 
-        <footer>
-        <p>Chapter Name: [CHAPTER NAME]</p>
-        <p>Team Members: Joshua Berko, Shou Lin, Thavael Noel, Kyle Palermini</p>
-        <p>Theme: MentorshipMatch</p>
-        <p>Delaware Area Career Center | Delaware, Ohio | 2026–2027</p>
-    </footer> 
-    </body>
+        <footer class="home-footer">
+        <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
+        <p>Helping students connect with guidance, experience, and opportunity.</p>
+        <small>Chapter Name: Delaware Area Career Center</small><br>
+        <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+        <small>Delaware, Ohio  2026-2027</small>
+    </footer>
+</body>
 </html>
 
 <!-- student/student-booking.html will display the booking interface for students.

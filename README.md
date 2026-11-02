@@ -37,7 +37,7 @@ index.html will be the main landing page for MentorshipMatch. It should introduc
 
 login.html will handle user login. It should contain fields for an email or username and password, along with a login button and useful error messages. This is required because the BPA topic specifically requires user registration and login.
 
-register.html will allow new users to create an account. It should collect information such as their name, email, password, and whether they are registering as a student or mentor. Depending on the account type, it can also collect academic interests, career goals, or professional information. This fulfills the user-registration requirement.
+signup.php will allow new users to create an account. It should collect information such as their name, email, password, and whether they are registering as a student or mentor. Depending on the account type, it can also collect academic interests, career goals, or professional information. This fulfills the user-registration requirement.
 
 about.html will explain what MentorshipMatch is, why it exists, and how the mentorship process works. It isn't specifically required by the BPA topic, but it makes the application feel more complete and professional and gives you another opportunity to demonstrate strong writing, navigation, and design.
 

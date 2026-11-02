@@ -24,5 +24,15 @@
             <a class="nav-cta is-current" href="signup.php" aria-current="page">Get started</a>
         </nav>
     </header>
+
+
+
+    <footer class="home-footer">
+        <a class="site-brand" href="index.html">Mentorship<span>Match</span></a>
+        <p>Helping students connect with guidance, experience, and opportunity.</p>
+        <small>Chapter Name: Delaware Area Career Center</small><br>
+        <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
+        <small>Delaware, Ohio  2026-2027</small>
+    </footer>
 </body>
 </html>

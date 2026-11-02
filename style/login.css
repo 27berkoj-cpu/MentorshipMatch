@@ -1,0 +1,154 @@
+nav {
+            border: 3px solid yellow;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* This is for Login and Signup css */
+        
+        /* This is for the card flip and switching tabs*/
+        .student-container,
+        .mentor-container {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
+        }
+ 
+        .student-container label,
+        .mentor-container label{
+            cursor: pointer;
+        }
+
+        input[type="submit"]{
+            cursor: pointer;
+        }
+
+        .student-container { transform: translateX(-60px); }
+        .mentor-container  { transform: translateX(60px); }
+ 
+        #student:checked ~ .student-container,
+        #mentor:checked ~ .mentor-container {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(0);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0s;
+        }
+ 
+
+        .tab label {
+            cursor: pointer;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+        }
+ 
+        #student:checked ~ .tab label[for="student"],
+        #mentor:checked ~ .tab label[for="mentor"] {
+            font-weight: bold;
+            border-bottom: 2px solid black;
+        }
+ 
+        @media (prefers-reduced-motion: reduce) {
+            .student-container, .mentor-container { transition: none; }
+        }
+
+        #student-flip:checked ~ .card-wrap .card,
+        #mentor-flip:checked ~ .card-wrap .card{
+            transform: rotateY(180deg);
+        }
+
+        #student-flip,
+        #mentor-flip,
+        #switch,
+        #student,
+        #mentor{
+            display: none;
+        }
+
+        .flip-sign{
+            color: rgb(0, 0, 238);
+        }
+        /* This is for container and card css */
+
+        .student-container{
+            z-index: 1;
+        }
+
+        .mentor-container{
+            z-index: 0;
+        }
+
+        .container {
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            align-content: center;
+            justify-items: center;
+            width: 100%;
+            flex: 1;
+            transition: all 0.5s ease;
+            position: relative;
+            border: 3px solid red;
+        }
+
+        .container > .tab{
+            grid-area: 1/1;
+        }
+        .container > .student-container{
+            grid-area: 2/1;
+        }
+        .container > .mentor-container{
+            grid-area: 2/1;
+        }
+
+        .tab{
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card-wrap{
+            perspective: 1000px;
+        }
+
+        .card {
+            display: grid;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .login-container,
+        .signup-container {
+            grid-area: 1/1;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .login-container {
+            border: 3px solid blue;
+            backface-visibility: hidden;
+        }
+
+        .signup-container {
+            border: 3px solid blue;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+
+        .top{
+            border: 3px solid green;
+            align-items: center;
+            justify-content: space-around;
+        }
