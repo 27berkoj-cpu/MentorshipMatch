@@ -3,14 +3,19 @@ footer {
     color: black;
     text-align: center;
     padding: 20px;
-    margin-top: 40px;
-    font-size: 14px;
+    margin-top: 5px;
+    font-size: 18px;
 
     p{
         margin: 5px 0;
         /* Add spacing between footer paragraphs. */
     }
     /* Style the footer with spacing, color, and readable text. */
+}
+footer-image{
+    display: block;
+    margin: 0 auto 12px;
+    /* Center the footer image and add spacing below it. */
 }
 
 
