@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // get the form data
     $student_id = trim($_POST['student_id'] ?? '');
     $mentor_id = trim($_POST['mentor_id'] ?? '');
+    $mentorName = trim($_POST['mentorname'] ?? '');
     $sessionDate = trim($_POST['sessiondate'] ?? '');
     $duration = filter_input(INPUT_POST, 'duration', FILTER_VALIDATE_INT);
     $sessionType = trim($_POST['sessiontype'] ?? '');
@@ -32,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($sessionType)) {
         $errors[] = "Session type is required.";
     }
-    if (empty($mentorName)) {
+    if ($mentorName === '') {
         $errors[] = "Choosing a mentor is required.";
     }
+
 }
 ?>
 
@@ -129,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </form>
 
         <footer class="home-footer">
-        <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
+        <a class="footer-logo" href="index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75"></a>
         <p>Helping students connect with guidance, experience, and opportunity.</p>
         <small>Chapter Name: Delaware Area Career Center</small><br>
         <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
