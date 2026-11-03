@@ -29,8 +29,9 @@
 .site-nav {
     display: flex;
     min-width: 0;
+    margin-left: auto;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
 .site-nav a {
@@ -38,7 +39,7 @@
     min-height: 42px;
     align-items: center;
     justify-content: center;
-    padding: 0 13px;
+    padding: 0 14px;
     border-radius: 7px;
     color: #52675d;
     font-size: 14px;
@@ -55,7 +56,7 @@
 }
 
 .site-nav a.nav-cta {
-    margin-left: 5px;
+    margin-left: 8px;
     padding: 0 16px;
     background: #236b58;
     color: #fff;

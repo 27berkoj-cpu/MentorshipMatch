@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 footer {
     background-color: #222;
     color: black;
@@ -15,17 +13,13 @@ footer {
     /* Style the footer with spacing, color, and readable text. */
 }
 
->>>>>>> main
 
 body{
     color:white;
     background-color: #ffffff;
-<<<<<<< HEAD
-=======
     font-family: Arial, Helvetica, sans-serif;
 
     /* Set the text and background colors and use a sans-serif font. */
->>>>>>> main
 }
 
 body.home-page {
@@ -581,10 +575,7 @@ body.othermainpages-intro-ready .about-page ~ .home-footer {
 
 .home-button-light:hover {
     background: #eaf4ee;
-<<<<<<< HEAD
-=======
     /* Slightly tint the light button on hover. */
->>>>>>> main
 }
 
 @media (max-width: 850px) {
