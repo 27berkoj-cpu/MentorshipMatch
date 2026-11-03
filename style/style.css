@@ -13,6 +13,13 @@ footer {
     /* Style the footer with spacing, color, and readable text. */
 }
 
+.footer-logo{
+    display: block;
+    margin: 0 auto 12px;
+    /* Center the footer logo and add spacing below it. */
+
+}
+
 
 body{
     color:white;
@@ -803,5 +810,5 @@ footer{
 
 .home-footer small {
     color: #000000;
-    font-size: 12px;
+    font-size: 16px;
 }

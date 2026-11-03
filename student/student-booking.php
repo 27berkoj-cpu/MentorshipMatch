@@ -6,6 +6,7 @@ $mentor_id = 0;
 $sessionDate = '';
 $duration = 0;
 $sessionType = '';
+$mentorName = '';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // get the form data
@@ -31,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($sessionType)) {
         $errors[] = "Session type is required.";
     }
+    if (empty($mentorName)) {
+        $errors[] = "Choosing a mentor is required.";
+    }
 }
 ?>
 
@@ -47,10 +51,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <link rel="icon" href="../Images/Logo/MentorshipMatchLogo.png" type="image/png"> 
     </head>
     <body>
-
+        <header class="site-header">
+            <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
+            <nav class="site-nav" aria-label="Student navigation">
+                <a href="student-homepage.html">Dashboard</a>
+                <a href="mentors.html">Find mentors</a>
+                <a class="is-current" href="sessions.html" aria-current="page">Sessions</a>
+                <a href="messages.html">Messages</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+        </header>
 
         <form class="booking-form" method="POST" action="">
-            <h1>Book a mentoring session</h1>
+            <h1>Request a mentoring session</h1>
 
             <?php if (!empty($errors)): ?>
                 <div class="error-message" style="color: #b00020; margin-bottom: 1rem; font-weight: bold;">
@@ -64,6 +77,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
             <?php endif; ?>
 
+            <div class="booking-field">
+               <label for="mentorname">Choose a mentor</label> <!-- Replace with the real mentors names when the database is set up. For now, this is a placeholder.-->
+               <select id="mentorname" name="mentorname" required>
+                    <option value="" disabled selected>Select a mentor</option>
+                    <option value="Liam Anderson">Liam Anderson</option>
+                    <option value="Ava Mitchell">Ava Mitchell</option>
+                    <option value="Noah Bennett">Noah Bennett</option>
+                    <option value="Sophia Carter">Sophia Carter</option>
+                    <option value="Ethan Brooks">Ethan Brooks</option>
+                    <option value="Isabella Hayes">Isabella Hayes</option>
+                    <option value="Mason Parker">Mason Parker</option>
+                    <option value="Olivia Reed">Olivia Reed</option>
+                    <option value="Lucas Morgan">Lucas Morgan</option>
+                    <option value="Mia Thompson">Mia Thompson</option>
+                    <option value="Caleb Foster">Caleb Foster</option>
+                    <option value="Harper Collins">Harper Collins</option>
+                    <option value="Elijah Turner">Elijah Turner</option>
+                    <option value="Chloe Ramirez">Chloe Ramirez</option>
+                    <option value="Jackson Blake">Jackson Blake</option>
+                   <option value="" disabled selected>Select a mentor</option>
+                   <!-- Options for mentors would be populated here -->
+               </select>
+            </div>
             <div class="booking-field">
                 <label for="sessiondate">Session date and time</label>
                 <input type="datetime-local" id="sessiondate" name="sessiondate" required>
