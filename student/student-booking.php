@@ -54,12 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </head>
     <body>
         <header class="site-header">
-            <a class="site-brand" href="../mainpages/index.html">Mentorship<span>Match</span></a>
+            <a class="site-brand" href="../mainpages/index.html" aria-label="MentorshipMatch home">
+            <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">
+            </a>
             <nav class="site-nav" aria-label="Student navigation">
                 <a href="student-homepage.html">Dashboard</a>
                 <a href="mentors.html">Find mentors</a>
                 <a class="is-current" href="sessions.html" aria-current="page">Sessions</a>
                 <a href="messages.html">Messages</a>
+                <a href="student-notfications.html">Notifications</a>
+                <a href="student-reviews.html">Reviews</a>
                 <a href="profile.html">Profile</a>
             </nav>
         </header>
@@ -131,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </form>
 
         <footer class="home-footer">
-        <a class="footer-logo" href="index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75"></a>
+        <a class="footer-logo" href="../mainpages/index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75"></a>
         <p>Helping students connect with guidance, experience, and opportunity.</p>
         <small>Chapter Name: Delaware Area Career Center</small><br>
         <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>
