@@ -1,14 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Find the student and mentor role selectors after the page is ready.
+    const flipCheckboxes = document.querySelectorAll('.sync-checkbox');
     const roles = document.querySelectorAll('input[name="role"]');
+    let isSignUp = false;
+
+    // Keep both role cards on the same side of the login/sign-up card.
+    const syncFlipState = () => {
+        flipCheckboxes.forEach(checkbox => {
+            checkbox.checked = isSignUp;
+        });
+    };
+
+    flipCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            isSignUp = checkbox.checked;
+            syncFlipState();
+        });
+    });
 
     roles.forEach(role => {
-        role.addEventListener('change', () => {
-            // Show the selected role's sign-in side when switching roles.
-            const activeFlip = document.getElementById(`${role.id}-flip`);
-            if (activeFlip) {
-                activeFlip.checked = false;
-            }
-        });
+        role.addEventListener('change', syncFlipState);
     });
 });
