@@ -87,22 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                <label for="mentorname">Choose a mentor</label> <!-- Replace with the real mentors names when the database is set up. For now, this is a placeholder.-->
                <select id="mentorname" name="mentorname" required>
                     <option value="" disabled selected>Select a mentor</option>
-                    <option value="Liam Anderson">Liam Anderson</option>
-                    <option value="Ava Mitchell">Ava Mitchell</option>
-                    <option value="Noah Bennett">Noah Bennett</option>
-                    <option value="Sophia Carter">Sophia Carter</option>
-                    <option value="Ethan Brooks">Ethan Brooks</option>
-                    <option value="Isabella Hayes">Isabella Hayes</option>
-                    <option value="Mason Parker">Mason Parker</option>
-                    <option value="Olivia Reed">Olivia Reed</option>
-                    <option value="Lucas Morgan">Lucas Morgan</option>
-                    <option value="Mia Thompson">Mia Thompson</option>
-                    <option value="Caleb Foster">Caleb Foster</option>
-                    <option value="Harper Collins">Harper Collins</option>
-                    <option value="Elijah Turner">Elijah Turner</option>
-                    <option value="Chloe Ramirez">Chloe Ramirez</option>
-                    <option value="Jackson Blake">Jackson Blake</option>
-                   <option value="" disabled selected>Select a mentor</option>
+                    <!--Display all the mentors first name, last name, and feild from the database-->
+                    
                    <!-- Options for mentors would be populated here -->
                </select>
             </div>
