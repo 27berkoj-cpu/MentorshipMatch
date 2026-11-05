@@ -140,7 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <nav class="site-nav" aria-label="Student navigation">
                 <a href="student-homepage.html">Dashboard</a>
                 <a href="mentors.html">Find mentors</a>
-                <a class="is-current" href="sessions.html" aria-current="page">Sessions</a>
+                <a class="is-current" href="student-booking.php" aria-current="page">Book a session</a>
+                <a href="sessions.html">Sessions</a>
                 <a href="messages.html">Messages</a>
                 <a href="student-notfications.html">Notifications</a>
                 <a href="student-reviews.html">Reviews</a>
