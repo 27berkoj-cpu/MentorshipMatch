@@ -1,25 +1,44 @@
 <?php
 
+
+require_once __DIR__ . '/../database/server.php';
+require_once __DIR__ . '/../database/session.php';
+
+if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
+    header('Location: ../mainpages/login.html');
+    exit;
+}
+
 $errors = [];
-$student_id = 0;
-$mentor_id = 0;
+$mentors = [];
+$mentorLoadError = '';
+$bookingError = '';
+$bookingSaved = false;
+$emailSent = false;
+$mentorId = '';
 $sessionDate = '';
 $duration = 0;
 $sessionType = '';
-$mentorName = '';
+
+// Load mentors once so the list can be displayed and submitted IDs can be checked.
+try {
+    $stmt = $mentorDb->query(
+        'SELECT mentors_id AS id, first_name, last_name, feild AS field FROM mentorstb ORDER BY first_name, last_name'
+    );
+    $mentors = $stmt->fetchAll();
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    $mentorLoadError = 'Mentor list could not be loaded. Please try again later.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // get the form data
-    $student_id = trim($_POST['student_id'] ?? '');
-    $mentor_id = trim($_POST['mentor_id'] ?? '');
-    $mentorName = trim($_POST['mentorname'] ?? '');
+    // Read the submitted values; the mentor ID is validated against the loaded records below.
+    $mentorId = trim($_POST['mentor_id'] ?? '');
     $sessionDate = trim($_POST['sessiondate'] ?? '');
     $duration = filter_input(INPUT_POST, 'duration', FILTER_VALIDATE_INT);
     $sessionType = trim($_POST['sessiontype'] ?? '');
 
-    // user is not entering student/mentor IDs yet, so don't require them yet
-    // datetime-local sends a value like 2026-09-29T15:30, which should be stored directly
-
+    // A datetime-local value must be present and parse as a valid date/time.
     if (empty($sessionDate)) {
         $errors[] = "Session date and time is required.";
     } elseif (!strtotime($sessionDate)) {
@@ -30,13 +49,74 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors[] = "Valid session duration is required.";
     }
 
-    if (empty($sessionType)) {
+    if (!in_array($sessionType, ['Video call', 'Chat Session'], true)) {
         $errors[] = "Session type is required.";
     }
-    if ($mentorName === '') {
-        $errors[] = "Choosing a mentor is required.";
+
+    // Do not trust an ID just because it was submitted by the browser.
+    $mentorIds = array_map('strval', array_column($mentors, 'id'));
+    if ($mentorId === '' || !in_array($mentorId, $mentorIds, true)) {
+        $errors[] = "Choose a valid mentor.";
     }
 
+    if (empty($errors)) {
+        $selectedMentor = null;
+        foreach ($mentors as $mentor) {
+            if ((string) $mentor['id'] === $mentorId) {
+                $selectedMentor = $mentor;
+                break;
+            }
+        }
+
+        try {
+            $insert = $studentDb->prepare(
+                'INSERT INTO session_requests
+                    (student_id, mentor_id, session_datetime, duration, session_type, created_at)
+                 VALUES (?, ?, ?, ?, ?, NOW())'
+            );
+            $insert->execute([
+                $_SESSION['user']['id'],
+                $mentorId,
+                str_replace('T', ' ', $sessionDate),
+                $duration,
+                $sessionType,
+            ]);
+            $bookingSaved = true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $bookingError = 'Your session request could not be saved. Please try again later.';
+        }
+
+        if ($bookingSaved && $selectedMentor !== null) {
+            $emailScript = __DIR__ . '/../web app features/email.py';
+            $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python';
+            $command = escapeshellarg($python) . ' ' . escapeshellarg($emailScript) . ' '
+                . escapeshellarg($_SESSION['user']['email']) . ' '
+                . escapeshellarg(trim($selectedMentor['first_name'] . ' ' . $selectedMentor['last_name'])) . ' '
+                . escapeshellarg($sessionDate) . ' '
+                . escapeshellarg((string) $duration) . ' '
+                . escapeshellarg($sessionType);
+            $process = proc_open($command, [
+                0 => ['pipe', 'r'],
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w'],
+            ], $pipes);
+
+            if (is_resource($process)) {
+                fclose($pipes[0]);
+                $emailOutput = stream_get_contents($pipes[1]);
+                $emailError = stream_get_contents($pipes[2]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                $emailSent = proc_close($process) === 0;
+                if (!$emailSent) {
+                    error_log(trim($emailError . ' ' . $emailOutput));
+                }
+            } else {
+                error_log('Unable to start the Python process for the booking email.');
+            }
+        }
+    }
 }
 ?>
 
@@ -71,30 +151,56 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <form class="booking-form" method="POST" action="">
             <h1>Request a mentoring session</h1>
 
+            <?php if ($mentorLoadError !== ''): ?>
+                <div class="error-message" role="alert" style="color: #b00020; margin-bottom: 1rem; font-weight: bold;">
+                    <p><?php echo htmlspecialchars($mentorLoadError, ENT_QUOTES, 'UTF-8'); ?></p>
+                </div>
+            <?php endif; ?>
+
             <?php if (!empty($errors)): ?>
                 <div class="error-message" style="color: #b00020; margin-bottom: 1rem; font-weight: bold;">
                     <?php foreach ($errors as $error): ?>
                         <p><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
                     <?php endforeach; ?>
                 </div>
-            <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)): ?>
+            <?php elseif ($bookingError !== ''): ?>
+                <div class="error-message" role="alert" style="color: #b00020; margin-bottom: 1rem; font-weight: bold;">
+                    <p><?php echo htmlspecialchars($bookingError, ENT_QUOTES, 'UTF-8'); ?></p>
+                </div>
+            <?php elseif ($bookingSaved): ?>
                 <div class="success-message" style="color: #0a7f3e; margin-bottom: 1rem; font-weight: bold;">
-                    <p>Booking request submitted successfully.</p>
+                    <p>Session request saved successfully.</p>
+                    <?php if (!$emailSent): ?>
+                        <p role="status">The request was saved, but the confirmation email could not be sent.</p>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
             <div class="booking-field">
-               <label for="mentorname">Choose a mentor</label> <!-- Replace with the real mentors names when the database is set up. For now, this is a placeholder.-->
-               <select id="mentorname" name="mentorname" required>
-                    <option value="" disabled selected>Select a mentor</option>
-                    <!--Display all the mentors first name, last name, and feild from the database-->
-                    
-                   <!-- Options for mentors would be populated here -->
+               <label for="mentor_id">Choose a mentor</label>
+               <select id="mentor_id" name="mentor_id" required>
+                    <option value="" disabled <?php echo $mentorId === '' ? 'selected' : ''; ?>>Select a mentor</option>
+                    <!-- Keep the chosen mentor selected if the form has validation errors. -->
+                    <?php foreach ($mentors as $mentor): ?>
+                        <?php
+                            $fullName = trim($mentor['first_name'] . ' ' . $mentor['last_name']);
+                            $field = trim($mentor['field'] ?? '');
+                            $label = $field === '' ? $fullName : $fullName . ' - ' . $field;
+                        ?>
+                        <option value="<?php echo htmlspecialchars((string) $mentor['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                            <?php echo $mentorId === (string) $mentor['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?>
+                        </option>
+                    <?php endforeach; ?>
                </select>
+               <?php if ($mentorLoadError === '' && empty($mentors)): ?>
+                   <p>No mentors are currently available.</p>
+               <?php endif; ?>
             </div>
             <div class="booking-field">
                 <label for="sessiondate">Session date and time</label>
-                <input type="datetime-local" id="sessiondate" name="sessiondate" required>
+                <input type="datetime-local" id="sessiondate" name="sessiondate"
+                    value="<?php echo htmlspecialchars($sessionDate, ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="booking-field">
                 <label for="duration">Duration</label>
