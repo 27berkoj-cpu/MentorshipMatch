@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $action = $_POST['action'] ?? '';
 $role = $_POST['role'] ?? '';
-$email = strtolower(trim($_POST['email'] ?? ''));
+$email = trim($_POST['email'] ?? ''); //to off make it all lowercase, you can use strtolower($email)
 $password = $_POST['password'] ?? '';
 
 if (!in_array($role, ['student', 'mentor'], true)) {
@@ -32,11 +32,23 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) {
     redirectToLogin('invalid_email', $role, $action === 'signup' ? 'signup' : 'login');
 }
 
-$isStudent = $role === 'student';
-$db = $isStudent ? $studentDb : $mentorDb;
-$table = $isStudent ? 'studentstb' : 'mentorstb';
-$idColumn = $isStudent ? 'student_id' : 'mentors_id';
-$fieldColumn = $isStudent ? '' : ', feild';
+if($role === 'student'){
+    $isStudent = true;
+    $isMentor = false;
+    $db = $studentDb;
+    $table = 'studentstb';
+    $idColumn = 'student_id';
+    $fieldColumn = '';
+}
+
+else if($role === 'mentor'){
+    $isStudent = false;
+    $isMentor = true;
+    $db = $mentorDb;
+    $table = 'mentorstb';
+    $idColumn = 'mentor_id';
+    $fieldColumn = ', feild';
+}
 
 if ($action === 'signup') {
     $firstName = trim($_POST['first_name'] ?? '');
@@ -44,13 +56,7 @@ if ($action === 'signup') {
     $field = trim($_POST['field'] ?? '');
 
     if (
-        $firstName === '' ||
-        $lastName === '' ||
-        strlen($firstName) > 255 ||
-        strlen($lastName) > 255 ||
-        strlen($password) < 8 ||
-        strlen($password) > 72 ||
-        (!$isStudent && ($field === '' || strlen($field) > 255))
+        $firstName === '' || $lastName === '' || strlen($firstName) > 255 || strlen($lastName) > 255 || strlen($password) < 8 || strlen($password) > 72 || (!$isStudent && ($field === '' || strlen($field) > 255))
     ) {
         redirectToLogin('invalid_signup', $role, 'signup');
     }
@@ -69,7 +75,7 @@ if ($action === 'signup') {
                  VALUES (?, ?, ?, ?, NOW())'
             );
             $insert->execute([$firstName, $lastName, $email, $passwordHash]);
-        } else {
+        } else if ($isMentor) {
             $insert = $db->prepare(
                 'INSERT INTO mentorstb (first_name, last_name, email, password, feild, created_at)
                  VALUES (?, ?, ?, ?, ?, NOW())'
