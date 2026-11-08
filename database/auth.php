@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/server.php';
 require_once __DIR__ . '/session.php';
-// Redirect users who are already logged in to their respective homepages.
+
+// Return the visitor to the login page with a safe, page-specific error message.
 function redirectToLogin($error, $role, $mode)
 {
     $query = http_build_query([
@@ -19,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Read submitted values before validating the requested account action and role.
 $action = $_POST['action'] ?? '';
 $role = $_POST['role'] ?? '';
 $email = strtolower(trim($_POST['email'] ?? ''));
@@ -33,31 +35,26 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) {
 }
 
 $isStudent = $role === 'student';
-// Student and mentor accounts use separate tables, so the selected role determines where this account is stored.
+$isMentor = $role === 'mentor';
 $db = $isStudent ? $studentDb : $mentorDb;
 $table = $isStudent ? 'studentstb' : 'mentorstb';
 $idColumn = $isStudent ? 'student_id' : 'mentors_id';
 $fieldColumn = $isStudent ? '' : ', feild';
 
+// Create the account in the table for the selected role.
 if ($action === 'signup') {
     $firstName = trim($_POST['first_name'] ?? '');
     $lastName = trim($_POST['last_name'] ?? '');
     $field = trim($_POST['field'] ?? '');
 
     if (
-        $firstName === '' ||
-        $lastName === '' ||
-        strlen($firstName) > 255 ||
-        strlen($lastName) > 255 ||
-        strlen($password) < 8 ||
-        strlen($password) > 72 ||
-        (!$isStudent && ($field === '' || strlen($field) > 255))
+        $firstName === '' || $lastName === '' || strlen($firstName) > 255 || strlen($lastName) > 255 || strlen($password) < 8 || strlen($password) > 72 || (!$isStudent && ($field === '' || strlen($field) > 255))
     ) {
         redirectToLogin('invalid_signup', $role, 'signup');
     }
 
     try {
-        // Check for duplicates only in this role's table; the same email may have one account for each role.
+        // Check duplicates within this role; an email may have both a student and mentor account.
         $check = $db->prepare("SELECT 1 FROM $table WHERE email = ? LIMIT 1");
         $check->execute([$email]);
         if ($check->fetchColumn()) {
@@ -71,7 +68,7 @@ if ($action === 'signup') {
                  VALUES (?, ?, ?, ?, NOW())'
             );
             $insert->execute([$firstName, $lastName, $email, $passwordHash]);
-        } else {
+        } elseif ($isMentor) {
             $insert = $db->prepare(
                 'INSERT INTO mentorstb (first_name, last_name, email, password, feild, created_at)
                  VALUES (?, ?, ?, ?, ?, NOW())'
@@ -79,7 +76,7 @@ if ($action === 'signup') {
             $insert->execute([$firstName, $lastName, $email, $passwordHash, $field]);
         }
 
-        // Sign the new account in immediately using the role that was just registered.
+        // Sign in the new account immediately and rotate the session ID.
         session_regenerate_id(true);
         $_SESSION['user'] = [
             'id' => (int) $db->lastInsertId(),
@@ -92,6 +89,7 @@ if ($action === 'signup') {
         error_log($e->getMessage());
         redirectToLogin('account_error', $role, 'signup');
     }
+// Look up the account using only the table and columns selected for its role.
 } elseif ($action === 'login') {
     if ($password === '' || strlen($password) > 255) {
         redirectToLogin('invalid_credentials', $role, 'login');
@@ -115,6 +113,7 @@ if ($action === 'signup') {
         redirectToLogin('invalid_credentials', $role, 'login');
     }
 
+    // Rotate the session ID after successful authentication.
     session_regenerate_id(true);
     $_SESSION['user'] = [
         'id' => (int) $account['id'],
@@ -127,5 +126,6 @@ if ($action === 'signup') {
     redirectToLogin('invalid_request', $role, 'login');
 }
 
+// Send each role to the page that matches its authenticated account.
 header('Location: ' . ($isStudent ? '../student/student-homepage.html' : '../mentor/mentor-homepage.html'));
 exit;
