@@ -1,4 +1,3 @@
-
 import os
 import sys
 from pathlib import Path
@@ -25,8 +24,8 @@ def automated_email(recipientEmail, mentorName, sessionDateTime, duration, sessi
     msg['From'] = sender_email
     msg['To'] = recipientEmail
     msg['Subject'] = subject
-
-    body = """Hello,
+    #we need to add the student first and last name after hello, {}
+    body = """Hello, 
 
 Your mentoring session has been successfully booked with the following details:
 
@@ -35,7 +34,7 @@ Date and Time: {}
 Duration: {} minutes
 Session Type: {}
 
-Thank you for using MentorshipMatch!
+Thank you for using MentorshipMatch! We hope you have an awesome and educational session with your mentor, and come again soon to book more sessions!!!
 
 Best regards,
 MentorshipMatch Team""".format(
