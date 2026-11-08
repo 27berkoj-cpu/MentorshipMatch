@@ -44,5 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (message && errorMessages[params.get('error')]) {
         message.textContent = errorMessages[params.get('error')];
         message.hidden = false;
+        // Funciton to make error message go away after 8 seconds.
+        window.setTimeout(() => {
+            message.hidden = true;
+        }, 8000);
     }
 });

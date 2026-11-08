@@ -2,15 +2,15 @@
 
 require_once __DIR__ . '/server.php';
 require_once __DIR__ . '/session.php';
-
+// Redirect users who are already logged in to their respective homepages.
 function redirectToLogin($error, $role, $mode)
 {
     $query = http_build_query([
         'error' => $error,
-        'role' => $role,
-        'mode' => $mode,
+        'role' => $role,//student or mentor
+        'mode' => $mode, //login or signup
     ]);
-    header('Location: ../mainpages/login.html?' . $query);
+    header('Location: ../mainpages/login.html?' . $query); // Re
     exit;
 }
 
@@ -33,6 +33,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) {
 }
 
 $isStudent = $role === 'student';
+// Student and mentor accounts use separate tables, so the selected role determines where this account is stored.
 $db = $isStudent ? $studentDb : $mentorDb;
 $table = $isStudent ? 'studentstb' : 'mentorstb';
 $idColumn = $isStudent ? 'student_id' : 'mentors_id';
@@ -56,6 +57,7 @@ if ($action === 'signup') {
     }
 
     try {
+        // Check for duplicates only in this role's table; the same email may have one account for each role.
         $check = $db->prepare("SELECT 1 FROM $table WHERE email = ? LIMIT 1");
         $check->execute([$email]);
         if ($check->fetchColumn()) {
@@ -77,6 +79,7 @@ if ($action === 'signup') {
             $insert->execute([$firstName, $lastName, $email, $passwordHash, $field]);
         }
 
+        // Sign the new account in immediately using the role that was just registered.
         session_regenerate_id(true);
         $_SESSION['user'] = [
             'id' => (int) $db->lastInsertId(),
