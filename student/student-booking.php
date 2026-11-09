@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <body>
         <header class="site-header">
             <a class="site-brand" href="../mainpages/index.html" aria-label="MentorshipMatch home">
-            <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">
+                <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">
             </a>
             <nav class="site-nav" aria-label="Student navigation">
                 <a href="student-homepage.html">Dashboard</a>
