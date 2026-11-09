@@ -21,5 +21,6 @@ function connectDb($dbName) {
     }
 }
 
-$mentorDb  = connectDb("mentor_db");
-$studentDb = connectDb("student_db");
+$sharedDb = connectDb("mentorshipmatch");
+$mentorDb = $sharedDb;
+$studentDb = $sharedDb;

@@ -58,6 +58,22 @@ body *::after {
     background: #edf4f0;
 }
 
+.auth-message {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    left: 50%;
+    width: min(440px, calc(100% - 40px));
+    padding: 10px 14px;
+    transform: translateX(-50%);
+    border: 1px solid #e8b8bf;
+    border-radius: 6px;
+    background: #fff5f6;
+    color: #b00020;
+    font-weight: 700;
+    text-align: center;
+}
+
 .tab label {
     min-width: 112px;
     padding: 10px 18px;
@@ -129,8 +145,8 @@ input[type="submit"] {
 }
 
 .card {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    position: relative;
+    display: block;
     transform-style: preserve-3d;
     transition: transform 600ms cubic-bezier(0.2, 0.7, 0.25, 1);
 }
@@ -142,7 +158,9 @@ input[type="submit"] {
 
 .login-container,
 .signup-container {
-    grid-area: 1 / 1;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     padding: 28px 32px;
     /* Replace the original blue/green debug borders with the site's softer green card style. */
@@ -151,6 +169,21 @@ input[type="submit"] {
     background: #fff;
     box-shadow: 0 16px 42px rgba(24, 53, 45, 0.1);
     backface-visibility: hidden;
+}
+
+.login-container {
+    /* Keep the login face in normal flow so the card wrapper gets its height from it. */
+    position: relative;
+}
+
+.sync-checkbox:checked ~ .card-wrap .login-container {
+    /* While signing up, take the shorter login face out of flow. */
+    position: absolute;
+}
+
+.sync-checkbox:checked ~ .card-wrap .signup-container {
+    /* Let the active signup face determine the wrapper height. */
+    position: relative;
 }
 
 .signup-container {
@@ -193,7 +226,8 @@ input[type="submit"] {
 }
 
 .bottom input[type="email"],
-.bottom input[type="password"] {
+.bottom input[type="password"],
+.bottom input[type="text"] {
     display: block;
     width: 100%;
     min-height: 46px;
@@ -207,7 +241,8 @@ input[type="submit"] {
 }
 
 .bottom input[type="email"]:focus-visible,
-.bottom input[type="password"]:focus-visible {
+.bottom input[type="password"]:focus-visible,
+.bottom input[type="text"]:focus-visible {
     outline: 3px solid #71ada4;
     outline-offset: 2px;
     border-color: #236b58;

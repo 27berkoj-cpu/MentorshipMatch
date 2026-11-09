@@ -18,7 +18,6 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="../student/mentors.html">Find a mentor</a>
         <a class="is-current" href="login.html" aria-current="page">Log in</a>
         <a class="nav-cta" href="login.html">Get started</a>
     </nav>
@@ -31,7 +30,8 @@
         <label for = "mentor">Mentor</label>
     </div>
 
-    
+    <div id="auth-message" class="auth-message" role="alert" hidden></div>
+
     <div class = "student-container">
 
         <input type = "checkbox" id = "student-flip" class = "sync-checkbox">
@@ -45,13 +45,15 @@
                     </div>
 
                     <div class = "bottom">
-                        <form>
+                        <form method="post" action="../database/auth.php">
+                            <input type="hidden" name="action" value="login">
+                            <input type="hidden" name="role" value="student">
                             Please input an email<br>
-                            <input type = "email" placeholder = "example@gmail.com" required>
+                            <input type="email" name="email" placeholder="example@gmail.com" autocomplete="email" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password"  minlength = "6" maxlength = "35" required>
+                            <input type="password" name="password" minlength="8" maxlength="255" autocomplete="current-password" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -71,13 +73,19 @@
                     </div>
 
                     <div class = "bottom">
-                        <form method = "post" action = "signup.php">
-                            Please input an email<br>
-                            <input type = "email" placeholder = "example@gmail.com" required>
+                        <form method="post" action="../database/auth.php">
+                            <input type="hidden" name="action" value="signup">
+                            <input type="hidden" name="role" value="student">
+                            First name<br>
+                            <input type="text" name="first_name" maxlength="255" autocomplete="given-name" required>
+                            Last name<br>
+                            <input type="text" name="last_name" maxlength="255" autocomplete="family-name" required>
+                            Email<br>
+                            <input type="email" name="email" placeholder="example@gmail.com" autocomplete="email" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "35" required>
+                            <input type="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -109,13 +117,15 @@
                     </div>
 
                     <div class = "bottom">
-                        <form>
+                        <form method="post" action="../database/auth.php">
+                            <input type="hidden" name="action" value="login">
+                            <input type="hidden" name="role" value="mentor">
                             Please input an email<br>
-                            <input type = "email" placeholder = "example@gmail.com" required>
+                            <input type="email" name="email" placeholder="example@gmail.com" autocomplete="email" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "35" required>
+                            <input type="password" name="password" minlength="8" maxlength="255" autocomplete="current-password" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
@@ -135,13 +145,21 @@
                     </div>
 
                     <div class = "bottom">
-                        <form method = "post" action = "signup.php">
+                        <form method="post" action="../database/auth.php">
+                            <input type="hidden" name="action" value="signup">
+                            <input type="hidden" name="role" value="mentor">
+                            First name<br>
+                            <input type="text" name="first_name" maxlength="255" autocomplete="given-name" required>
+                            Last name<br>
+                            <input type="text" name="last_name" maxlength="255" autocomplete="family-name" required>
                             Please input an email<br>
-                            <input type = "email" placeholder = "example@gmail.com" required>
+                            <input type="email" name="email" placeholder="example@gmail.com" autocomplete="email" required>
+                            Field / specialty<br>
+                            <input type="text" name="field" maxlength="255" required>
                             <br><br>
 
                             Please input a password<br>
-                            <input type = "password" minlength = "6" maxlength = "35" required>
+                            <input type="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" required>
                             <br><br>
 
                             <input type = "submit" value = "submit">
