@@ -12,10 +12,15 @@ footer {
     }
     /* Style the footer with spacing, color, and readable text. */
 }
-footer-image{
+.footer-image {
     display: block;
     margin: 0 auto 12px;
     /* Center the footer image and add spacing below it. */
+}
+
+.footer-logo {
+    display: block;
+    margin: 0 auto 12px;
 }
 
 
