@@ -5,5 +5,8 @@
 
 }
 .session-booked{
-    display: block;
+    display: grid;
+    grid-template-columns: repeat(8,100px);
+
+
 }
