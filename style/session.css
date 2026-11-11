@@ -1,6 +1,12 @@
 .session-title{
-    color:#325343;
+    color:#236b58;
     text-align: center;
     background-color: #dff7da;
+
+}
+.session-booked{
+    display: grid;
+    grid-template-columns: repeat(8,100px);
+
 
 }
