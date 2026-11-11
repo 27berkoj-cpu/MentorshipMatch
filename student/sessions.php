@@ -2,13 +2,13 @@
 require_once __DIR__ . '/../database/server.php';
 require_once __DIR__ . '/../database/session.php';
 
-// Only allow students to access this page.
+// Making sure only students are on the page.
 if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
     header('Location: ../mainpages/login.html');
     exit;
 }
 
-// Temporary sample data until we connect the database.
+//temporary sample data until we connect the file to the database
 $sessions = [
     [
         'mentor' => 'John Smith',
