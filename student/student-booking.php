@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <a href="student-homepage.html">Dashboard</a>
                 <a href="mentors.html">Find mentors</a>
                 <a class="is-current" href="student-booking.php" aria-current="page">Book a session</a>
-                <a href="sessions.html">Sessions</a>
+                <a href="sessions.php">Sessions</a>
                 <a href="messages.html">Messages</a>
                 <a href="student-notfications.html">Notifications</a>
                 <a href="student-reviews.html">Reviews</a>
@@ -207,13 +207,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <label for="duration">Duration</label>
                 <select id="duration" name="duration" required>
                     <option value="" disabled selected>Select a duration</option>
-                    <option value="15">15 min</option>
-                    <option value="20">20 min</option>
-                    <option value="30">30 min</option>
-                    <option value="45">45 min</option>
-                    <option value="60">1 hr</option>
-                    <option value="90">1 hr and 30 min</option>
-                    <option value="120">2 hr</option>
+                    <option value="15">15 minutes</option>
+                    <option value="20">20 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">1 hour and 30 minutes</option>
+                    <option value="120">2 hours</option>
                 </select>
             </div>
             <div class="booking-field">
