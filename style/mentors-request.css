@@ -1,12 +1,13 @@
 
-/* Main sessions container */
+/* Request layout */
 .request-box {
     width: 85%;
     margin: 40px auto;
     padding: 25px;
     background-color: #ffff;
     border-radius: 12px;
-    border-color: #dff7da;
+    border: 1.5px solid #dff7da;
+    box-sizing: border-box;
 }
 
 /* Page heading */
@@ -19,20 +20,20 @@
     margin-bottom: 30px;
 }
 
-/* Session card grid */
-.session-request {
+/* Request card grid */
+.sessions-request {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
 }
 
-/* Individual session card */
+/* Individual card */
 .grid-item {
-    background-color: #236b58;
-    border: 1px solid #000000;
+    background-color: #dff7da;
+    border: 1px solid #b8d5c7;
     border-radius: 10px;
     padding: 20px;
-    color: white;
+    color: #18352d;
 }
 
 /* Card heading and status */
@@ -51,23 +52,85 @@
 
 /* Status label */
 .request-status {
-    background-color: #0d3505;
-    color: #ffffff;
+    background-color: #edf1ef;
+    color: #18352d;
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 12px;
+    white-space: nowrap;
 }
 
-/* request information */
+.request-status.status-pending {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.request-status.status-accepted {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.request-status.status-declined {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.request-status.status-completed {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+/* Request information */
 .request-details p {
     font-size: 14px;
     margin: 10px 0;
 }
 
+.request-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.request-action {
+    padding: 8px 12px;
+    border: 1px solid #236b58;
+    border-radius: 6px;
+    background: #fff;
+    color: #236b58;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.request-action:hover:not(:disabled) {
+    background: #236b58;
+    color: #fff;
+}
+
+.request-action:focus-visible {
+    outline: 3px solid #54ae91;
+    outline-offset: 2px;
+}
+
+.request-action:disabled {
+    background: #236b58;
+    color: #fff;
+    cursor: default;
+}
+
+.request-error {
+    padding: 12px 16px;
+    border: 1px solid #f1aeb5;
+    border-radius: 6px;
+    background: #f8d7da;
+    color: #842029;
+}
 
 /* Responsive layout */
 @media (max-width: 900px) {
-    .request-booked {
+    .sessions-request {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -78,7 +141,7 @@
         padding: 15px;
     }
 
-    .request-booked {
+    .sessions-request {
         grid-template-columns: 1fr;
     }
 }
