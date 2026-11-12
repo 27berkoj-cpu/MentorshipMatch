@@ -1,0 +1,79 @@
+.booking-form {
+	box-sizing: border-box;
+	display: grid;
+	gap: 22px;
+	width: min(100% - 32px, 520px);
+	margin: 48px auto;
+	padding: 32px;
+	border: 1px solid #c6d8d0;
+	border-radius: 8px;
+	background-color: #fff;
+	color: #18352d;
+	box-shadow: 0 12px 32px rgba(24, 53, 45, 0.1);
+}
+
+.booking-form h1 {
+	margin: 0;
+	font-size: 28px;
+	line-height: 1.2;
+}
+
+.booking-field {
+	display: grid;
+	gap: 8px;
+}
+
+.booking-field label {
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.booking-field input,
+.booking-field select {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 46px;
+	padding: 10px 12px;
+	border: 1px solid #849b91;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #18352d;
+	font: inherit;
+}
+
+.booking-field input:focus-visible,
+.booking-field select:focus-visible {
+	outline: 3px solid #71ada4;
+	outline-offset: 2px;
+	border-color: #236b58;
+}
+
+.booking-form input[type="submit"] {
+	min-height: 48px;
+	padding: 12px 18px;
+	border: 0;
+	border-radius: 5px;
+	background-color: #236b58;
+	color: #fff;
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.booking-form input[type="submit"]:hover {
+	background-color: #184f40;
+}
+
+.booking-form input[type="submit"]:focus-visible {
+	outline: 3px solid #71ada4;
+	outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+	.booking-form {
+		gap: 18px;
+		margin: 24px auto;
+		padding: 24px 20px;
+	}
+
+}

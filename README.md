@@ -1,178 +1,60 @@
 # MentorshipMatch
 
-## Start Here
+MentorshipMatch is a web app prototype for connecting students with mentors. The project is being developed for the Delaware Area Career Center BPA team. It includes a public site, student and mentor page layouts, admin page layouts, and early PHP/database experiments.
 
-This project is currently a scaffold. Build it in this order:
+## Project status
 
-1. Read [BPA-CHECKLIST.md](BPA-CHECKLIST.md) and assign tasks to team members.
-2. Read [Servers/README.md](Servers/README.md) for the backend learning guide.
-3. Read [database/README.md](database/README.md) for the PostgreSQL design plan.
-4. Read [scripts/README.md](scripts/README.md) for frontend-to-backend API calls.
-5. Implement and test the database before connecting the pages to the server.
+The site is currently a **work in progress**, not a complete full-stack application. The HTML pages and styles provide the primary interface, but most user-facing features are not connected to persistent application data.
 
-The actual project folders are `style/` for CSS, `scripts/` for browser JavaScript,
-`Servers/` for the Node.js server, and `database/` for PostgreSQL files.
+- Login and sign-up forms are UI prototypes; authentication and account creation are not working end to end.
+- The student booking page validates submitted fields and displays a confirmation, but does not save a booking.
+- The mentor, student, and admin areas are page prototypes; role-based access and most actions are not implemented.
+- `database/schema.sql` and `database/seed.sql` contain planning comments, not runnable table definitions or sample data.
+- The PHP database experiments use PDO with MySQL, while the database guide and checklist describe a planned PostgreSQL design. These are not yet aligned.
+- Some links and PHP integrations are incomplete. In particular, the landing page links to a sign-up page that is not present in the repository.
 
-Coding Languageds to know 
-FRONTEND
-HTML
-CSS
-JavaScript
-      ↓
-BACKEND
-Node.js
-Express.js
-      ↓
-DATABASE
-PostgreSQL
-      ↓
-EXTERNAL SERVICES
-APIs
+Use the [BPA project checklist](BPA-CHECKLIST.md) to track the planned requirements and testing still needed.
 
+## Run locally
 
+The static pages can be opened in a browser, but use Apache to run PHP pages. With XAMPP and this repository under `C:\xampp\htdocs\adp2\MentorshipMatch`, start Apache and visit:
 
-Frontend — HTML
+- Public landing page: <http://localhost/adp2/MentorshipMatch/mainpages/index.html>
+- Student booking prototype: <http://localhost/adp2/MentorshipMatch/student/student-booking.php>
 
-index.html will be the main landing page for MentorshipMatch. It should introduce the platform, explain what it does, provide navigation, and have buttons that direct users to log in or register. This gives users a clear starting point and helps with the overall layout, design, and writing-quality portions of the rubric.
+The booking form does not currently require a database. Other PHP database code expects local MySQL databases and configuration in `database/server.php`; it is incomplete and is not required to view the site.
 
-login.html will handle user login. It should contain fields for an email or username and password, along with a login button and useful error messages. This is required because the BPA topic specifically requires user registration and login.
+## Pages and features
 
-register.html will allow new users to create an account. It should collect information such as their name, email, password, and whether they are registering as a student or mentor. Depending on the account type, it can also collect academic interests, career goals, or professional information. This fulfills the user-registration requirement.
+- **Public:** landing page, about page, contact page, and login/sign-up interface in `mainpages/`.
+- **Student:** dashboard, mentor list and profile, profile, sessions, messages, notifications, reviews, and booking page in `student/`.
+- **Mentor:** dashboard, profile, requests, schedule, and notifications in `mentor/`.
+- **Admin:** dashboard, user management, reports, and flagged activity pages in `admin/`.
+- **Shared assets:** stylesheets in `style/`, browser scripts in `javascript/`, and branding/hero images in `Images/`.
 
-about.html will explain what MentorshipMatch is, why it exists, and how the mentorship process works. It isn't specifically required by the BPA topic, but it makes the application feel more complete and professional and gives you another opportunity to demonstrate strong writing, navigation, and design.
+These pages indicate the intended product areas; their presence does not mean each feature is functional or backed by a database.
 
-Student Pages
+## Repository layout
 
-student/dashboard.html will be the main page students see after logging in. It should show things such as recommended mentors, upcoming sessions, pending mentor requests, notifications, and quick links to important parts of the application. This serves as the central hub for the student experience.
+```text
+admin/                Admin page prototypes
+database/             PHP database experiments and SQL planning files
+Images/               Logo and page imagery
+javascript/           Browser-side JavaScript
+mainpages/            Public-facing pages
+mentor/               Mentor page prototypes
+Servers/              Backend planning guide
+student/              Student pages and booking prototype
+style/                CSS stylesheets
+web app features/     Search feature experiment
+BPA-CHECKLIST.md      BPA requirements and project checklist
+```
 
-student/mentors.html will allow students to browse available mentors. It should include a search bar, filters, mentor cards, areas of expertise, career fields, and possibly availability. This is important because the scenario specifically requires students to be able to browse and request mentors.
+## Technology
 
-student/mentor-profile.html will display an individual mentor's information. It should show their professional background, expertise, biography, reviews, availability, and a button to request them as a mentor. This gives students enough information to make an informed decision before sending a request.
+- HTML and CSS for page structure and styling
+- JavaScript for browser interactions and page animations
+- PHP for early server-side experiments
+- PDO/MySQL in the current PHP database connection code
 
-student/sessions.html will manage a student's mentorship sessions. It should show upcoming and previous sessions, the mentor, date/time, session status, and options to book or cancel sessions. Session booking is explicitly listed as a required feature.
-
-student/messages.html will provide the chat functionality between students and mentors. It should display conversations, messages, timestamps, and a message input box. This fulfills the communication aspect of the MentorshipMatch concept.
-
-student/profile.html will allow students to view and edit their profiles. It should contain their academic interests, career goals, education information, biography, and profile visibility settings. Profile management is one of the required features.
-
-Mentor Pages
-
-mentor/dashboard.html will be the mentor's main dashboard. It should show pending student requests, upcoming sessions, notifications, and useful statistics. The mentor needs a dedicated interface rather than simply using the student interface.
-
-mentor/requests.html will allow mentors to view incoming mentorship requests. It should provide information about the student and buttons to accept or decline requests. This connects the student request system to the mentor's side.
-
-mentor/schedule.html will allow mentors to set their availability. Mentors should be able to create available time slots that students can use when booking sessions. This makes the session-booking system actually functional.
-
-mentor/profile.html will contain the mentor's professional profile. It should include their profession, expertise, company or organization if applicable, biography, career experience, and availability. Students will see this information when browsing mentors.
-
-Admin Pages
-
-admin/dashboard.html will be the main administrative dashboard. It should provide an overview of the system, including the number of users, mentors, sessions, pending requests, and flagged activity. The BPA requirements specifically call for an admin panel to manage users and inappropriate activity.
-
-admin/users.html will allow administrators to manage accounts. It should provide a searchable list of users and allow authorized administrators to add, modify, delete, or otherwise manage data. This directly supports the Admin Data Control and Admin Functions rubric categories.
-
-admin/reports.html will generate reports using actual application data. For example, it could show the number of active users, mentorship requests, completed sessions, and reviews. The rubric specifically scores web-based reports and report accuracy.
-
-admin/flagged.html will handle inappropriate activity that has been reported. It should show what was flagged, who reported it, why it was flagged, and allow an administrator to review and take appropriate action. This directly addresses the required admin functionality in the scenario.
-
-CSS
-
-style/style.css will contain the global styling for the entire application. It should define the basic fonts, spacing, buttons, colors, backgrounds, links, and other reusable styles. Having consistent global styling will help with the BPA categories for layout clarity, design aesthetics, writing presentation, and contrast.
-
-style/navbar.css will control the navigation bar and/or sidebar. It should make navigation consistent across the application and provide responsive behavior for different screen sizes. This helps with the navigation and cross-platform portions of the rubric.
-
-style/dashboard.css will style the student, mentor, and admin dashboards. It can contain the styling for statistic cards, grids, recent activity, recommendations, and other dashboard components.
-
-style/forms.css will handle the appearance of login, registration, profile, booking, and other forms. It should include styling for labels, inputs, buttons, error messages, success messages, and focus states.
-
-style/profiles.css will handle mentor and student profile layouts. It can style profile cards, biographies, skills, career information, reviews, and profile visibility controls.
-
-style/sessions.css will style the session-booking interface, including calendars, available time slots, upcoming sessions, and session cards.
-
-style/admin.css will style the administrative interface, including tables, reports, filters, buttons, warnings, and user-management controls.
-
-style/responsive.css will contain media queries that make the application work properly on different screen sizes. This is particularly useful for the BPA Cross-Browser/Platform Compatibility category.
-
-JavaScript
-
-scripts/auth.js will handle authentication-related functionality. It will communicate with the backend when users log in, register, or log out and help maintain their authentication state. This supports the required authentication and password-protection functionality.
-
-scripts/mentors.js will control the mentor browsing page. It should retrieve mentor information from the backend, display mentor cards, and work with filtering and searching.
-
-scripts/profile.js will handle viewing and editing user profiles. It should retrieve profile information from the database and send changes back to the server.
-
-scripts/requests.js will manage mentorship requests. Students should be able to send requests, while mentors should be able to accept or decline them.
-
-scripts/sessions.js will handle the session-booking system. It should retrieve available times, allow students to select a time, submit the booking, and display the resulting session.
-
-scripts/messages.js will handle the chat system. It should retrieve messages, display them, and send new messages to the backend.
-
-scripts/reviews.js will handle reviews after mentorship sessions. Students or mentors should be able to submit reviews, and appropriate reviews should appear on profiles.
-
-scripts/admin.js will handle interactions inside the admin panel, including adding, modifying, deleting, and managing application data.
-
-scripts/validation.js will handle client-side form validation. It should check things such as required fields, valid email addresses, acceptable inputs, and other constraints before sending information to the server. The BPA rubric specifically evaluates form validation, including client-side and server-side validation.
-
-scripts/notifications.js will handle notifications such as new mentorship requests, accepted requests, upcoming sessions, and new messages. This is an optional enhancement mentioned in the BPA scenario and could make the application feel significantly more complete.
-
-scripts/search.js will handle the search functionality. Students should be able to search for mentors and receive relevant results. Search usability is directly scored in the technical rubric.
-
-Backend
-
-server/server.js will be the main entry point for the backend. It will start the Express server, connect the application's middleware, connect to the database, register the API routes, serve the appropriate resources, and handle errors. This is necessary because BPA requires server-side scripting and a functional full-stack application.
-
-The routes/ folder will contain files such as authRoutes.js, userRoutes.js, mentorRoutes.js, sessionRoutes.js, messageRoutes.js, reviewRoutes.js, and adminRoutes.js. These files define the API endpoints that the frontend communicates with. For example, mentorRoutes.js could contain endpoints for retrieving mentors, while sessionRoutes.js could contain endpoints for creating and cancelling sessions.
-
-The controllers/ folder will contain the actual backend logic. For example, mentorController.js would determine how mentor information is retrieved from the database, while sessionController.js would handle creating and cancelling sessions. Separating routes from controllers makes the code easier to understand and maintain.
-
-The middleware/ folder will contain security and validation logic. authMiddleware.js should ensure that users are logged in before accessing protected functionality. adminMiddleware.js should ensure that only administrators can access administrative functions. validationMiddleware.js should validate incoming data on the server. Finally, errorMiddleware.js should catch and handle errors without allowing the application to crash. These files directly support the BPA rubric's categories for access control, validation, error handling, and security.
-
-Database
-
-database/schema.sql will define the structure of your database. It should create tables for users, student profiles, mentor profiles, mentorship requests, sessions, messages, reviews, and flagged activity. Each table should use appropriate primary and foreign keys so the relationships between the tables are clear.
-
-database/seed.sql can contain sample data for development and testing. For example, you could have sample mentors, students, sessions, and reviews so your team can test the application without manually creating everything each time.
-
-database/queries.sql can contain important SQL queries used throughout development. This is also useful for documenting how your application retrieves and modifies information.
-
-The database is one of the most important parts of the project. BPA specifically requires a database and prohibits flat files for data storage. The rubric evaluates database use, conceptual modeling, redundancy, encryption, access control, unique keys, and queries/procedures.
-
-
-
-
-
-
-
-
-
-
-
-44
-server/
-│
-├── server.js
-│
-├── routes/
-│   ├── authRoutes.js
-│   ├── userRoutes.js
-│   ├── mentorRoutes.js
-│   ├── sessionRoutes.js
-│   ├── messageRoutes.js
-│   ├── reviewRoutes.js
-│   └── adminRoutes.js
-│
-├── controllers/
-│   ├── authController.js
-│   ├── mentorController.js
-│   ├── sessionController.js
-│   ├── messageController.js
-│   └── adminController.js
-│
-├── middleware/
-│   ├── authMiddleware.js
-│   ├── adminMiddleware.js
-│   ├── validationMiddleware.js
-│   └── errorMiddleware.js
-│
-└── database/
-    └── db.js
+There is no Node.js package manifest or working Express API in the repository at this time. The [backend guide](Servers/README.md) and [database guide](database/README.md) contain proposed implementation guidance and should be updated as the backend architecture is finalized.

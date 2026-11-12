@@ -1,0 +1,101 @@
+
+/* Main sessions container */
+.sessions-box {
+    width: 85%;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #ffff;
+    border-radius: 12px;
+    border-color: #dff7da;
+}
+
+/* Page heading */
+.session-title {
+    color: #236b58;
+    text-align: center;
+    background-color: #dff7da;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* Session card grid */
+.session-booked {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+/* Individual session card */
+.grid-item {
+    background-color: #236b58;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+}
+
+/* Card heading and status */
+.session-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.session-card-header h3 {
+    font-size: 17px;
+    margin: 0;
+}
+
+/* Status label */
+.session-status {
+    background-color: #0d3505;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+/* Session information */
+.session-details p {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Card button */
+.session-actions {
+    margin-top: 20px;
+}
+
+.session-button {
+    background-color: #236b58;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.session-button:hover {
+    background-color: #2e8b70;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+    .session-booked {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .sessions-box {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .session-booked {
+        grid-template-columns: 1fr;
+    }
+}
