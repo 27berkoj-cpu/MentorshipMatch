@@ -3,10 +3,10 @@ require_once __DIR__ . '/../database/server.php';
 require_once __DIR__ . '/../database/session.php';
 
 // Making sure only students are on the page.
-if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
-    header('Location: ../mainpages/login.html');
-    exit;
-}
+// if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
+//     header('Location: ../mainpages/login.html');
+//     exit;
+// }
 
 //temporary sample data until we connect the file to the database
 $requests = [
@@ -85,38 +85,39 @@ function formatDuration($minutes) {
 
         <main class="request-box">
             <h1 class="page-title">Your Requests</h1>
-                <?php foreach ($requests as $request) ?>
+            <div class="sessions-request">
+                <?php foreach ($requests as $request): ?>
                 <div class="grid-item">
 
 
                 <div class="grid-item">
 
-                    <div class="session-card-header">
-                        <h3><?php echo htmlspecialchars($session['mentor']); ?></h3>
+                    <div class="request-card-header">
+                        <h3><?php echo htmlspecialchars($request['student']); ?></h3>
 
-                        <span class="session-status">
-                            <?php echo htmlspecialchars($session['status']); ?>
+                        <span class="request-status">
+                            <?php echo htmlspecialchars($request['status']); ?>
                         </span>
                     </div>
 
-                    <div class="session-details">
+                    <div class="request-details">
                         <p>
                             <strong>Date:</strong>
-                            <?php echo htmlspecialchars(formatDate($session['datetime'])); ?>
+                            <?php echo htmlspecialchars(formatDate($request['datetime'])); ?>
                         </p>
 
                         <p>
                             <strong>Time:</strong>
-                            <?php echo htmlspecialchars(formatTime($session['datetime'])); ?>
+                            <?php echo htmlspecialchars(formatTime($request['datetime'])); ?>
                         </p>
 
                         <p>
                             <strong>Duration:</strong>
-                            <?php echo htmlspecialchars(formatDuration((int) $session['duration'])); ?>
+                            <?php echo htmlspecialchars(formatDuration((int) $request['duration'])); ?>
                         </p>
 
                         <p>
-                            <strong>Type:</strong> <?php echo htmlspecialchars($session['type']); ?>
+                            <strong>Type:</strong> <?php echo htmlspecialchars($request['type']); ?>
                         </p>
                     </div>
                 </div>
@@ -124,7 +125,7 @@ function formatDuration($minutes) {
             <?php endforeach; ?>
 
         
-                </div>
+            </div>
             
         </main>
 
