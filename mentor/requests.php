@@ -1,9 +1,13 @@
 <?php
 require_once __DIR__ . '/../database/session.php';
 
-// Making sure only students are on the page.
-// if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
+// Making sure only mentors are on the page.
+// if (empty($_SESSION['user'])) {
 //     header('Location: ../mainpages/login.html');
+//     exit;
+// }
+// elseif (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') == 'student'){
+//     header('Location: ../student/student-homepage.html');
 //     exit;
 // }
 
@@ -115,7 +119,7 @@ function formatDuration($minutes) {
         <link rel="stylesheet" href="../style/mentors-request.css">   
         <link rel="icon" href="../Images/Logo/MentorshipMatchLogo.png" type="image/png"> 
     </head>
-    <body>
+    <body class="request-page">
         <header class="site-header">
             <a class="site-brand" href="../mainpages/index.html" aria-label="MentorshipMatch home">
                 <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">

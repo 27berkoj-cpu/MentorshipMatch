@@ -1,5 +1,11 @@
 
 /* Request layout */
+.request-page {
+    margin: 0;
+    background-color: #f7faf8;
+    color: #18352d;
+}
+
 .request-box {
     width: 85%;
     margin: 40px auto;

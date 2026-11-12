@@ -2,11 +2,11 @@
 require_once __DIR__ . '/../database/server.php';
 require_once __DIR__ . '/../database/session.php';
 
-// Making sure only students are on the page.
-if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
-    header('Location: ../mainpages/login.html');
-    exit;
-}
+// // Making sure only students are on the page.
+// if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student') {
+//     header('Location: ../mainpages/login.html');
+//     exit;
+// }
 
 //temporary sample data until we connect the file to the database
 $sessions = [
