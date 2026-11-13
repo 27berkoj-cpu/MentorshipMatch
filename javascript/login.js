@@ -22,6 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
         role.addEventListener('change', syncFlipState);
     });
 
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', () => {
+            const passwordInput = button.previousElementSibling;
+            const isHidden = passwordInput.type === 'password';
+
+            passwordInput.type = isHidden ? 'text' : 'password';
+            button.textContent = isHidden ? 'Hide' : 'Show';
+            button.setAttribute('aria-pressed', String(isHidden));
+            button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        });
+    });
+
     const params = new URLSearchParams(window.location.search);
     const role = params.get('role');
     const mode = params.get('mode');

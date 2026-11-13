@@ -129,3 +129,6 @@ if ($action === 'signup') {
 // Send each role to the page that matches its authenticated account.
 header('Location: ' . ($isStudent ? '../student/student-homepage.html' : '../mentor/mentor-homepage.html'));
 exit;
+
+header('Location: ' .($isMentor ? '../mentor/mentor-homepage.html' : '../student/student-homepage.html'));
+exit;

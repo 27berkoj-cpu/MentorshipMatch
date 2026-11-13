@@ -122,7 +122,7 @@ function formatDuration($minutes) {
     <body class="request-page">
         <header class="site-header">
             <a class="site-brand" href="../mainpages/index.html" aria-label="MentorshipMatch home">
-                <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">
+                <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="94">
             </a>
             <nav class="site-nav" aria-label="Mentor navigation">
                 <a href="mentor-homepage.html">Dashboard</a>
@@ -197,7 +197,7 @@ function formatDuration($minutes) {
 
 
         <footer class="home-footer">
-        <a class="footer-logo" href="../mainpages/index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75"></a>
+        <a class="footer-logo" href="../mainpages/index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="94"></a>
         <p>Helping students connect with guidance, experience, and opportunity.</p>
         <small>Chapter Name: Delaware Area Career Center</small><br>
         <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>

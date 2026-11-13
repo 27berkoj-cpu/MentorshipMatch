@@ -90,30 +90,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($bookingSaved && $selectedMentor !== null) {
             $emailScript = __DIR__ . '/../web app features/email.py';
             $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python';
-            $command = escapeshellarg($python) . ' ' . escapeshellarg($emailScript) . ' '
-                . escapeshellarg($_SESSION['user']['email']) . ' '
-                . escapeshellarg(trim($selectedMentor['first_name'] . ' ' . $selectedMentor['last_name'])) . ' '
-                . escapeshellarg($sessionDate) . ' '
-                . escapeshellarg((string) $duration) . ' '
-                . escapeshellarg($sessionType);
-            $process = proc_open($command, [
-                0 => ['pipe', 'r'],
-                1 => ['pipe', 'w'],
-                2 => ['pipe', 'w'],
-            ], $pipes);
+            $recipientEmail = $_SESSION['user']['email'] ?? '';
 
-            if (is_resource($process)) {
-                fclose($pipes[0]);
-                $emailOutput = stream_get_contents($pipes[1]);
-                $emailError = stream_get_contents($pipes[2]);
-                fclose($pipes[1]);
-                fclose($pipes[2]);
-                $emailSent = proc_close($process) === 0;
-                if (!$emailSent) {
-                    error_log(trim($emailError . ' ' . $emailOutput));
-                }
+            if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
+                error_log('Unable to send booking email: the signed-in student has no valid email address.');
+            } elseif (!function_exists('proc_open')) {
+                error_log('Unable to send booking email: PHP proc_open is unavailable.');
             } else {
-                error_log('Unable to start the Python process for the booking email.');
+                // Pass booking data separately so shell metacharacters aren't interpreted.
+                $process = proc_open([
+                    $python,
+                    $emailScript,
+                    $recipientEmail,
+                    trim($selectedMentor['first_name'] . ' ' . $selectedMentor['last_name']),
+                    $sessionDate,
+                    (string) $duration,
+                    $sessionType,
+                    // This is the final command-line argument expected by email.py.
+                    trim($selectedMentor['field'] ?? ''),
+                ], [
+                    0 => ['pipe', 'r'],
+                    1 => ['pipe', 'w'],
+                    2 => ['pipe', 'w'],
+                ], $pipes);
+
+                if (is_resource($process)) {
+                    fclose($pipes[0]);
+                    $emailOutput = stream_get_contents($pipes[1]);
+                    $emailError = stream_get_contents($pipes[2]);
+                    fclose($pipes[1]);
+                    fclose($pipes[2]);
+                    $emailSent = proc_close($process) === 0;
+                    if (!$emailSent) {
+                        error_log(trim($emailError . ' ' . $emailOutput));
+                    }
+                } else {
+                    error_log('Unable to start the Python process for the booking email.');
+                }
             }
         }
     }
@@ -135,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <body>
         <header class="site-header">
             <a class="site-brand" href="../mainpages/index.html" aria-label="MentorshipMatch home">
-                <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75">
+                <img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="94">
             </a>
             <nav class="site-nav" aria-label="Student navigation">
                 <a href="student-homepage.html">Dashboard</a>
@@ -171,7 +184,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <?php elseif ($bookingSaved): ?>
                 <div class="success-message" style="color: #0a7f3e; margin-bottom: 1rem; font-weight: bold;">
                     <p>Session request saved successfully.</p>
-                    <?php if (!$emailSent): ?>
+                    <?php if ($emailSent): ?>
+                        <p role="status">Your confirmation email was sent successfully.</p>
+                    <?php else: ?>
                         <p role="status">The request was saved, but the confirmation email could not be sent.</p>
                     <?php endif; ?>
                 </div>
@@ -228,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </form>
 
         <footer class="home-footer">
-        <a class="footer-logo" href="../mainpages/index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="93.75"></a>
+        <a class="footer-logo" href="../mainpages/index.html"><img src="../Images/Logo/MentorshipMatchLogo.png" alt="MentorshipMatch logo" width="125" height="94"></a>
         <p>Helping students connect with guidance, experience, and opportunity.</p>
         <small>Chapter Name: Delaware Area Career Center</small><br>
         <small>Team Members: Joshua Berko, Thavael Noel, Shou Lin, Kyle Palermini</small><br>

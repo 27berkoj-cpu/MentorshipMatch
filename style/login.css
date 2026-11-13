@@ -3,7 +3,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     margin: 0;
-    /* Replace the plain white page background with the Home/About color palette. */
+    /* Replace the plain white page background to match. */
     background: #f7faf8;
     color: #18352d;
     font-family: Arial, Helvetica, sans-serif;
@@ -246,6 +246,61 @@ input[type="submit"] {
     outline: 3px solid #71ada4;
     outline-offset: 2px;
     border-color: #236b58;
+}
+
+.bottom .password-wrapper:focus-within {
+    outline: 3px solid #71ada4;
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+.bottom .password-wrapper input[type="password"]:focus-visible,
+.bottom .password-wrapper input[type="text"]:focus-visible {
+    outline: none;
+    border-color: #236b58;
+}
+
+.password-wrapper:focus-within .toggle-password {
+    border-color: #236b58;
+}
+
+.password-wrapper {
+    display: flex;
+    width: 100%;
+    margin: 6px 0 14px;
+}
+
+.bottom .password-wrapper input[type="password"],
+.bottom .password-wrapper input[type="text"] {
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    margin: 0;
+    border-radius: 6px 0 0 6px;
+}
+
+.toggle-password {
+    min-width: 64px;
+    padding: 0 12px;
+    border: 1px solid #c6d8d0;
+    border-left: 0;
+    border-radius: 0 6px 6px 0;
+    background: #edf4f0;
+    color: #236b58;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 160ms ease;
+}
+
+.toggle-password:hover {
+    background: #e4efe9;
+}
+
+.toggle-password:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: none;
 }
 
 .bottom input[type="submit"] {
