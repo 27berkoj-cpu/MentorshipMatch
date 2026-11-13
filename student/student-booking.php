@@ -20,6 +20,9 @@ $sessionDate = '';
 $duration = 0;
 $sessionType = '';
 
+// Making sure the slots are in 15 minute intervals, rounded up to the next quarter hour.
+$nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
+
 // Load mentors once so the list can be displayed and submitted IDs can be checked.
 try {
     $stmt = $mentorDb->query(
@@ -215,8 +218,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <div class="booking-field">
                 <label for="sessiondate">Session date and time</label>
-                <input type="datetime-local" id="sessiondate" name="sessiondate"
-                    value="<?php echo htmlspecialchars($sessionDate, ENT_QUOTES, 'UTF-8'); ?>" required>
+                <input type="datetime-local" id="sessiondate" name="sessiondate" step="900"
+                        min="<?php echo $nextSlot; ?>" 
+                        value="<?php echo htmlspecialchars($sessionDate !== '' ? $sessionDate : $nextSlot, ENT_QUOTES, 'UTF-8'); ?>" required>
+                        <!-- The minimum date/time is the next available 15-minute slot. -->
             </div>
             <div class="booking-field">
                 <label for="duration">Duration</label>
