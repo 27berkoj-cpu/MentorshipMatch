@@ -16,7 +16,28 @@ sys.path = [
 subject = "Hello from MentorshipMatch: Account Creation Confirmation"
 
 
-def automated_email(recipientEmail, userName):
+def automated_email(
+    recipientEmail,
+    userName,
+    role,
+    acaGoal,
+    currentCareer,
+    careerField,
+):
+    if role == "student":
+        if not acaGoal.strip():
+            raise ValueError("A student's academic goal is required.")
+        profile_details = f"Academic goal: {acaGoal}"
+    elif role == "mentor":
+        if not currentCareer.strip() or not careerField.strip():
+            raise ValueError("A mentor's current career and field are required.")
+        profile_details = (
+            f"Current career: {currentCareer}\n"
+            f"Field: {careerField}"
+        )
+    else:
+        raise ValueError("Role must be student or mentor.")
+
     sender_email = os.getenv("MENTORSHIPMATCH_SMTP_USERNAME")
     sender_password = os.getenv("MENTORSHIPMATCH_SMTP_PASSWORD")
     smtp_host = os.getenv("MENTORSHIPMATCH_SMTP_HOST", "smtp.gmail.com")
@@ -41,6 +62,9 @@ def automated_email(recipientEmail, userName):
     body = f"""Hello {userName},
 
     Welcome to MentorshipMatch! Your account is now active, and you can start exploring the many features we offer.
+
+    Your profile:
+    {profile_details}
 
     Thank you for joining our community of mentors and students. We are excited to have you on board and look forward to helping you achieve your goals.
 
@@ -73,15 +97,22 @@ def automated_email(recipientEmail, userName):
         print("Account creation email accepted by the SMTP server.")
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 7:
         print(
-            'Expected recipient email and username.',
+            'Expected recipient, username, role, academic goal, current career, and field.',
             file=sys.stderr,
         )
         sys.exit(2)
 
     try:
-        automated_email(sys.argv[1], sys.argv[2])
+        automated_email(
+            sys.argv[1],
+            sys.argv[2],
+            sys.argv[3],
+            sys.argv[4],
+            sys.argv[5],
+            sys.argv[6],
+        )
     except (OSError, smtplib.SMTPException, ValueError) as error:
         print(f'Unable to send account creation email: {error}', file=sys.stderr)
         sys.exit(1)

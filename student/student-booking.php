@@ -26,7 +26,9 @@ $nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
 // Load mentors once so the list can be displayed and submitted IDs can be checked.
 try {
     $stmt = $mentorDb->query(
-        'SELECT mentor_id AS id, first_name, last_name, field FROM mentorstb ORDER BY first_name, last_name'
+        'SELECT mentor_id AS id, first_name, last_name, current_career, field
+         FROM mentorstb
+         ORDER BY first_name, last_name'
     );
     $mentors = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -109,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $sessionDate,
                     (string) $duration,
                     $sessionType,
-                    // This is the final command-line argument expected by email.py.
+                    trim($selectedMentor['current_career'] ?? ''),
                     trim($selectedMentor['field'] ?? ''),
                 ], [
                     0 => ['pipe', 'r'],
@@ -203,8 +205,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <?php foreach ($mentors as $mentor): ?>
                         <?php
                             $fullName = trim($mentor['first_name'] . ' ' . $mentor['last_name']);
+                            $currentCareer = trim($mentor['current_career'] ?? '');
                             $field = trim($mentor['field'] ?? '');
-                            $label = $field === '' ? $fullName : $fullName . ' - ' . $field;
+                            $details = array_filter([
+                                $currentCareer === '' ? '' : '' . $currentCareer,
+                                $field === '' ? '' : 'Field: ' . $field,
+                            ]);
+                            $label = $fullName . ($details ? ' - ' . implode(' | ', $details) : '');
                         ?>
                         <option value="<?php echo htmlspecialchars((string) $mentor['id'], ENT_QUOTES, 'UTF-8'); ?>"
                             <?php echo $mentorId === (string) $mentor['id'] ? 'selected' : ''; ?>>
