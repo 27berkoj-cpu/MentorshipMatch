@@ -1,0 +1,26 @@
+.box1 {
+    background-image: url('../images/Logo/MentorshipMatchLogo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #83cdeb;
+    padding: 20px;
+    margin: 20px 50px;
+    border-radius: 8px;
+    border: 1px solid #747474;
+}
+.box1 a{
+    color: #000000;
+    text-decoration: none;
+    float: right;
+}
+.box2 {
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #83cdeb;
+    padding: 20px;
+    margin: 20px 50px;
+    border-radius: 8px;
+    border: 1px solid #747474;
+}
