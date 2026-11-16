@@ -26,7 +26,7 @@ $nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
 // Load mentors once so the list can be displayed and submitted IDs can be checked.
 try {
     $stmt = $mentorDb->query(
-        'SELECT mentors_id AS id, first_name, last_name, feild AS field FROM mentorstb ORDER BY first_name, last_name'
+        'SELECT mentor_id AS id, first_name, last_name, field FROM mentorstb ORDER BY first_name, last_name'
     );
     $mentors = $stmt->fetchAll();
 } catch (PDOException $e) {
