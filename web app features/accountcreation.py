@@ -49,7 +49,7 @@ def automated_email(recipientEmail, userName):
     """
 
     msg.attach(MIMEText(body, 'plain')) # Attach the body of the email as plain text
-    ssl_context = ssl.create_default_context()
+    ssl_context = ssl.create_default_context() # Create a default SSL context for secure connections
     if smtp_security == "ssl":
         connection = smtplib.SMTP_SSL(
             smtp_host,
