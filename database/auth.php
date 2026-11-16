@@ -11,12 +11,12 @@ function redirectToLogin($error, $role, $mode)
         'role' => $role,//student or mentor
         'mode' => $mode, //login or signup
     ]);
-    header('Location: ../mainpages/login.html?' . $query); // Re
+    header('Location: ../mainpages/login.php?' . $query);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../mainpages/login.html');
+    header('Location: ../mainpages/login.php');
     exit;
 }
 
@@ -85,6 +85,37 @@ if ($action === 'signup') {
             'last_name' => $lastName,
             'role' => $role,
         ];
+
+        if (!function_exists('proc_open')) {
+            error_log('Unable to send account creation email: PHP proc_open is unavailable.');
+        } else {
+            $emailScript = __DIR__ . '/../web app features/accountcreation.py';
+            $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python';
+            $process = proc_open([
+                $python,
+                $emailScript,
+                $email,
+                trim($firstName . ' ' . $lastName),
+            ], [
+                0 => ['pipe', 'r'],
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w'],
+            ], $pipes);
+
+            if (is_resource($process)) {
+                fclose($pipes[0]);
+                $emailOutput = stream_get_contents($pipes[1]);
+                $emailError = stream_get_contents($pipes[2]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+
+                if (proc_close($process) !== 0) {
+                    error_log('Unable to send account creation email: ' . trim($emailError . ' ' . $emailOutput));
+                }
+            } else {
+                error_log('Unable to start the Python process for the account creation email.');
+            }
+        }
     } catch (PDOException $e) {
         error_log($e->getMessage());
         redirectToLogin('account_error', $role, 'signup');
