@@ -11,12 +11,12 @@ function redirectToLogin($error, $role, $mode)
         'role' => $role,//student or mentor
         'mode' => $mode, //login or signup
     ]);
-    header('Location: ../mainpages/login.php?' . $query);
+    header('Location: ../mainpages/login.html?' . $query);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../mainpages/login.php');
+    header('Location: ../mainpages/login.html');
     exit;
 }
 
@@ -61,7 +61,7 @@ if ($action === 'signup') {
             redirectToLogin('email_exists', $role, 'signup');
         }
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT); //hash the password
         if ($isStudent) {
             $insert = $db->prepare(
                 'INSERT INTO studentstb (first_name, last_name, email, password, created_at)
