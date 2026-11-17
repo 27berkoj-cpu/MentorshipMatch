@@ -3,10 +3,10 @@
 require_once __DIR__ . '/server.php';
 require_once __DIR__ . '/session.php';
 
-// Return the visitor to the login page. This function will be called whenever there is a problem logining in.
+// Return the visitor to the login page. This function will be called whenever there is a problem with login.
 function redirectToLogin()
 {
-    header('Location: ../mainpages/login.php');
+    header('Location: ../mainpages/login.html');
     exit;
 }
 
@@ -36,7 +36,7 @@ $idColumn = '';
 $table = '';
 $fieldColumn = '';    
 
-if($isStudent){ //set the  table vairabie to the appropitate table based on the user's role
+if($isStudent){ //set the  table variable to the appropriate table based on the user's role
     $table = 'studentstb';
 }elseif($isMentor){
     $table = 'mentorstb';
@@ -74,7 +74,7 @@ if ($action === 'signup') {
             redirectToLogin();
         }
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT); // hash and store the password in teh database along with all the other variables
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT); // hash and store the password in the database along with all the other variables
         if ($isStudent) {
             $insert = $db->prepare(
                 'INSERT INTO studentstb (first_name, last_name, email, password, aca_goal, created_at)
@@ -93,14 +93,38 @@ if ($action === 'signup') {
         //Basically, this means that the session ID is changed after the user logs in, from not having a account to having a account,
         //this helps so that if a hacker has the session ID, they can't use it to log in as the user.
         //also we can set the session variables to store the user's information, so that we can use it later on in the application.
-        session_regenerate_id(true);
-        $_SESSION['user'] = [
+
+        if($isStudent){
+            session_regenerate_id(true);
+            $_SESSION['user'] = [
+            'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
+            'email' => $email,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'aca_goal' => $acaGoal,
+            'role' => $role,
+        ];
+        }
+        elseif($isMentor){
+            session_regenerate_id(true);
+            $_SESSION['user'] = [
             'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
             'email' => $email,
             'first_name' => $firstName,
             'last_name' => $lastName,
             'role' => $role,
+            'feild' => $field,
+            'current_career' => $currentCareer
         ];
+        }
+        // session_regenerate_id(true);
+        // $_SESSION['user'] = [
+        //     'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
+        //     'email' => $email,
+        //     'first_name' => $firstName,
+        //     'last_name' => $lastName,
+        //     'role' => $role,
+        // ];
 
 
         // Send the account confirmation email with the new profile fields.
