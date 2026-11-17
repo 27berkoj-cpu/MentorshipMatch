@@ -1,10 +1,6 @@
 import os
 import sys
 from pathlib import Path
-import smtplib
-import ssl
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 # Prevent email.py from shadowing Python's email package.
 script_directory = str(Path(__file__).resolve().parent)
@@ -12,6 +8,11 @@ sys.path = [
     entry for entry in sys.path
     if str(Path(entry or os.getcwd()).resolve()) != script_directory
 ]
+
+import smtplib
+import ssl
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 subject = "Hello from MentorshipMatch: Account Creation Confirmation"
 
