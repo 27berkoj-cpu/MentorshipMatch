@@ -16,6 +16,9 @@ sys.path = [
 ]
 
 
+
+
+        
 subject = "MentorshipMatch: Session Booking Confirmation"
 
 
@@ -25,7 +28,8 @@ def automated_email(
     sessionDateTime,
     duration,
     sessionType,
-    mentorCareerField="Not specified"
+    mentorCurrentCareer="Not specified",
+    mentorField="Not specified",
 ):
 
     sender_email = os.getenv("MENTORSHIPMATCH_SMTP_USERNAME")
@@ -45,8 +49,8 @@ def automated_email(
     formatted_session_datetime = datetime.fromisoformat(sessionDateTime).strftime(
         "%B %d, %Y at %I:%M %p"
     )
-    # Keep older callers working when they don't provide the mentor's field.
-    mentorCareerField = mentorCareerField.strip() or "Not specified"
+    mentorCurrentCareer = mentorCurrentCareer.strip() or "Not specified"
+    mentorField = mentorField.strip() or "Not specified"
     default_port = "465" if smtp_security == "ssl" else "587"
     smtp_port = int(os.getenv("MENTORSHIPMATCH_SMTP_PORT", default_port))
 
@@ -61,7 +65,8 @@ def automated_email(
 Your mentoring session has been successfully booked with the following details:
 
 Mentor: {}
-Career Field: {}
+Current Career: {}
+Field: {}
 Date and Time: {}
 Duration: {} minutes
 Session Type: {}
@@ -71,7 +76,8 @@ Thank you for using MentorshipMatch! We hope you have an awesome and educational
 Best regards,
 MentorshipMatch Team""".format(
         mentorName,
-        mentorCareerField,
+        mentorCurrentCareer,
+        mentorField,
         formatted_session_datetime,
         duration,
         sessionType
@@ -110,10 +116,10 @@ MentorshipMatch Team""".format(
 
 if __name__ == '__main__':
 
-    # PHP supplies the recipient, booking details, and career field as arguments.
-    if len(sys.argv) != 7:
+    # PHP supplies the recipient, booking details, current career, and field.
+    if len(sys.argv) != 8:
         print(
-            'Expected recipient, mentor, date/time, duration, session type, and career field.',
+            'Expected recipient, mentor, date/time, duration, session type, current career, and field.',
             file=sys.stderr
         )
         sys.exit(2)
@@ -125,7 +131,8 @@ if __name__ == '__main__':
             sys.argv[3],
             sys.argv[4],
             sys.argv[5],
-            sys.argv[6]
+            sys.argv[6],
+            sys.argv[7],
         )
 
     except (OSError, smtplib.SMTPException, ValueError) as error:

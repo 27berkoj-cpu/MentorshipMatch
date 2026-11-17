@@ -11,7 +11,7 @@ function redirectToLogin()
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../mainpages/login.php');
+    header('Location: ../mainpages/login.html');
     exit;
 }
 
@@ -44,7 +44,7 @@ if($isStudent){ //set the  table vairabie to the appropitate table based on the 
 if ($isStudent) { // set the idColumn variable to the appropriate column name based on the user's role
     $idColumn = 'student_id';
 } elseif ($isMentor) {
-    $idColumn = 'mentors_id';
+    $idColumn = 'mentor_id';
 }
 if($isMentor){
     $fieldColumn = ', field'; // set the fieldColumn variable to include the field column for mentors, and leave it empty for students
@@ -54,10 +54,14 @@ if($isMentor){
 if ($action === 'signup') {
     $firstName = trim($_POST['first_name'] ?? '');
     $lastName = trim($_POST['last_name'] ?? '');
+    $acaGoal = trim($_POST['aca_goal'] ?? '');
     $field = trim($_POST['field'] ?? '');
+    $currentCareer = trim($_POST['current_career'] ?? '');
 
     if (
-        $firstName === '' || $lastName === '' || strlen($firstName) > 255 || strlen($lastName) > 255 || strlen($password) < 8 || strlen($password) > 72 || (!$isStudent && ($field === '' || strlen($field) > 255))
+        $firstName === '' || $lastName === '' || strlen($firstName) > 255 || strlen($lastName) > 255 || strlen($password) < 8 || strlen($password) > 72 ||
+        ($isStudent && ($acaGoal === '' || strlen($acaGoal) > 255)) ||
+        ($isMentor && ($field === '' || strlen($field) > 255 || $currentCareer === '' || strlen($currentCareer) > 255))
     ) {
         redirectToLogin();
     }
@@ -73,16 +77,16 @@ if ($action === 'signup') {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT); // hash and store the password in teh database along with all the other variables
         if ($isStudent) {
             $insert = $db->prepare(
-                'INSERT INTO studentstb (first_name, last_name, email, password, created_at)
-                 VALUES (?, ?, ?, ?, NOW())'
-            );
-            $insert->execute([$firstName, $lastName, $email, $passwordHash]);
-        } elseif ($isMentor) {
-            $insert = $db->prepare(
-                'INSERT INTO mentorstb (first_name, last_name, email, password, field, created_at)
+                'INSERT INTO studentstb (first_name, last_name, email, password, aca_goal, created_at)
                  VALUES (?, ?, ?, ?, ?, NOW())'
             );
-            $insert->execute([$firstName, $lastName, $email, $passwordHash, $field]);
+            $insert->execute([$firstName, $lastName, $email, $passwordHash, $acaGoal]);
+        } elseif ($isMentor) {
+            $insert = $db->prepare(
+                'INSERT INTO mentorstb (first_name, last_name, email, password, current_career, field, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, NOW())'
+            );
+            $insert->execute([$firstName, $lastName, $email, $passwordHash, $currentCareer, $field]);
         }
 
         // Regenerate the session ID after authentication to prevent session fixation; true deletes the old session.
@@ -91,7 +95,7 @@ if ($action === 'signup') {
         //also we can set the session variables to store the user's information, so that we can use it later on in the application.
         session_regenerate_id(true);
         $_SESSION['user'] = [
-            'id' => (int) $db->lastInsertId(),
+            'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
             'email' => $email,
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -99,16 +103,21 @@ if ($action === 'signup') {
         ];
 
 
-        //this is where email creation is sent to the user after they create an account.
+        // Send the account confirmation email with the new profile fields.
         if (!function_exists('proc_open')) {
-            error_log('Unable to send account creation email: PHP proc_open is unavailable.'); //test to see if the proc_open fucntion is available.
-            $emailScript = __DIR__ . '/../web app features/accountcreation.py'; //get the path to the script that send the email.
-            $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python'; //get the python path from the enviroment variable, and if it is not set the deault is just python
-            $process = proc_open([ //open a new process to run the script that sends the email
+            error_log('Unable to send account creation email: PHP proc_open is unavailable.');
+        } else {
+            $emailScript = __DIR__ . '/../web app features/accountcreation.py';
+            $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python';
+            $process = proc_open([
                 $python,
                 $emailScript,
                 $email,
-                trim($firstName . ' ' . $lastName), 
+                trim($firstName . ' ' . $lastName),
+                $role,
+                $acaGoal,
+                $currentCareer,
+                $field,
             ], [
                 0 => ['pipe', 'r'],
                 1 => ['pipe', 'w'],

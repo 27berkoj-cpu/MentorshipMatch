@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessages = {
         invalid_request: 'Please choose a valid account type and try again.',
         invalid_email: 'Enter a valid email address.',
-        invalid_signup: 'Enter your name, a valid mentor field if applicable, and a password.',
+        invalid_signup: 'Complete all required fields and choose a valid email and password.',
         email_exists: 'An account with that email already exists.',
         account_error: 'We could not process your account. Please try again.',
         invalid_credentials: 'The email or password is incorrect.'

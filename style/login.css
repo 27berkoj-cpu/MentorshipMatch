@@ -227,7 +227,8 @@ input[type="submit"] {
 
 .bottom input[type="email"],
 .bottom input[type="password"],
-.bottom input[type="text"] {
+.bottom input[type="text"],
+.bottom select {
     display: block;
     width: 100%;
     min-height: 46px;
@@ -238,6 +239,16 @@ input[type="submit"] {
     background: #fff;
     color: #18352d;
     font: inherit;
+}
+
+.bottom select {
+    padding-right: 40px;
+    appearance: auto;
+    cursor: pointer;
+}
+
+.bottom select:invalid {
+    color: #71847b;
 }
 
 .bottom input[type="email"]:focus-visible,
@@ -277,6 +288,12 @@ input[type="submit"] {
     min-width: 0;
     margin: 0;
     border-radius: 6px 0 0 6px;
+}
+
+.bottom select:focus-visible {
+    outline: 3px solid #71ada4;
+    outline-offset: 2px;
+    border-color: #236b58;
 }
 
 .toggle-password {
