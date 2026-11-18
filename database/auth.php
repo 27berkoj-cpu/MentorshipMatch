@@ -11,8 +11,7 @@ function redirectToLogin()
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../mainpages/login.html');
-    exit;
+    redirectToLogin();
 }
 
 // Set the submitted values to variables and validate them.
@@ -31,25 +30,15 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) { // val
 
 $isStudent = $role === 'student';
 $isMentor = $role === 'mentor'; // set  variable for if the user is a student or mentor which is needed for inserting the user to the correct table and redirection to their respective mainpages
-$db = $isStudent ? $studentDb : $mentorDb;
-$idColumn = '';
+$database = new DBConn();
+$db = $database->get_connection();
 $table = '';
-$fieldColumn = '';    
 
 if($isStudent){ //set the  table variable to the appropriate table based on the user's role
     $table = 'studentstb';
 }elseif($isMentor){
     $table = 'mentorstb';
 }
-if ($isStudent) { // set the idColumn variable to the appropriate column name based on the user's role
-    $idColumn = 'student_id';
-} elseif ($isMentor) {
-    $idColumn = 'mentor_id';
-}
-if($isMentor){
-    $fieldColumn = ', field'; // set the fieldColumn variable to include the field column for mentors, and leave it empty for students
-}
-
 // Create the account in the table for the selected role.
 if ($action === 'signup') {
     $firstName = trim($_POST['first_name'] ?? '');
@@ -68,11 +57,16 @@ if ($action === 'signup') {
 
     try {
         // Check duplicates within this role; an email may have both a student and mentor account.
-        $check = $db->prepare("SELECT 1 FROM $table WHERE email = ? LIMIT 1");
-        $check->execute([$email]);
-        if ($check->fetchColumn()) {
+        $check = $db->prepare("SELECT 1 FROM {$table} WHERE email = ? LIMIT 1");
+        // Bind the email as a string so it is passed safely to the prepared statement. This is needed because we made the switch from sql to sqli
+        $check->bind_param('s', $email);
+        $check->execute();
+        $check->store_result();
+        if ($check->num_rows > 0) { //check to see any duplicates and if so return to login
+            $check->close();
             redirectToLogin();
         }
+        $check->close();
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT); // hash and store the password in the database along with all the other variables
         if ($isStudent) {
@@ -80,13 +74,17 @@ if ($action === 'signup') {
                 'INSERT INTO studentstb (first_name, last_name, email, password, aca_goal, created_at)
                  VALUES (?, ?, ?, ?, ?, NOW())'
             );
-            $insert->execute([$firstName, $lastName, $email, $passwordHash, $acaGoal]);
+            // Bind the student values so submitted data cannot alter the SQL statement.
+            $insert->bind_param('sssss', $firstName, $lastName, $email, $passwordHash, $acaGoal);
+            $insert->execute();
         } elseif ($isMentor) {
             $insert = $db->prepare(
                 'INSERT INTO mentorstb (first_name, last_name, email, password, current_career, field, created_at)
                  VALUES (?, ?, ?, ?, ?, ?, NOW())'
             );
-            $insert->execute([$firstName, $lastName, $email, $passwordHash, $currentCareer, $field]);
+            // Bind the mentor values so submitted data cannot alter the SQL statement.
+            $insert->bind_param('ssssss', $firstName, $lastName, $email, $passwordHash, $currentCareer, $field);
+            $insert->execute();
         }
 
         // Regenerate the session ID after authentication to prevent session fixation; true deletes the old session.
@@ -97,7 +95,7 @@ if ($action === 'signup') {
         if($isStudent){
             session_regenerate_id(true);
             $_SESSION['user'] = [
-            'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
+            'id' => (int) $insert->insert_id,
             'email' => $email,
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -108,7 +106,7 @@ if ($action === 'signup') {
         elseif($isMentor){
             session_regenerate_id(true);
             $_SESSION['user'] = [
-            'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
+            'id' => (int) $insert->insert_id,
             'email' => $email,
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -119,13 +117,12 @@ if ($action === 'signup') {
         }
         // session_regenerate_id(true);
         // $_SESSION['user'] = [
-        //     'id' => (int) $db->lastInsertId(), //get the last inserted id from the database, which is the user's id, and store it in the session variable
+        //     'id' => (int) $db->lastInsertId(),
         //     'email' => $email,
         //     'first_name' => $firstName,
         //     'last_name' => $lastName,
         //     'role' => $role,
         // ];
-
 
         // Send the account confirmation email with the new profile fields.
         if (!function_exists('proc_open')) {
@@ -166,7 +163,7 @@ if ($action === 'signup') {
                 error_log('Unable to start the Python process for the account creation email.');
             }
         }
-    } catch (PDOException $e) { // catch any errors that occur during the database operations and log them, then redirect to the login page
+    } catch (mysqli_sql_exception $e) {
         error_log($e->getMessage());
         redirectToLogin();
     }
@@ -176,16 +173,29 @@ if ($action === 'signup') {
     }
 
     try {
-        $query = $db->prepare(
-            "SELECT $idColumn AS id, first_name, last_name, email, password$fieldColumn
-             FROM $table
-             WHERE email = ?
-             LIMIT 1"
-        );// prepare the query to get the user's information from the database based on the email and role
-        $query->execute([$email]);
-        $account = $query->fetch();
-    } catch (PDOException $e) {
-        error_log($e->getMessage()); // log any errors that occur during the database operations and redirect to the login page
+        if ($isStudent) {
+            $query = $db->prepare(
+                'SELECT student_id AS id, first_name, last_name, email, password, aca_goal
+                 FROM studentstb
+                 WHERE email = ?
+                 LIMIT 1'
+            );
+        } else {
+            $query = $db->prepare(
+                'SELECT mentor_id AS id, first_name, last_name, email, password, current_career, field
+                 FROM mentorstb
+                 WHERE email = ?
+                 LIMIT 1'
+            );
+        }
+        // Bind the email as a string so it is passed safely to the prepared statement.
+        $query->bind_param('s', $email);
+        $query->execute();
+        $result = $query->get_result();
+        $account = $result->fetch_assoc();
+        $query->close();
+    } catch (mysqli_sql_exception $e) {
+        error_log($e->getMessage());
         redirectToLogin();
     }
 
@@ -203,6 +213,12 @@ if ($action === 'signup') {
         'last_name' => $account['last_name'],
         'role' => $role,
     ];
+    if ($isStudent) {
+        $_SESSION['user']['aca_goal'] = $account['aca_goal'];
+    } else {
+        $_SESSION['user']['current_career'] = $account['current_career'];
+        $_SESSION['user']['field'] = $account['field'];
+    }
 } else {
     redirectToLogin();
 }
@@ -211,5 +227,5 @@ if ($action === 'signup') {
 header('Location: ' . ($isStudent ? '../student/student-homepage.html' : '../mentor/mentor-homepage.html'));
 exit;
 
-header('Location: ' .($isMentor ? '../mentor/mentor-homepage.html' : '../student/student-homepage.html'));
+header('Location: ' . ($isMentor ? '../mentor/mentor-homepage.html' : '../student/student-homepage.html'));
 exit;
