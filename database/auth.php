@@ -113,7 +113,7 @@ if ($action === 'signup') {
             'first_name' => $firstName,
             'last_name' => $lastName,
             'role' => $role,
-            'feild' => $field,
+            'field' => $field,
             'current_career' => $currentCareer
         ];
         }
