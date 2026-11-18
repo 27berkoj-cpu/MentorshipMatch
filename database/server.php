@@ -2,10 +2,10 @@
 
 class DBConn
 {
-    private $host = 'localhost'; //IP Adress and Port for Database Server
-    private $user = 'root'; //Username. Cannto be root for hosted applications because root gives admin acess
+    private $host = 'localhost'; //IP Address and Port for Database Server
+    private $user = 'root'; //Username. Can't be root for hosted applications because root gives admin access
     private $pass = 'password'; //password
-    private $dbname = 'tasklist'; // name of the scehma the app  will be using
+    private $dbname = 'mentorshipmatch'; // name of the schema the app  will be using
     private $conn;
 
     public function __construct()
