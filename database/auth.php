@@ -29,7 +29,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 255) { // val
 }
 
 $isStudent = $role === 'student';
-$isMentor = $role === 'mentor'; // set  variable for if the user is a student or mentor which is needed for inserting the user to the correct table and redirection to their respective mainpages
+$isMentor = $role === 'mentor'; // set  variable for if the user is a student or mentor which is  needed for inserting the user to the correct table and redirection to their respective mainpages
 $database = new DBConn();
 $db = $database->get_connection();
 $table = '';
