@@ -8,6 +8,8 @@ require_once __DIR__ . '/../database/session.php';
 //     exit;
 // }
 
+
+
 //temporary sample data until we connect the file to the database
 $sessions = [
     [

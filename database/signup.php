@@ -42,5 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "Something went wrong.";
         }
     }
+    if($type === "student"){
+        header('Location: ' . ($type ? '../student/student-homepage.html' : '../mentor/mentor-homepage.html'));
+        exit;
+    }
+    header('Location: ' . ($type ? '../mentor/mentor-homepage.html' : '../student/student-homepage.html'));
+    exit;
 }
 ?>

@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS session_requests (
     mentor_id INT NOT NULL,
     session_datetime DATETIME NOT NULL,
     duration SMALLINT UNSIGNED NOT NULL,
-    session_type ENUM('Video call', 'Chat Session') NOT NULL,
-    status ENUM('pending', 'accepted', 'declined', 'completed') NOT NULL DEFAULT 'pending',
+    session_type varchar(45) NOT NULL,
+    status varchar(45) NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     KEY idx_session_requests_student (student_id),
@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS session_requests (
         FOREIGN KEY (mentor_id) REFERENCES mentorstb (mentor_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) 
