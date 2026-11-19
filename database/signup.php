@@ -1,41 +1,37 @@
 <?php
-require "database/server.php"; //this was the hidden problem it was never rlly connected because it did not know the file was in the database server
-
-
+require "database/server.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email    = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
-    // $role = $_POST["role"] ?? ""; //this is will be helpful for later
+    $type     = $_POST["account_type"] ?? "";
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 8) {
         echo "Enter a valid email and a password of at least 8 characters.";
+        exit;
     }
-    /*
-        if ($role === "mentor") {
-        $db = $mentorDb;
-       } elseif ($role === "student") {
-        $db = $studentDb;
-       } 
-       elseif ($role === "admin"){
-       $db = $adminDb;
-       } 
-       
-       else {
-        exit("Choose mentor or student.");
+
+
+    if ($type === "student") {
+        $table = "studentstb";
+    } elseif ($type === "mentor") {
+        $table = "mentorstb";
+    } else {
+        echo "Please choose whether you are signing up as a student or a mentor.";
+        exit;
     }
-    */
-     
-    $sdb = $studentDb; // temporary until the role code above is turned on0
-    
+
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-        $stmt = $sdb->prepare("INSERT INTO table (email, password) VALUES (?, ?)"); // you need to add admin to the form and the uncomment the code for it to work
-        $stmt->execute([$email, $hash]);
+        $stmt = $db->prepare("INSERT INTO `$table` (email, password) VALUES (?, ?)");
+        $stmt->bind_param("ss", $email, $hash);
+        $stmt->execute();
+        $stmt->close();
         echo "Signup successful!";
-    } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { //this basically searches for if the email is already in the table
+    } catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062) {
             echo "That email is already registered.";
-        }else {
+        } else {
             echo "Something went wrong.";
         }
     }

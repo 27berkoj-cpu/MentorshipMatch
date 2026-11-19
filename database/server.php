@@ -2,18 +2,21 @@
 
 class DBConn
 {
-    private $host = 'localhost'; //IP Address and Port for Database Server
-    private $user = 'root'; //Username. Can't be root for hosted applications because root gives admin access
-    private $pass = 'password'; //password
-    private $dbname = 'mentorshipmatch'; // name of the schema the app  will be using
+    private $host = 'localhost';
+    private $user = 'root';
+    private $pass = 'password';
+    private $dbname = 'mentorshipmatch'; 
     private $conn;
 
     public function __construct()
     {
-        $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-        if ($this->conn->connect_error) {
-            die('Connection Failed: ' . $this->conn->connect_error);
+        try {
+            $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
+            $this->conn->set_charset('utf8mb4');
+        } catch (mysqli_sql_exception $e) {
+            die('Connection Failed: ' . $e->getMessage());
         }
     }
 
@@ -27,4 +30,8 @@ class DBConn
         $this->conn->close();
     }
 }
+
+
+$dbConn = new DBConn();
+$db = $dbConn->get_connection();
 ?>
