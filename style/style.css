@@ -588,6 +588,222 @@ body.othermainpages-intro-ready .about-page ~ .home-footer {
     /* Slightly tint the light button on hover. */
 }
 
+.student-review{
+    h1{
+        color:#000000;
+        align-items: center;
+    }
+}
+    .star-rating{
+    display: inline-flex;
+     flex-direction: row-reverse; /*This reverses the order of the stars back to 1 to 5 instead of 5 to 1 */
+    gap: 4px;
+    border: none;
+    }
+    /* Get rid of the radio circles */
+    .star-rating input{
+        display: none;
+    }
+
+    /* style for the stars */
+    .star-rating label{
+        font-size: 32px;
+        color: gold;
+        cursor: pointer;
+        transition: color 0.25s;
+    }
+
+    /* Highlight the hover stars and the stars that are already checked */
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: #ffb400;
+    }
+
+.student-review {
+    margin: 0;
+    background: #f7faf8;
+    color: #18352d;
+}
+
+.student-review main {
+    display: grid;
+    min-height: calc(100vh - 220px);
+    place-items: center;
+    padding: 44px 24px 52px;
+}
+
+.student-review .review-shell {
+    width: min(100%, 760px);
+}
+
+.student-review .review-heading {
+    margin-bottom: 22px;
+}
+
+.student-review .review-heading h1 {
+    margin: 0;
+    color: #18352d;
+    font-size: clamp(30px, 5vw, 42px);
+    letter-spacing: -1px;
+    line-height: 1.12;
+}
+
+.student-review .student-reviews {
+    box-sizing: border-box;
+    display: grid;
+    gap: 24px;
+    padding: 32px;
+    border: 1px solid #dce8e1;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(24, 53, 45, 0.09);
+}
+
+.student-review .star-rating {
+    display: block;
+    min-width: 0;
+    margin: 0;
+    padding: 0 0 4px;
+    border: 0;
+}
+
+.student-review .star-options {
+    display: flex;
+    width: fit-content;
+    flex-direction: row-reverse;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.student-review .star-rating legend,
+.student-review .review-field label {
+    color: #29483d;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.student-review .star-rating label {
+    padding: 2px;
+    color: #cbd8d1;
+    font-size: 42px;
+    line-height: 1;
+}
+
+.student-review .star-rating input {
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.student-review .star-rating label:hover,
+.student-review .star-rating label:hover ~ label,
+.student-review .star-rating input:checked ~ label {
+    color: #e5a820;
+}
+
+.student-review .star-rating input:focus-visible + label {
+    outline: 3px solid #71ada4;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.student-review .review-field {
+    display: grid;
+    gap: 9px;
+}
+
+.student-review .review-field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    padding: 14px 16px;
+    border: 1px solid #bdccc4;
+    border-radius: 8px;
+    background: #fbfdfc;
+    color: #18352d;
+    font: inherit;
+    line-height: 1.55;
+}
+
+.student-review .review-field textarea::placeholder {
+    color: #8b9b94;
+}
+
+.student-review .review-field textarea:focus {
+    outline: 3px solid rgba(113, 173, 164, 0.28);
+    border-color: #236b58;
+    background: #fff;
+}
+
+.student-review .review-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.student-review .review-submit {
+    min-height: 48px;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: 7px;
+    background: #236b58;
+    box-shadow: 0 5px 12px rgba(35, 107, 88, 0.14);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 160ms ease, transform 160ms ease;
+}
+
+.student-review .review-submit:hover {
+    background: #184f40;
+    transform: translateY(-1px);
+}
+
+.student-review .review-submit:focus-visible {
+    outline: 3px solid #71ada4;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .student-review main {
+        align-items: start;
+        padding: 30px 16px 38px;
+    }
+
+    .student-review .student-reviews {
+        gap: 20px;
+        padding: 24px 20px;
+    }
+
+    .student-review .star-rating label {
+        font-size: 36px;
+    }
+
+    .student-review .review-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .student-review .review-submit {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .student-review .star-rating label,
+    .student-review .review-submit {
+        transition: none;
+    }
+}
+
 @media (max-width: 850px) {
     /* Adjust the hero and steps layouts for medium-sized screens. */
     .home-hero {
