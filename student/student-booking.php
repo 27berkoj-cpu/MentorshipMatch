@@ -90,7 +90,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $mentorId = (int) $mentorId;
             $sessionDateTime = str_replace('T', ' ', $sessionDate);
             // Bind the booking values so submitted data cannot alter the SQL statement.
-            $insert->bind_param('iisis', $studentId, $mentorId, $sessionDateTime, $duration,$status,$sessionType);
+            $insert->bind_param(
+                    'iisiss',
+                    $studentId,
+                    $mentorId,
+                    $sessionDateTime,
+                    $duration,
+                    $sessionType,
+                    $status
+                );
             $insert->execute();
             $insert->close();
             $bookingSaved = true;
