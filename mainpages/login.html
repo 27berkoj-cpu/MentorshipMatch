@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login to MentorshipMatch</title>
-    <link rel = "stylesheet" href = "../style/login.css">
+    <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/navbar.css">
     <script src="../javascript/login.js"></script>
-    <link rel="icon" href="../Images/Logo/MentorshipMatchLogo.png" type="image/png"> 
+    <link rel="icon" href="../Images/Logo/MentorshipMatchLogo.png" type="image/png">
 </head>
 <body>
 <header class="site-header">
@@ -22,29 +22,29 @@
         <a class="nav-cta" href="login.html">Get started</a>
     </nav>
 </header>
-<div class = "container">
-    <input type = "radio" name = "role" id = "student" checked>
-    <input type = "radio" name = "role" id = "mentor">
-    <div class = "tab">
-        <label for = "student">Student</label>
-        <label for = "mentor">Mentor</label>
+<div class="container">
+    <input type="radio" name="role" id="student" checked>
+    <input type="radio" name="role" id="mentor">
+    <div class="tab">
+        <label for="student">Student</label>
+        <label for="mentor">Mentor</label>
     </div>
 
     <div id="auth-message" class="auth-message" role="alert" hidden></div>
 
-    <div class = "student-container">
+    <div class="student-container">
 
-        <input type = "checkbox" id = "student-flip" class = "sync-checkbox">
+        <input type="checkbox" id="student-flip" class="sync-checkbox">
 
-        <div class = "card-wrap">
-            <div class = "card">
+        <div class="card-wrap">
+            <div class="card">
 
-                <div class = "login-container">
-                    <div class = "top">
+                <div class="login-container">
+                    <div class="top">
                         <h3>Student Login</h3>
                     </div>
 
-                    <div class = "bottom">
+                    <div class="bottom">
                         <form method="post" action="../database/auth.php">
                             <input type="hidden" name="action" value="login">
                             <input type="hidden" name="role" value="student">
@@ -58,26 +58,25 @@
                                 <button type="button" class="toggle-password" aria-pressed="false" aria-label="Show password">Show</button>
                             </div>
 
-                            <input type = "submit" value = "submit">
+                            <input type="submit" value="submit">
                             <br>
 
                             No Account?<br>
-                            <label for = "student-flip">
-                                <span class = "flip-sign">Sign Up!</span>
+                            <label for="student-flip">
+                                <span class="flip-sign">Sign Up!</span>
                             </label>
                         </form>
                     </div>
                 </div>
 
-                <div class = "signup-container">
-                    <div class = "top">
+                <div class="signup-container">
+                    <div class="top">
                         <h3>Student Sign-Up</h3>
                     </div>
 
-                    <div class = "bottom">
-                        <form method="post" action="../database/auth.php">
-                            <input type="hidden" name="action" value="signup">
-                            <input type="hidden" name="role" value="student">
+                    <div class="bottom">
+                        <form method="post" action="../database/signup.php">
+                            <input type="hidden" name="account_type" value="student">
                             First name<br>
                             <input type="text" name="first_name" maxlength="255" autocomplete="given-name" required>
                             Last name<br>
@@ -91,77 +90,34 @@
                                 <input type="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" required>
                                 <button type="button" class="toggle-password" aria-pressed="false" aria-label="Show password">Show</button>
                             </div>
-                            Career Interests<br>
-                            <select name="aca_goal" required>
-                                <option value="">Select a career interest</option>
-                                <option value="Agriculture & Environmental Science">Agriculture & Environmental Science</option>
-                                <option value="Architecture & Interior Design">Architecture & Interior Design</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="Automotive Technology & Mechanics">Automotive Technology & Mechanics</option>
-                                <option value="Aviation & Aerospace">Aviation & Aerospace</option>
-                                <option value="Business & Entrepreneurship">Business & Entrepreneurship</option>
-                                <option value="Computer Science & Information Technology">Computer Science & Information Technology</option>
-                                <option value="Construction & Carpentry">Construction & Carpentry</option>
-                                <option value="Cosmetology & Hair Styling">Cosmetology & Hair Styling</option>
-                                <option value="Dental & Oral Healthcare">Dental & Oral Healthcare</option>
-                                <option value="Education & Teaching">Education & Teaching</option>
-                                <option value="Electrical & Electronics">Electrical & Electronics</option>
-                                <option value="Engineering & Robotics">Engineering & Robotics</option>
-                                <option value="Esthetics & Skincare">Esthetics & Skincare</option>
-                                <option value="Fashion & Beauty">Fashion & Beauty</option>
-                                <option value="Finance & Accounting">Finance & Accounting</option>
-                                <option value="Film, Photography & Entertainment">Film, Photography & Entertainment</option>
-                                <option value="Firefighting & Emergency Services">Firefighting & Emergency Services</option>
-                                <option value="Government & Public Administration">Government & Public Administration</option>
-                                <option value="Graphic Design & Digital Media">Graphic Design & Digital Media</option>
-                                <option value="Healthcare & Medicine">Healthcare & Medicine</option>
-                                <option value="Hospitality, Culinary Arts & Tourism">Hospitality, Culinary Arts & Tourism</option>
-                                <option value="Law & Legal Services">Law & Legal Services</option>
-                                <option value="Law Enforcement & Criminal Justice">Law Enforcement & Criminal Justice</option>
-                                <option value="Marketing & Public Relations">Marketing & Public Relations</option>
-                                <option value="Military & Armed Forces">Military & Armed Forces</option>
-                                <option value="Nursing & Patient Care">Nursing & Patient Care</option>
-                                <option value="Plumbing & HVAC">Plumbing & HVAC</option>
-                                <option value="Psychology & Mental Health">Psychology & Mental Health</option>
-                                <option value="Real Estate">Real Estate</option>
-                                <option value="Social Work & Human Services">Social Work & Human Services</option>
-                                <option value="Sports & Athletics">Sports & Athletics</option>
-                                <option value="Transportation & Logistics">Transportation & Logistics</option>
-                                <option value="Veterinary Medicine & Animal Care">Veterinary Medicine & Animal Care</option>
-                                <option value="Welding & Manufacturing">Welding & Manufacturing</option>
-                            </select>
-                            </br></br>
 
-                            <input type = "submit" value = "submit">
+                            <input type="submit" value="submit">
                             <br>
 
                             Have an Account?<br>
-                            <label for = "student-flip">
-                                <span class = "flip-sign">Login!</span>
+                            <label for="student-flip">
+                                <span class="flip-sign">Login!</span>
                             </label>
-                      </form>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    <div class = "mentor-container">
+    <div class="mentor-container">
 
         <input type="checkbox" id="mentor-flip" class="sync-checkbox">
 
-        <div class = "card-wrap">
-            <div class = "card">
+        <div class="card-wrap">
+            <div class="card">
 
-                <div class = "login-container">
-                    <div class = "top">
+                <div class="login-container">
+                    <div class="top">
                         <h3>Mentor Login</h3>
                     </div>
 
-                    <div class = "bottom">
+                    <div class="bottom">
                         <form method="post" action="../database/auth.php">
                             <input type="hidden" name="action" value="login">
                             <input type="hidden" name="role" value="mentor">
@@ -175,87 +131,45 @@
                                 <button type="button" class="toggle-password" aria-pressed="false" aria-label="Show password">Show</button>
                             </div>
 
-                            <input type = "submit" value = "submit">
+                            <input type="submit" value="submit">
                             <br>
 
                             No Account?<br>
                             <label for="mentor-flip">
-                                <span class = "flip-sign">Sign Up!</span>
+                                <span class="flip-sign">Sign Up!</span>
                             </label>
                         </form>
                     </div>
                 </div>
 
-                <div class = "signup-container">
-                    <div class = "top">
+                <div class="signup-container">
+                    <div class="top">
                         <h3>Mentor Sign-Up</h3>
                     </div>
 
-                    <div class = "bottom">
-                        <form method="post" action="../database/auth.php">
-                            <input type="hidden" name="action" value="signup">
-                            <input type="hidden" name="role" value="mentor">
+                    <div class="bottom">
+                        <form method="post" action="../database/signup.php">
+                            <input type="hidden" name="account_type" value="mentor">
                             First name<br>
                             <input type="text" name="first_name" maxlength="255" autocomplete="given-name" required>
                             Last name<br>
                             <input type="text" name="last_name" maxlength="255" autocomplete="family-name" required>
-                            Please input an email<br>
+                            Email<br>
                             <input type="email" name="email" placeholder="example@gmail.com" autocomplete="email" required>
+                            <br><br>
+
                             Please input a password<br>
                             <div class="password-wrapper">
                                 <input type="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" required>
                                 <button type="button" class="toggle-password" aria-pressed="false" aria-label="Show password">Show</button>
                             </div>
-                            Field / specialty<br>
-                            <select name="field" required>
-                                <option value="">Select a field</option>
-                                <option value="Agriculture & Environmental Science">Agriculture & Environmental Science</option>
-                                <option value="Architecture & Interior Design">Architecture & Interior Design</option>
-                                <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                                <option value="Automotive Technology & Mechanics">Automotive Technology & Mechanics</option>
-                                <option value="Aviation & Aerospace">Aviation & Aerospace</option>
-                                <option value="Business & Entrepreneurship">Business & Entrepreneurship</option>
-                                <option value="Computer Science & Information Technology">Computer Science & Information Technology</option>
-                                <option value="Construction & Carpentry">Construction & Carpentry</option>
-                                <option value="Cosmetology & Hair Styling">Cosmetology & Hair Styling</option>
-                                <option value="Dental & Oral Healthcare">Dental & Oral Healthcare</option>
-                                <option value="Education & Teaching">Education & Teaching</option>
-                                <option value="Electrical & Electronics">Electrical & Electronics</option>
-                                <option value="Engineering & Robotics">Engineering & Robotics</option>
-                                <option value="Esthetics & Skincare">Esthetics & Skincare</option>
-                                <option value="Fashion & Beauty">Fashion & Beauty</option>
-                                <option value="Finance & Accounting">Finance & Accounting</option>
-                                <option value="Film, Photography & Entertainment">Film, Photography & Entertainment</option>
-                                <option value="Firefighting & Emergency Services">Firefighting & Emergency Services</option>
-                                <option value="Government & Public Administration">Government & Public Administration</option>
-                                <option value="Graphic Design & Digital Media">Graphic Design & Digital Media</option>
-                                <option value="Healthcare & Medicine">Healthcare & Medicine</option>
-                                <option value="Hospitality, Culinary Arts & Tourism">Hospitality, Culinary Arts & Tourism</option>
-                                <option value="Law & Legal Services">Law & Legal Services</option>
-                                <option value="Law Enforcement & Criminal Justice">Law Enforcement & Criminal Justice</option>
-                                <option value="Marketing & Public Relations">Marketing & Public Relations</option>
-                                <option value="Military & Armed Forces">Military & Armed Forces</option>
-                                <option value="Nursing & Patient Care">Nursing & Patient Care</option>
-                                <option value="Plumbing & HVAC">Plumbing & HVAC</option>
-                                <option value="Psychology & Mental Health">Psychology & Mental Health</option>
-                                <option value="Real Estate">Real Estate</option>
-                                <option value="Social Work & Human Services">Social Work & Human Services</option>
-                                <option value="Sports & Athletics">Sports & Athletics</option>
-                                <option value="Transportation & Logistics">Transportation & Logistics</option>
-                                <option value="Veterinary Medicine & Animal Care">Veterinary Medicine & Animal Care</option>
-                                <option value="Welding & Manufacturing">Welding & Manufacturing</option>
-                            </select>
-                            <br><br>
-                            Current Career<br>
-                            <input type="text" name="current_career" maxlength="255" required>
-                            <br><br>
 
-                            <input type = "submit" value = "submit">
+                            <input type="submit" value="submit">
                             <br>
 
                             Have an Account?<br>
-                            <label for = "mentor-flip">
-                                <span class = "flip-sign">Login!</span>
+                            <label for="mentor-flip">
+                                <span class="flip-sign">Login!</span>
                             </label>
                         </form>
                     </div>
@@ -263,9 +177,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </div>
 <footer class="home-footer">
@@ -276,5 +187,5 @@
     <small>Delaware, Ohio  2026-2027</small>
 </footer>
 <script src="../javascript/script.js"></script>
-</body> 
+</body>
 </html>
