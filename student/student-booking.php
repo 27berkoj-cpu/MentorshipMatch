@@ -9,6 +9,9 @@ if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'student')
     exit;
 }
 
+$database = new DBConn();
+$db = $database->get_connection();
+
 $errors = [];
 $mentors = [];
 $mentorLoadError = '';
@@ -25,13 +28,16 @@ $nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
 
 // Load mentors once so the list can be displayed and submitted IDs can be checked.
 try {
-    $stmt = $mentorDb->query(
+    $result = $db->query(
         'SELECT mentor_id AS id, first_name, last_name, current_career, field
          FROM mentorstb
          ORDER BY first_name, last_name'
     );
-    $mentors = $stmt->fetchAll();
-} catch (PDOException $e) {
+    while ($mentor = $result->fetch_assoc()) {
+        $mentors[] = $mentor;
+    }
+    $result->free();
+} catch (mysqli_sql_exception $e) {
     error_log($e->getMessage());
     $mentorLoadError = 'Mentor list could not be loaded. Please try again later.';
 }
@@ -74,20 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         try {
-            $insert = $studentDb->prepare(
+            $insert = $db->prepare(
                 'INSERT INTO session_requests
                     (student_id, mentor_id, session_datetime, duration, session_type, created_at)
                  VALUES (?, ?, ?, ?, ?, NOW())'
             );
-            $insert->execute([
-                $_SESSION['user']['id'],
-                $mentorId,
-                str_replace('T', ' ', $sessionDate),
-                $duration,
-                $sessionType,
-            ]);
+            $studentId = (int) $_SESSION['user']['id'];
+            $mentorId = (int) $mentorId;
+            $sessionDateTime = str_replace('T', ' ', $sessionDate);
+            // Bind the booking values so submitted data cannot alter the SQL statement.
+            $insert->bind_param('iisis', $studentId, $mentorId, $sessionDateTime, $duration, $sessionType);
+            $insert->execute();
+            $insert->close();
             $bookingSaved = true;
-        } catch (PDOException $e) {
+        } catch (mysqli_sql_exception $e) {
             error_log($e->getMessage());
             $bookingError = 'Your session request could not be saved. Please try again later.';
         }
@@ -119,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     0 => ['pipe', 'r'],
                     1 => ['pipe', 'w'],
                     2 => ['pipe', 'w'],
-                ], $pipes);
+                ], $pipes); 
 
                 if (is_resource($process)) {
                     fclose($pipes[0]);

@@ -1,7 +1,7 @@
 <?php
 require "database/server.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email    = trim($_POST["email"] ?? "");
+    $email    = trim($_POST["email"] ?? "");  //set the email
     $password = $_POST["password"] ?? "";
     $type     = $_POST["account_type"] ?? "";
 
