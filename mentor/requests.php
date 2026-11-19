@@ -1,94 +1,105 @@
 <?php
 require_once __DIR__ . '/../database/session.php';
+require_once __DIR__ . '/../database/server.php';
 
-// Making sure only mentors are on the page.
-// if (empty($_SESSION['user'])) {
-//     header('Location: ../mainpages/login.html');
-//     exit;
-// }
-// elseif (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') == 'student'){
-//     header('Location: ../student/student-homepage.html');
-//     exit;
-// }
-
-// Temporary sample data until requests are connected to the database.
-$requests = [
-    [
-    'student' => 'Joshua Berko',
-    'datetime' => '2026-11-12 15:00:00',  
-    'duration' => 30,
-    'type' => 'Video call',
-    'status' => 'Pending'
-    ],
-    [
-        'student' => 'Thavael Noel',
-        'datetime' => '2026-11-14 16:00:00',
-        'duration' => 45,
-        'type' => 'Chat Session',
-        'status' => 'Pending'
-    ],
-    [
-        'student' => 'Terry Lin',
-        'datetime' => '2026-11-16 14:00:00',
-        'duration' => 60,
-        'type' => 'Video call',
-        'status' => 'Pending'
-    ],
-    [
-        'student' => 'Kyle Palermini',
-        'datetime' => '2026-11-18 10:00:00',
-        'duration' => 30,
-        'type' => 'Video call',
-        'status' => 'Pending'
-    ]
-];
-
-$allowedStatuses = ['Accepted', 'Declined', 'Completed'];
-if (!isset($_SESSION['mentor_request_statuses']) || !is_array($_SESSION['mentor_request_statuses'])) {
-    $_SESSION['mentor_request_statuses'] = array_fill(0, count($requests), 'Pending');
+if (empty($_SESSION['user']) || !is_array($_SESSION['user'])) {
+    header('Location: ../mainpages/login.html');
+    exit;
 }
+
+// Only the mentor role can view and respond to session requests.
+if (($_SESSION['user']['role'] ?? '') !== 'mentor') {
+    header('Location: ../student/student-homepage.html');
+    exit;
+}
+
+$mentorId = filter_var($_SESSION['user']['id'] ?? null, FILTER_VALIDATE_INT);
+if (!$mentorId || $mentorId < 1) {
+    header('Location: ../mainpages/login.html');
+    exit;
+}
+
 if (empty($_SESSION['mentor_requests_csrf_token'])) {
     $_SESSION['mentor_requests_csrf_token'] = bin2hex(random_bytes(32));
 }
 
 $statusError = '';
+$requestLoadError = '';
+$requests = [];
+$allowedStatuses = ['accepted', 'declined'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $requestIndex = filter_input(INPUT_POST, 'request_index', FILTER_VALIDATE_INT);
+    $requestId = filter_input(INPUT_POST, 'request_id', FILTER_VALIDATE_INT);
     $status = $_POST['status'] ?? '';
     $csrfToken = $_POST['csrf_token'] ?? '';
 
     if (
         !is_string($csrfToken)
         || !hash_equals($_SESSION['mentor_requests_csrf_token'], $csrfToken)
-        || $requestIndex === false
-        || $requestIndex === null
-        || !array_key_exists($requestIndex, $requests)
+        || $requestId === false
+        || $requestId === null
+        || $requestId < 1
         || !in_array($status, $allowedStatuses, true)
     ) {
         http_response_code(400);
         $statusError = 'Unable to update the request. Please refresh the page and try again.';
     } else {
-        $_SESSION['mentor_request_statuses'][$requestIndex] = $status;
-        header('Location: requests.php');
-        exit;
+        try {
+            // Scope the update to this mentor and pending requests to prevent unauthorized or repeated decisions.
+            $update = $db->prepare(
+                "UPDATE session_requests
+                    SET status = ?
+                  WHERE id = ?
+                    AND mentor_id = ?
+                    AND status = 'pending'"
+            );
+            $update->bind_param('sii', $status, $requestId, $mentorId);
+            $update->execute();
+            $updated = $update->affected_rows;
+            $update->close();
+
+            if ($updated !== 1) {
+                http_response_code(409);
+                $statusError = 'This request could not be updated. It may no longer be pending.';
+            } else {
+                header('Location: requests.php');
+                exit;
+            }
+        } catch (mysqli_sql_exception $e) {
+            error_log($e->getMessage());
+            http_response_code(500);
+            $statusError = 'The request could not be updated. Please try again later.';
+        }
     }
 }
 
-foreach ($requests as $index => &$request) {
-    $savedStatus = $_SESSION['mentor_request_statuses'][$index] ?? 'Pending';
-    $request['status'] = in_array($savedStatus, array_merge(['Pending'], $allowedStatuses), true)
-        ? $savedStatus
-        : 'Pending';
+try {
+    // Load only requests assigned to the signed-in mentor.
+    $query = $db->prepare(
+        "SELECT sr.id, sr.session_datetime, sr.duration, sr.session_type, sr.status,
+                CONCAT_WS(' ', s.first_name, s.last_name) AS student
+           FROM session_requests sr
+           JOIN studentstb s ON s.student_id = sr.student_id
+          WHERE sr.mentor_id = ?
+          ORDER BY sr.created_at DESC"
+    );
+    $query->bind_param('i', $mentorId);
+    $query->execute();
+    $result = $query->get_result();
+    while ($request = $result->fetch_assoc()) {
+        $requests[] = $request;
+    }
+    $query->close();
+} catch (mysqli_sql_exception $e) {
+    error_log($e->getMessage());
+    $requestLoadError = 'Your requests could not be loaded. Please try again later.';
 }
-unset($request);
 
 function formatDate($date) {
     return date('F j, Y', strtotime($date));
-    // Formats date in "Month Day, Year" format
 }
 function formatTime($date) {
-    return date('g:i A', strtotime($date)); 
-    // Formats time in 12-hour format with AM/PM
+    return date('g:i A', strtotime($date));
 }
 function formatDuration($minutes) {
     $durations = [
@@ -103,7 +114,6 @@ function formatDuration($minutes) {
 
     return $durations[$minutes] ?? $minutes . ' minutes';
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -136,61 +146,64 @@ function formatDuration($minutes) {
         <main class="request-box">
             <h1 class="page-title">Your Requests</h1>
             <?php if ($statusError !== ''): ?>
-                <p class="request-error" role="alert"><?php echo htmlspecialchars($statusError); ?></p>
+                <p class="request-error" role="alert"><?php echo htmlspecialchars($statusError, ENT_QUOTES, 'UTF-8'); ?></p>
+            <?php endif; ?>
+            <?php if ($requestLoadError !== ''): ?>
+                <p class="request-error" role="alert"><?php echo htmlspecialchars($requestLoadError, ENT_QUOTES, 'UTF-8'); ?></p>
             <?php endif; ?>
             <div class="sessions-request">
-                <?php foreach ($requests as $index => $request): ?>
+                <?php foreach ($requests as $request): ?>
                 <div class="grid-item">
 
                     <div class="request-card-header">
-                        <h3><?php echo htmlspecialchars($request['student']); ?></h3>
+                        <h3><?php echo htmlspecialchars($request['student'], ENT_QUOTES, 'UTF-8'); ?></h3>
 
-                        <span class="request-status status-<?php echo strtolower(htmlspecialchars($request['status'])); ?>">
-                            <?php echo htmlspecialchars($request['status']); ?>
+                        <?php $displayStatus = ucfirst(strtolower($request['status'])); ?>
+                        <span class="request-status status-<?php echo htmlspecialchars(strtolower($displayStatus), ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($displayStatus, ENT_QUOTES, 'UTF-8'); ?>
                         </span>
                     </div>
 
                     <div class="request-details">
                         <p>
                             <strong>Date:</strong>
-                            <?php echo htmlspecialchars(formatDate($request['datetime'])); ?>
+                            <?php echo htmlspecialchars(formatDate($request['session_datetime']), ENT_QUOTES, 'UTF-8'); ?>
                         </p>
 
                         <p>
                             <strong>Time:</strong>
-                            <?php echo htmlspecialchars(formatTime($request['datetime'])); ?>
+                            <?php echo htmlspecialchars(formatTime($request['session_datetime']), ENT_QUOTES, 'UTF-8'); ?>
                         </p>
 
                         <p>
                             <strong>Duration:</strong>
-                            <?php echo htmlspecialchars(formatDuration((int) $request['duration'])); ?>
+                            <?php echo htmlspecialchars(formatDuration((int) $request['duration']), ENT_QUOTES, 'UTF-8'); ?>
                         </p>
 
                         <p>
-                            <strong>Type:</strong> <?php echo htmlspecialchars($request['type']); ?>
+                            <strong>Type:</strong> <?php echo htmlspecialchars($request['session_type'], ENT_QUOTES, 'UTF-8'); ?>
                         </p>
                     </div>
 
-                    <form class="request-actions" method="post" action="requests.php">
-                        <input type="hidden" name="request_index" value="<?php echo $index; ?>">
-                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['mentor_requests_csrf_token']); ?>">
-                        <?php foreach ($allowedStatuses as $status): ?>
-                            <button
-                                class="request-action"
-                                type="submit"
-                                name="status"
-                                value="<?php echo htmlspecialchars($status); ?>"
-                                <?php echo $request['status'] === $status ? 'disabled aria-pressed="true"' : ''; ?>
-                            >
-                                <?php echo htmlspecialchars($status); ?>
-                            </button>
-                        <?php endforeach; ?>
-                    </form>
+                    <?php if (strtolower($request['status']) === 'pending'): ?>
+                        <!-- Decisions are available only while a request is pending. -->
+                        <form class="request-actions" method="post" action="requests.php">
+                            <input type="hidden" name="request_id" value="<?php echo (int) $request['id']; ?>">
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['mentor_requests_csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php foreach ($allowedStatuses as $status): ?>
+                                <button class="request-action" type="submit" name="status" value="<?php echo htmlspecialchars($status, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <?php echo htmlspecialchars(ucfirst($status), ENT_QUOTES, 'UTF-8'); ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </form>
+                    <?php endif; ?>
                 </div>
 
             <?php endforeach; ?>
 
-        
+                <?php if ($requestLoadError === '' && empty($requests)): ?>
+                    <p>No session requests yet.</p>
+                <?php endif; ?>
             </div>
             
         </main>
@@ -205,5 +218,3 @@ function formatDuration($minutes) {
     </footer>
 </body>
 </html>
-
-<!-- This sample page stores status changes in the PHP session until requests are database-backed. -->
