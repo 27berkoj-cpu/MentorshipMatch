@@ -22,6 +22,7 @@ $mentorId = '';
 $sessionDate = '';
 $duration = 0;
 $sessionType = '';
+$status = 'pending';
 
 // Making sure the slots are in 15 minute intervals, rounded up to the next quarter hour.
 $nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
@@ -82,14 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         try {
             $insert = $db->prepare(
                 'INSERT INTO session_requests
-                    (student_id, mentor_id, session_datetime, duration, session_type, created_at)
-                 VALUES (?, ?, ?, ?, ?, NOW())'
+                    (student_id, mentor_id, session_datetime, duration, session_type, status, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?,NOW())'
             );
             $studentId = (int) $_SESSION['user']['id'];
             $mentorId = (int) $mentorId;
             $sessionDateTime = str_replace('T', ' ', $sessionDate);
             // Bind the booking values so submitted data cannot alter the SQL statement.
-            $insert->bind_param('iisis', $studentId, $mentorId, $sessionDateTime, $duration, $sessionType);
+            $insert->bind_param('iisis', $studentId, $mentorId, $sessionDateTime, $duration,$status,$sessionType);
             $insert->execute();
             $insert->close();
             $bookingSaved = true;
@@ -232,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                <?php endif; ?>
             </div>
             <div class="booking-field">
-                <label for="sessiondate">Session date and time</label>
+                <label for="sessiondate">Choose a date or time</label>
                 <input type="datetime-local" id="sessiondate" name="sessiondate" step="900"
                         min="<?php echo $nextSlot; ?>" 
                         value="<?php echo htmlspecialchars($sessionDate !== '' ? $sessionDate : $nextSlot, ENT_QUOTES, 'UTF-8'); ?>" required>

@@ -4,7 +4,7 @@ class DBConn
 {
     private $host = 'localhost';
     private $user = 'root';
-    private $pass = 'Password';
+    private $pass = 'password';
     private $dbname = 'mentorshipmatch'; 
     private $conn;
 
