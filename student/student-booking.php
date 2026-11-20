@@ -30,7 +30,7 @@ $nextSlot = date('Y-m-d\TH:i', (int) (ceil(time() / 900) * 900));
 // Load mentors once so the list can be displayed and submitted IDs can be checked.
 try {
     $result = $db->query(
-        'SELECT mentor_id AS id, first_name, last_name, current_career, field
+        'SELECT mentor_id AS id, first_name, last_name, email, current_career, field
          FROM mentorstb
          ORDER BY first_name, last_name'
     );
@@ -148,6 +148,61 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     }
                 } else {
                     error_log('Unable to start the Python process for the booking email.');
+                }
+            }
+
+            $mentorEmail = trim($selectedMentor['email'] ?? '');
+            $studentEmail = trim($_SESSION['user']['email'] ?? '');
+            $studentName = trim(
+                ($_SESSION['user']['first_name'] ?? '') . ' ' .
+                ($_SESSION['user']['last_name'] ?? '')
+            );
+            $mentorName = trim($selectedMentor['first_name'] . ' ' . $selectedMentor['last_name']);
+            $baseUrl = rtrim(
+                getenv('MENTORSHIPMATCH_BASE_URL') ?: 'http://localhost/adp2/MentorshipMatch',
+                '/'
+            );
+            $requestsUrl = $baseUrl . '/mentor/requests.php';
+
+            if (!filter_var($mentorEmail, FILTER_VALIDATE_EMAIL)) {
+                error_log('Unable to notify mentor: the selected mentor has no valid email address.');
+            } elseif (!filter_var($studentEmail, FILTER_VALIDATE_EMAIL)) {
+                error_log('Unable to notify mentor: the signed-in student has no valid email address.');
+            } elseif (!function_exists('proc_open')) {
+                error_log('Unable to notify mentor: PHP proc_open is unavailable.');
+            } else {
+                $emailScript = __DIR__ . '/../web app features/email.py';
+                $python = getenv('MENTORSHIPMATCH_PYTHON') ?: 'python';
+                $process = proc_open([
+                    $python,
+                    $emailScript,
+                    '--mentor-notification',
+                    $mentorEmail,
+                    $mentorName,
+                    $studentName,
+                    $studentEmail,
+                    $sessionDate,
+                    (string) $duration,
+                    $sessionType,
+                    $requestsUrl,
+                ], [
+                    0 => ['pipe', 'r'],
+                    1 => ['pipe', 'w'],
+                    2 => ['pipe', 'w'],
+                ], $pipes);
+
+                if (is_resource($process)) {
+                    fclose($pipes[0]);
+                    $emailOutput = stream_get_contents($pipes[1]);
+                    $emailError = stream_get_contents($pipes[2]);
+                    fclose($pipes[1]);
+                    fclose($pipes[2]);
+
+                    if (proc_close($process) !== 0) {
+                        error_log('Unable to send mentor booking notification: ' . trim($emailError . ' ' . $emailOutput));
+                    }
+                } else {
+                    error_log('Unable to start the Python process for the mentor booking notification.');
                 }
             }
         }

@@ -22,16 +22,8 @@ from email.mime.text import MIMEText
 subject = "MentorshipMatch: Session Booking Confirmation"
 
 
-def automated_email(
-    recipientEmail,
-    mentorName,
-    sessionDateTime,
-    duration,
-    sessionType,
-    mentorCurrentCareer="Not specified",
-    mentorField="Not specified",
-):
-
+def send_email(msg):
+    # Read SMTP credentials at send time so secrets stay in the server environment.
     sender_email = os.getenv("MENTORSHIPMATCH_SMTP_USERNAME")
     sender_password = os.getenv("MENTORSHIPMATCH_SMTP_PASSWORD")
     smtp_host = os.getenv("MENTORSHIPMATCH_SMTP_HOST", "smtp.gmail.com")
@@ -42,21 +34,51 @@ def automated_email(
             "Set MENTORSHIPMATCH_SMTP_USERNAME and "
             "MENTORSHIPMATCH_SMTP_PASSWORD in the server environment."
         )
+    msg['From'] = sender_email
     if smtp_security not in ("ssl", "starttls"):
         raise ValueError("MENTORSHIPMATCH_SMTP_SECURITY must be ssl or starttls.")
 
+    default_port = "465" if smtp_security == "ssl" else "587"
+    smtp_port = int(os.getenv("MENTORSHIPMATCH_SMTP_PORT", default_port))
+    ssl_context = ssl.create_default_context()
+
+    # Support servers configured for implicit TLS or STARTTLS.
+    if smtp_security == "ssl":
+        connection = smtplib.SMTP_SSL(
+            smtp_host,
+            smtp_port,
+            context=ssl_context,
+            timeout=20
+        )
+    else:
+        connection = smtplib.SMTP(smtp_host, smtp_port, timeout=20)
+
+    with connection as server:
+        if smtp_security == "starttls":
+            server.starttls(context=ssl_context)
+
+        server.login(sender_email, sender_password)
+        server.send_message(msg)
+
+
+def automated_email(
+    recipientEmail,
+    mentorName,
+    sessionDateTime,
+    duration,
+    sessionType,
+    mentorCurrentCareer="Not specified",
+    mentorField="Not specified",
+):
     # datetime-local submits a local time without a timezone; format it without conversion.
     formatted_session_datetime = datetime.fromisoformat(sessionDateTime).strftime(
         "%B %d, %Y at %I:%M %p"
     )
     mentorCurrentCareer = mentorCurrentCareer.strip() or "Not specified"
     mentorField = mentorField.strip() or "Not specified"
-    default_port = "465" if smtp_security == "ssl" else "587"
-    smtp_port = int(os.getenv("MENTORSHIPMATCH_SMTP_PORT", default_port))
 
     # Create email
     msg = MIMEMultipart()
-    msg['From'] = sender_email
     msg['To'] = recipientEmail
     msg['Subject'] = subject
 
@@ -84,57 +106,92 @@ MentorshipMatch Team""".format(
     )
 
     msg.attach(MIMEText(body, 'plain'))
+    send_email(msg)
 
-    ssl_context = ssl.create_default_context()
-    # Hosting providers may require implicit SSL or STARTTLS.
-    if smtp_security == "ssl":
-        connection = smtplib.SMTP_SSL(
-            smtp_host,
-            smtp_port,
-            context=ssl_context,
-            timeout=20
-        )
-    else:
-        connection = smtplib.SMTP(smtp_host, smtp_port, timeout=20)
 
-    with connection as server:
-        if smtp_security == "starttls":
-            server.starttls(context=ssl_context)
+def mentor_booking_notification(
+    recipientEmail,
+    mentorName,
+    studentName,
+    studentEmail,
+    sessionDateTime,
+    duration,
+    sessionType,
+    requestsUrl,
+):
+    # The mentor should know the request is pending and have a direct way to respond.
+    formatted_session_datetime = datetime.fromisoformat(sessionDateTime).strftime(
+        "%B %d, %Y at %I:%M %p"
+    )
 
-        print(f"Connected to SMTP server {smtp_host}.")
-        print("Authenticating...")
+    msg = MIMEMultipart()
+    msg['To'] = recipientEmail
+    msg['Subject'] = "MentorshipMatch: A Student Has Requested a Session"
 
-        server.login(sender_email, sender_password)
+    body = """Hello, {},
 
-        print("Authentication successful!")
-        print("Sending email...")
+A student has requested a mentoring session with you. The request is pending your response.
 
-        server.send_message(msg)
+Student: {}
+Student Email: {}
+Date and Time: {}
+Duration: {} minutes
+Session Type: {}
 
-        print("Email accepted by the SMTP server.")
+Review and respond to the request: {}
+
+Best regards,
+MentorshipMatch Team""".format(
+        mentorName,
+        studentName,
+        studentEmail,
+        formatted_session_datetime,
+        duration,
+        sessionType,
+        requestsUrl
+    )
+
+    msg.attach(MIMEText(body, 'plain'))
+    send_email(msg)
 
 
 if __name__ == '__main__':
 
-    # PHP supplies the recipient, booking details, current career, and field.
-    if len(sys.argv) != 8:
+    # The flag selects the mentor notification; the original argument list remains
+    # available for student confirmations.
+    if len(sys.argv) == 10 and sys.argv[1] == '--mentor-notification':
+        try:
+            mentor_booking_notification(
+                sys.argv[2],
+                sys.argv[3],
+                sys.argv[4],
+                sys.argv[5],
+                sys.argv[6],
+                sys.argv[7],
+                sys.argv[8],
+                sys.argv[9],
+            )
+        except (OSError, smtplib.SMTPException, ValueError) as error:
+            print(f'Unable to send mentor booking notification: {error}', file=sys.stderr)
+            sys.exit(1)
+    elif len(sys.argv) == 8:
+        # PHP supplies the student recipient, mentor, booking details, career, and field.
+        try:
+            automated_email(
+                sys.argv[1],
+                sys.argv[2],
+                sys.argv[3],
+                sys.argv[4],
+                sys.argv[5],
+                sys.argv[6],
+                sys.argv[7],
+            )
+        except (OSError, smtplib.SMTPException, ValueError) as error:
+            print(f'Unable to send booking email: {error}', file=sys.stderr)
+            sys.exit(1)
+    else:
         print(
-            'Expected recipient, mentor, date/time, duration, session type, current career, and field.',
+            'Expected student booking details or mentor notification details.',
             file=sys.stderr
         )
         sys.exit(2)
-
-    try:
-        automated_email(
-            sys.argv[1],
-            sys.argv[2],
-            sys.argv[3],
-            sys.argv[4],
-            sys.argv[5],
-            sys.argv[6],
-            sys.argv[7],
-        )
-
-    except (OSError, smtplib.SMTPException, ValueError) as error:
-        print(f'Unable to send booking email: {error}', file=sys.stderr)
-        sys.exit(1)
